@@ -1,0 +1,78 @@
+footer{
+	border-top: 1px solid #d2d6de;
+	background-color: white;
+	display: block;
+
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
+	text-align: center;
+	padding-bottom: 0px;
+}	
+footer p{
+	color: black;/*rgba(150,150,150,1.0);*/
+	padding: 2px 0px;
+	margin-bottom: 0px;
+}	
+body{
+	padding-bottom: 30px;
+	background-color: #ecf0f5;
+}	
+nav{
+	color: white;
+	background-color: #03274B;
+	border-bottom: 3px solid white;
+	padding-top: 10px;
+}
+nav h1,h2,h3,h4,h5{
+	margin-bottom: 3px;
+	margin-top: 0px;
+}
+
+.logo{
+	max-height: 65px;
+	margin: 0 auto;
+	margin-top: 7px;
+	background-color: rgb(250,250,250);
+	border: 1px solid rgb(250,250,250);
+}
+.navigation{
+	list-style: none;
+	padding-left: 0px;
+	margin-top: 5px;
+	margin-bottom: 0px;
+
+}	
+.navigation li{
+	display: inline-block;
+}
+.navigation li a{
+	display: block;
+	padding: 5px 10px;
+}
+.navigation li a:hover{
+	color: purple;
+	background-color: white;
+}
+.navigation li:hover > {
+
+}
+.navigation li ul{
+	display: none;
+}
+.hidden-content{
+	display: none;
+}
+.profile-change-image{
+	display: block;
+	text-align: center;
+}
+/*.navigation li:hover > ul{
+	display: block;
+	position: absolute;
+	background-color:white;
+}
+.navigation li a:hover{
+	background-color: white;
+}
+*/
