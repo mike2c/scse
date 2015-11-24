@@ -19,8 +19,8 @@
 					<li><a href="<?=base_url('informacion')?>">Informacion</a>
 						<ul>
 							<li>
-								<a href="">Egresados</a>
-								<a href="">Empresas</a>
+								<a href="<?= base_url('page/informacion_egresados') ?>">Egresados</a>
+								<a href="<?= base_url('page/informacion_empresas') ?>">Empresas</a>
 								<a href=""></a>
 							</li>
 						</ul>
