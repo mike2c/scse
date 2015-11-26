@@ -42,6 +42,7 @@
 			$this->db->where("filtro",TRUE);
 			$this->db->where_in("publicacion_carrera.carrera_id",$arr);
 			$this->db->group_by("listar_fichas.publicacion_id");
+			$this->db->order_by("fecha_publicacion","DESC");
 			
 			return $this->db->get();
 		}
@@ -68,7 +69,7 @@
 				$this->db->where_in("publicacion_carrera.carrera_id",$carreras);				
 			}
 
-			$this->db->select("listar_fichas.ficha_id,listar_fichas.publicacion_id,cargo,ubicacion,cantidad,descripcion,fecha_alta
+			$this->db->select("listar_fichas.ficha_id,listar_fichas.publicacion_id,cargo,ubicacion,cantidad,descripcion,fecha_publicacion,
 				jefe,a_cargo,fecha_alta,finalidad,funciones,requisitos,experiencia,competencia,ficha_solicitante.ficha_solicitante_id")
 			->from("listar_fichas,publicacion_carrera");
 			$this->db->join("ficha_solicitante","ficha_solicitante.ficha_id=listar_fichas.ficha_id and ficha_solicitante.usuario_id='$usuario_id'","left");
@@ -78,6 +79,7 @@
 			$this->db->where("visible",TRUE);
 			$this->db->where("filtro",TRUE);
 			$this->db->group_by("listar_fichas.publicacion_id");
+			$this->db->order_by("fecha_publicacion","DESC");
 
 			return $this->db->get();
 		}

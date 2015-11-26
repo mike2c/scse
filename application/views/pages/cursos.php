@@ -136,6 +136,10 @@
 												}
 											?>
 										</div>
+
+										<div class="timeline-footer">
+											
+										</div>
 									</div>
 								</li>
 							
