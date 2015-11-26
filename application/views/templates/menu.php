@@ -25,8 +25,8 @@
 							</li>
 						</ul>
 					</li>
-					<li><a href="<?=base_url('page/cursos')?>">Cursos</a></li>
-					<li><a href="<?=base_url('page/becas')?>">Becas</a></li>
+					<li><a href="<?=base_url('Publicaciones/Cursos')?>">Cursos</a></li>
+					<li><a href="<?=base_url('Publicaciones/Becas')?>">Becas</a></li>
 					<li><a href="<?=base_url('registro')?>">Registro</a></li>
 					<li><a href="<?=base_url('page/contacto')?>">Contacto</a></li>
 					<li><a href="<?=base_url('sesion/iniciar_sesion')?>">Login</a></li>

@@ -33,7 +33,7 @@
 				$this->db->select($fields);
 			}
 			if($order_by != ""){
-				$this->db->order_by($order_by,"asc");
+				$this->db->order_by($order_by,"DESC");
 			}
 			if($where_in != ""){
 				$this->db->where_in(key($where_in),$where[key($where_in)]);

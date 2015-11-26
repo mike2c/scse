@@ -39,6 +39,7 @@
 			$this->db->where("filtro",TRUE);
 			$this->db->where_in("publicacion_carrera.carrera_id",$arr);
 			$this->db->group_by("listar_becas.publicacion_id");
+			$this->db->order_by("fecha_publicacion","DESC");
 			
 			return $this->db->get();
 		}

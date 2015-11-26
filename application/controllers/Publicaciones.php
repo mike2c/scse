@@ -20,14 +20,14 @@
 				$data["becas"] = $this->beca_model->consultar_por_carrera($this->input->post("carrera"));
 					$data["carreras_marcadas"] = $this->input->post("carrera");
 			}else{
-				$data["becas"]= $this->beca_model->listar(array("visible"=>TRUE,"fecha_alta >="=>date("Y-m-d")));
+				$data["becas"]= $this->beca_model->listar(array("visible"=>TRUE,"fecha_alta >="=>date("Y-m-d")),"","fecha_publicacion");
 			}
 			
 			$data["carreras"] = $this->listas_model->listarCarreras();
-			$this->load->view("cabecera");
-			$this->load->view("nav");
-			$this->load->view("publicacion/becas",$data);
-			$this->load->view("footer");
+			$this->load->view("templates/header");
+			$this->load->view("templates/menu");
+			$this->load->view("pages/becas",$data);
+			$this->load->view("templates/footer");
 		}
 
 		public function BolsaDeTrabajo(){
@@ -94,10 +94,10 @@
 			}
 			
 			$data["carreras"] = $this->listas_model->listarCarreras();
-			$this->load->view("cabecera");
-			$this->load->view("nav");
-			$this->load->view("publicacion/cursos",$data);
-			$this->load->view("footer");
+			$this->load->view("templates/header");
+			$this->load->view("templates/menu");
+			$this->load->view("pages/cursos",$data);
+			$this->load->view("templates/footer");
 		}
 
 
