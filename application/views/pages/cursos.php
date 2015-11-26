@@ -78,28 +78,6 @@
 
 			<div class="col-md-9">
 				<?php
-					if($cursos->num_rows()==0){ ?>
-
-						<div class="box box-info">
-							<div class="box-header wit-border">
-								<i class="glyphicon glyphicon-exclamation-sign"></i>
-								<h3 class="box-title">Notificación</h3>
-							</div>
-							<div class="box-body">
-								<div class="alert alert-info alert-dismissable">
-									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
-									<h4 >
-										<i class="icon glyphicon glyphicon-info-sign"></i>
-										Alerta!
-									</h4>
-									No se han encontrado Cursos que mostrar.
-								</div>
-							</div>
-						</div>
-				<?php 
-					} 
-				?>
-				<?php
 					if(isset($cursos) && !empty($cursos) && $cursos->num_rows()>0){
 						foreach($cursos->result() as $row){
 				?>
@@ -163,6 +141,25 @@
 							
 				<?php
 						}
+					}else{
+				?>
+						<div class="box box-info">
+							<div class="box-header wit-border">
+								<i class="glyphicon glyphicon-exclamation-sign"></i>
+								<h3 class="box-title">Notificación</h3>
+							</div>
+							<div class="box-body">
+								<div class="alert alert-info alert-dismissable">
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
+									<h4 >
+										<i class="icon glyphicon glyphicon-info-sign"></i>
+										Alerta!
+									</h4>
+									No se han encontrado Cursos que mostrar.
+								</div>
+							</div>
+						</div>
+				<?php
 					}
 				?>
 							</ul>
