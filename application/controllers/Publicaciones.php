@@ -43,10 +43,10 @@
 			}
 
 			$data["carreras"] = $this->listas_model->listarCarreras();
-			$this->load->view("cabecera");
-			$this->load->view("nav");
-			$this->load->view("publicacion/bolsa_trabajo",$data);
-			$this->load->view("footer");
+			$this->load->view("templates/header");
+			$this->load->view("templates/menu");
+			$this->load->view("pages/bolsa_de_trabajo",$data);
+			$this->load->view("templates/footer");
 			
 		}
 		

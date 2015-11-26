@@ -142,9 +142,8 @@
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
 									<h4 >
 										<i class="icon glyphicon glyphicon-info-sign"></i>
-										Alerta!
+										No se han encontrado Becas que mostrar.
 									</h4>
-									No se han encontrado Becas que mostrar.
 								</div>
 							</div>
 						</div>
