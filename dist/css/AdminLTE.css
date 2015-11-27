@@ -3286,7 +3286,10 @@ table.text-center th {
   width: 100px;
   padding: 3px;
   border: 3px solid #d2d6de;
+  min-width: 150px;
+  min-height: 150px;
 }
+
 .profile-username {
   font-size: 21px;
   margin-top: 5px;

@@ -19,6 +19,8 @@
 		<link rel="stylesheet" href="<?=base_url('plugins/jquery-ui/jquery-ui.min.css')?>">
 		<script type="text/javascript" src="<?=base_url('plugins/jquery-ui/jquery-ui.min.js')?>"></script>
 		
+		<!--Font awsome 4.4.0-->
+		<link rel="stylesheet" href="<?=base_url('font-awesome/css/font-awesome.min.css')?>">
 		<script type="text/javascript">
 			$(function($){
 			    $.datepicker.regional['es'] = {

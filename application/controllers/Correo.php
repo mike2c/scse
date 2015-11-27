@@ -38,20 +38,25 @@ class Correo extends CI_Controller{
 
 	function Inbox(){
 	
-		$filtro = array(
+		$where = array(
 			"usuario_id"=>getUsuarioId());
-		$result = $this->mensaje->listarInbox($filtro);
+		$like = array();
+		if(isset($_POST['busqueda']) && !empty($_POST['busqueda'])){
+			$like["asunto"] = $this->input->post("busqueda");
+		}
+
+		$result = $this->mensaje->listarInbox($where,$like);
 		
 		$data["cantidad_inbox"] = $this->mensaje->contar_inbox(getUsuarioId());
 		$data["cantidad_sent"] = $this->mensaje->contar_sent(getUsuarioId());
 		$data["cantidad_drafts"] = $this->mensaje->contar_drafts(getUsuarioId());
 
 		$data["mensajes"] = $result;
-		$this->load->view("cabecera");
-		$this->load->view("nav");
-		$this->load->view("mensaje/inbox",$data);
-		$this->load->view("mensaje/nuevo_mensaje",$data);
-		$this->load->view("footer");
+		$this->load->view("templates/header");
+		$this->load->view("templates/menu");
+		$this->load->view("correo/inbox",$data);
+		$this->load->view("correo/redactar_mensaje",$data);
+		$this->load->view("templates/footer");
 		
 	}
 
@@ -59,25 +64,36 @@ class Correo extends CI_Controller{
 
 		$filtro = array(
 			"usuario_id"=>getUsuarioId());
-		$result = $this->mensaje->listarSent($filtro);
+
+		$like = array();
+		if(isset($_POST['busqueda']) && !empty($_POST['busqueda'])){
+			$like["asunto"] = $this->input->post("busqueda");
+		}
+
+		$result = $this->mensaje->listarSent($filtro,$like);
 
 		$data["mensajes"] = $result;
 		$data["cantidad_inbox"] = $this->mensaje->contar_inbox(getUsuarioId());
 		$data["cantidad_sent"] = $this->mensaje->contar_sent(getUsuarioId());
 		$data["cantidad_drafts"] = $this->mensaje->contar_drafts(getUsuarioId());
 
-		$this->load->view("cabecera");
-		$this->load->view("nav");
-		$this->load->view("mensaje/sent",$data);
-		$this->load->view("mensaje/nuevo_mensaje",$data);
-		$this->load->view("footer");
+		$this->load->view("templates/header");
+		$this->load->view("templates/menu");
+		$this->load->view("correo/sent",$data);
+		$this->load->view("correo/redactar_mensaje",$data);
+		$this->load->view("templates/footer");
 	}
 
 	function Drafts(){
 
 		$filtro = array(
 			"usuario_id"=>getUsuarioId());
-		$result = $this->mensaje->listarDrafts($filtro);
+		$like = array();
+		if(isset($_POST['busqueda']) && !empty($_POST['busqueda'])){
+			$like["asunto"] = $this->input->post("busqueda");
+		}
+
+		$result = $this->mensaje->listarDrafts($filtro,$like);
 			
 		$data["cantidad_inbox"] = $this->mensaje->contar_inbox(getUsuarioId());
 		$data["cantidad_sent"] = $this->mensaje->contar_sent(getUsuarioId());
@@ -91,10 +107,10 @@ class Correo extends CI_Controller{
 		$this->load->view("footer");
 	}
 
-	function EliminarMensajes(){
+	function eliminar_mensajes(){
 		
 		$mensajes = $this->input->post("mensajes");
-			
+		return;//Eliminar esta linea para que se borren los mensajes
 		if($mensajes){
 			for($i = 0; $i < count($mensajes); $i++){
 				$this->mensaje->actualizarTablaEliminados(getUsuarioId(),$mensajes[$i],true);
@@ -198,8 +214,6 @@ class Correo extends CI_Controller{
 		}
 	}
 
-	
-
 	function ActualizarMensaje(){
 		
 		$data_mensaje["asunto"]	= $this->input->post("asunto");
@@ -208,7 +222,7 @@ class Correo extends CI_Controller{
 		$data_borrador["mensaje_id"] = $this->mensaje->guardarMensaje($data_mensaje);
 	}
 
-	function BuscarInbox(){
+	function buscar_inbox(){
 
 		if($_POST["campo"] == "correo"){
 			$campo = "remitente";

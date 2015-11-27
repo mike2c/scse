@@ -14,9 +14,9 @@
 		}
 
 		function index(){
-			$this->load->view("cabecera");
+			$this->load->view("templates/header");
 			$this->load->view("panel/panel.php");
-			$this->load->view("footer");
+			$this->load->view("templates/footer");
 		}
 
 		function ListarEgresados(){

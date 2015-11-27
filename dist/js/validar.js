@@ -1,4 +1,4 @@
-function validarForm(form,responseArea){
+function validar_form(form,responseArea){
 
 	if(form == undefined || form == null){
 		return;

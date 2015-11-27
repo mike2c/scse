@@ -75,7 +75,7 @@
 			?>
 				<script type="text/javascript">
 					window.alert("Has cerrado sesion");
-					window.location="<?=base_url('login')?>";
+					window.location="<?=base_url('sesion/iniciar_sesion')?>";
 				</script>
 			<?
 		}
