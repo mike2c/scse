@@ -134,7 +134,7 @@ function listar_sociedades(soc_actual,form,classes){
 
 }
 
-function registrarSociedad(){
+function registrar_sociedad(){
 
 	var soc = prompt("Digita el tipo de organización");
 	if(soc == null || soc == ""){
@@ -144,7 +144,7 @@ function registrarSociedad(){
 		function(data){
 			if(data == ""){
 				alert("Sociedad registrada");
-				listarSociedades($("#sociedad").val(),$("#sociedad").attr("form"),$("#sociedad").attr("class"));
+				listar_sociedades($("#sociedad").val(),$("#sociedad").attr("form"),$("#sociedad").attr("class"));
 			}else{
 				console.log(data);
 			}
@@ -223,7 +223,7 @@ function listar_cargos(area,cargo_actual,form,classes){
 	});
 }
 
-function registrarArea(){
+function registrar_area(){
 
 	if($("#area").length){
 		var a = prompt("Escribe el nombre de la area");
@@ -234,7 +234,7 @@ function registrarArea(){
 		function(data){
 			if(data == ""){
 				alert("Area registrada");
-				listarAreas($("#area").val(),$("#area").attr("form"),$("#area").attr("class"));
+				listar_areas($("#area").val(),$("#area").attr("form"),$("#area").attr("class"));
 
 
 			}else{
@@ -244,7 +244,7 @@ function registrarArea(){
 	}
 }
 
-function registrarCargo(){
+function registrar_cargo(){
 
 	if($("#area").length){
 		var c = prompt("Escribe el nombre del cargo");
@@ -255,7 +255,7 @@ function registrarCargo(){
 		function(data){
 			if(data == ""){
 				alert("Cargo registrado");
-				listarCargos($("#area").val(),$("#cargo").val(),$("#area").attr("form"),$("#area").attr("class"));
+				listar_cargos($("#area").val(),$("#cargo").val(),$("#area").attr("form"),$("#area").attr("class"));
 			}else{
 				console.log(data);
 			}

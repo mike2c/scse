@@ -9,9 +9,6 @@
 		function index(){
 			$this->page();
 		}
-		function cursos(){
-			echo "hola";
-		}
 
 		function page($page = "inicio"){
 
@@ -27,10 +24,5 @@
 	        $this->load->view('templates/footer');
 		}
 
-
-
-		function becas(){
-
-		}
 	}
 ?>

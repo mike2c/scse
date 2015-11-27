@@ -1,24 +1,29 @@
 <div class="container">
 	<section class="content-header">
-		<h1>Perfil de usuario</h1>
+		<h1>Perfil de <small>Egresado</small></h1>
 	</section>
 	<div class="content">
 		<div class="row">
 			<div class="col-md-3">
 				<div class="box box-primary">
-					<form class="hidden-content" action="<??>" id="form_cambiar_imagen" method="post">
+					<form class="hidden-content" action="<?=base_url('perfil/cambiar_imagen_perfil')?>" id="form_cambiar_imagen" method="post" enctype="multipart/form-data">
 						<input type="file" name="imagen" id="imagen">
 					</form>
 					<div class="box-body box-profile">
-					
-						<img src="<?=base_url('dist/img/no_image.gif')?>" alt="" class="profile-user-img img-responsive img-circle">
+						<?php
+							if(!file_exists('uploads/'. getImagenPerfil())){
+								?><img src="<?=base_url('dist/img/no_image.gif')?>" alt="" class="profile-user-img img-responsive img-circle"><?
+							}else{
+								?><img src="<?=base_url('uploads/'. getImagenPerfil())?>" alt="" class="profile-user-img img-responsive img-circle"><?
+							}
+						?>
 						<a class="profile-change-image" href="javascript:cambiar_imagen()"><span class="glyphicon glyphicon-camera"></span> cambiar imagen</a>
-						<h3 class="profile-username text-center"><?="Miguel Angel Castillo Cornejo"?></h3>
-						<p class="text-muted text-center"><?="Ingeniero de Sistemas"?></p>
+						<h3 class="profile-username text-center"><?=$perfil->nombre. ' '. $perfil->apellido?></h3>
+						<p class="text-muted text-center"><?=$perfil->carrera?></p>
 						<ul class="list-group list-group-unbordered">
-							<li class="list-group-item"><a href="<?=base_url()?>">Mi Perfil</a></b></li>
+							<li class="list-group-item"><a href="<?=base_url('perfil')?>">Mi Perfil</a></b></li>
 							<li class="list-group-item"><a href="<?=base_url()?>">Curriculum</a></b></li>
-							<li class="list-group-item"><a href="<?=base_url()?>">Mensajes</a></b></li>
+							<li class="list-group-item"><a href="<?=base_url('correo')?>">Mensajes</a></b></li>
 						</ul>
 						
 						<a class="btn btn-primary btn-block" href="<?=base_url('sesion/cerrar_sesion')?>">cerrar sesión</a>
@@ -42,22 +47,30 @@
 						<!--Panel de mi perfil-->
 						<div class="active tab-pane" id="miperfil">
 							<form class="form-horizontal" id='form_actualizar_perfil' action="<?=base_url('egresado/actualizar_perfil')?>" method='post'>
+								<input type="hidden" name="egresado_id" value="<?=$perfil->egresado_id?>" id="egresado_id">
+								<input type="hidden" name="contacto_id" value="<?=$perfil->contacto_id?>" id="contacto_id">
+								<input type="hidden" name="usuario_id" value="<?=$perfil->usuario_id?>" id="usuario_id">
+								<input type="hidden" name="municipio_id" value="<?=$perfil->municipio_id?>" id="municipio_id">
+								<input type="hidden" name="departamento_id" value="<?=$perfil->departamento_id?>" id="departamento_id">
+								<input type="hidden" name="carrera_id" value="<?=$perfil->carrera_id?>" id="carrera_id">
+								<input type="hidden" name="persona_id" value="<?=$perfil->persona_id?>" id="persona_id">
+								
 								<div class="form-group">
 									<label class="control-label col-sm-2">Cedula</label>
 									<div class="col-sm-6">
-										<input value=<?=$perfil->cedula?> name="cedula" type="text" class="form-control input-sm cedula">
+										<input value="<?=$perfil->cedula?>" name="cedula" type="text" class="form-control input-sm cedula">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-sm-2">Nombre</label>
 									<div class="col-sm-6">
-										<input value=<?=$perfil->nombre?> placeholder="nombre" name="nombre" type="text" class="form-control input-sm">
+										<input value="<?=$perfil->nombre?>" placeholder="nombre" name="nombre" type="text" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-sm-2">Apellido</label>
 									<div class="col-sm-6">
-										<input value=<?=$perfil->apellido?> placeholder="apellido" name="apellido" type="text" class="form-control input-sm">
+										<input value="<?=$perfil->apellido?>" placeholder="apellido" name="apellido" type="text" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="form-group">
@@ -128,6 +141,11 @@
 										<textarea class="form-control" name="direccion" id="direccion" rows="2"><?=$perfil->direccion?></textarea>
 									</div>
 								</div>
+								<div class="form-group">
+									<div class="col-sm-6 col-sm-offset-2">
+										<button type="submit" class="btn btn-primary btn-sm">actualizar</button>
+									</div>
+								</div>
 							</form>							
 						</div>
 
@@ -146,21 +164,35 @@
 							<form class="form-horizontal" id="form_cambiar_clave" action="<?=base_url('perfil/cambiar_clave');?>">
 								<p class="help-block">Cambiar contraseña</p>
 								<div class="form-group">
-									<label class="control-label col-md-3">Contraseña actual</label>
-									<div class="col-md-5">
+									<label class="control-label col-md-2">Contraseña actual</label>
+									<div class="col-md-6">
 										<input name='clave_actual' type="password" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label col-md-3">Nueva contraseña</label>
-									<div class="col-md-5">
+									<label class="control-label col-md-2">Nueva contraseña</label>
+									<div class="col-md-6">
 										<input name='clave_nueva' type="password" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label col-md-3">Confirmar contraseña</label>
-									<div class="col-md-5">
+									<label class="control-label col-md-2">Confirmar contraseña</label>
+									<div class="col-md-6">
 										<input name='clave_repetida' type="password" class="form-control input-sm">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<div id="alert2" class="hidden-content alert alert-warning alert-dismissable">
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+											<h4>ERROR:</h4>
+											<p></p>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-5">
+										<button class="btn btn-primary btn-sm" type="submit">cambiar clave</button>
 									</div>
 								</div>
 							</form>
@@ -178,6 +210,7 @@
 </div>
 <!--Cargando plugins-->
 <script type="text/javascript" src="<?=base_url('dist/js/listas.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('dist/js/validar.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('plugins/jquery.mask/jquery.mask.js')?>"></script>
 <script>
 	$(".tel").mask('0000-0000', {placeholder:'0000-0000'});
@@ -193,6 +226,16 @@
 	});
 	listar_departamentos("<?=$perfil->departamento_id?>",null,'form-control');
 	listar_municipios($("#departamento").val(),<?=$perfil->municipio_id?>,null,'form-control');
+
+
+	$("#form_actualizar_perfil").submit(function(e){
+		e.preventDefault();
+		validar_form(this,$("#alert"));
+	});
+	$("#form_cambiar_clave").submit(function(e){
+		e.preventDefault();
+		validar_form(this,$("#alert2"));
+	});
 </script>
 <style>
 	body{

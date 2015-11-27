@@ -2,6 +2,8 @@
 	
 	class Perfil extends CI_Controller{
 
+		private $upload_errors = "";//Tienen que ser arreglos
+	
 		function __construct(){
 			parent::__construct();
 			$this->load->helper("fecha");
@@ -76,15 +78,74 @@
 			$this->load->view("footer");
 		}
 
+		/*Componer este codigo*/
+		function cambiar_imagen_perfil(){
+
+			if(is_uploaded_file($_FILES['imagen']['tmp_name'])){
+			
+				$data = $this->subir_imagen();
+								
+				if($data != null && !empty($data)){
+					if($this->recortar_imagen($data)){
+						$this->load->model('usuario_model');
+						$this->usuario_model->actualizar_imagen_perfil(getUsuarioId(), $data['file_name']);
+						setImagenPerfil($data['file_name']);
+						redirect('perfil');
+					}
+				}
+				
+				$this->load->view('errors/html/upload_error',$this->upload_errors);
+			}
+		}
+
+		function recortar_imagen($data){
+			if($data['image_width'] > 200 || $data['image_height'] > 200){
+				$config["image_library"] = "gd2";
+				$config["source_image"] = $data['full_path'];
+				$config["create_thumb"] = FALSE;
+				$config["maintain_ratio"] = TRUE;
+				$config["width"] = 200;
+				$config["height"] = 200;
+
+				$this->load->library('image_lib',$config);
+				if (!$this->image_lib->resize()){
+					$this->upload_errors = array("error_heading"=>"Error de redimensión","upload_errors"=>$this->image_lib->display_errors());
+					return FALSE;
+				}
+			}			
+
+			return TRUE;
+		}
+
+		function subir_imagen(){
+			
+			$config['upload_path'] = 'uploads/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['overwrite'] = TRUE;	
+            $config['max_size'] = 2024;
+            $config['max_width'] = 1024;
+            $config['max_height'] = 768;	
+            $config['file_name'] = 'profile_image_'.getUsuarioId();	
+
+            $this->load->library('upload',$config);
+
+            if(!$this->upload->do_upload('imagen')){
+            	$this->upload_errors = array("error_heading"=>"Error de subida","upload_errors"=>$this->upload->display_errors());
+            	return FALSE;
+            }
+            
+            return $this->upload->data();
+       	}
+
 		function cambiar_clave(){
 
 			$this->load->model("perfil_model");
 			$this->load->library("Encrypter");
 			$this->load->library("form_validation");
 
-			$this->form_validation->set_rules('clave_actual','Clave actual','trim|required|min_length[5]|max_length[20]');
-			$this->form_validation->set_rules('clave_nueva','Clave nueva','trim|required|min_length[5]|max_length[20]');
-			$this->form_validation->set_rules('clave_repetida','Clave repetida','trim|required|min_length[5]|max_length[20]');
+			$this->form_validation->set_rules('clave_actual','contraseña actual','trim|required|min_length[5]|max_length[20]');
+			$this->form_validation->set_rules('clave_nueva','nueva contraseña','trim|required|min_length[5]|max_length[20]');
+			$this->form_validation->set_rules('clave_repetida','confirmar contraseña','trim|required|min_length[5]|max_length[20]');
 
 			if($this->form_validation->run() == FALSE){
 				echo validation_errors();

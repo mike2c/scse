@@ -10,7 +10,7 @@
 
 		}
 
-		function Registro(){
+		function registro(){
 
 			$this->form_validation->set_rules("nombre","Nombre","trim|required|max_length[45]");
 			$this->form_validation->set_rules("apellido","Apellido","trim|required|max_length[45]");
@@ -59,7 +59,7 @@
 			}
 		}
 
-		function ActualizarPerfil(){
+		function actualizar_perfil(){
 
 			if($this->Actualizar()){
 				echo "<script type='text/javascript'>
@@ -82,7 +82,7 @@
 			return true;
 		}
 
-		function Actualizar(){
+		function actualizar(){
 
 			$this->form_validation->set_rules("nombre","Nombre","trim|required|max_length[45]");
 			$this->form_validation->set_rules("apellido","Apellido","trim|required|max_length[45]");

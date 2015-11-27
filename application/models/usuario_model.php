@@ -14,6 +14,12 @@
 			
 		}
 		
+		function actualizar_imagen_perfil($user_id,$file_name){
+
+			$this->db->where('usuario_id',$user_id);
+			$this->db->update('usuario',array('imagen'=>$file_name));
+		}
+
 		function desactivarCuenta($usuario_id){
 			$this->db->query("update usuario set activo=false where usuario_id=$usuario_id");
 		}
