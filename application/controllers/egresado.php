@@ -47,16 +47,16 @@
 			try{
 
 				/*Verificamos si no se han enviado datos por post*/
-				if(isset($_POST["nombre"]) && isset($_POST["carrera"])){
+				if(/*isset($_POST["nombre"]) &&*/ isset($_POST["carrera"])){
 
-					$like = array("nombre"=>$this->input->post("nombre"));
+					/*$like = array("nombre"=>$this->input->post("nombre"));*/
 					$where = null;
 					if($this->input->post("carrera") != 0){
 						$where = array("carrera_id"=>$this->input->post("carrera"));
 						$data["carrera"] = $this->input->post("carrera");
 					}
 
-					$data["registro"] = $this->modelo->listar($where,$like,"nombre");
+					$data["registro"] = $this->modelo->listar($where,null,"nombre");
 				
 				}else{
 					$data["registro"] = $this->modelo->listar(null,null,"nombre");
@@ -76,10 +76,10 @@
 			$data["carreras"] = $this->lista->listarCarreras();
 
 			if($data["registro"] != null){
-				$this->load->view("cabecera");
-				$this->load->view("nav");
-				$this->load->view("egresado/listado",$data);
-				$this->load->view("footer");
+				$this->load->view("templates/header");
+				$this->load->view("templates/menu");
+				$this->load->view("pages/listado_egresados",$data);
+				$this->load->view("templates/footer");
 			}else{
 				exit("No se han encontrado registros");
 			}
