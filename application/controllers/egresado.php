@@ -23,19 +23,24 @@
 					}else{
 						$msg["no_existe"] = "El correo proporcionado no se encuentra registrado en el sistema, por favor contactar con el administrador.";
 					}
-					$this->load->view("cabecera");
-					$this->load->view("nav");
-					$this->load->view("egresado/error_autenticacion",$msg);
-					$this->load->view("footer");
+					$this->load->view("templates/header");
+					$this->load->view("templates/menu");
+					$this->load->view("pages/autenticar_egresado",$msg);
+					$this->load->view("templates/footer");
 					
 				}else{
 					$this->enviar_correo_egresado($data);
+					$msg["success"] = "Tu Cuenta ha sido autenticada Correctamente, se ha enviado a tu correo tu usuario y contraseña para poder ingresar en el sistema.";
+					$this->load->view("templates/header");
+					$this->load->view("templates/menu");
+					$this->load->view("pages/autenticar_egresado",$msg);
+					$this->load->view("templates/footer");
 				}
 			}else{
-				$this->load->view("cabecera");
-				$this->load->view("nav");
-				$this->load->view("egresado/autenticar_egresado");
-				$this->load->view("footer");
+				$this->load->view("templates/header");
+				$this->load->view("templates/menu");
+				$this->load->view("pages/autenticar_egresado");
+				$this->load->view("templates/footer");
 			}
 		}
 

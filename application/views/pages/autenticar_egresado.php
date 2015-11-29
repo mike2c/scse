@@ -4,7 +4,7 @@
 	</section>
 	<section class="content">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-9">
 				<div class="box box-primary">
 					<div class="box-body text-justify">
 						La universidad ya cuenta con información básica de sus egresados que se obtiene por medio de registro academico.
@@ -26,7 +26,42 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-12">
+			<?php
+				if (isset($existe)||isset($no_existe)) {
+					?>
+					<div class="col-md-3">
+						<div class="alert alert-danger alert-dismissable text-justify">
+							<button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
+							<h4 >
+								<i class="icon glyphicon glyphicon-ban-circle"></i>
+								Error
+							</h4>
+							<?php 
+								if (isset($existe)) {
+									echo $existe;
+								}else{
+									echo $no_existe;
+								}
+							 ?>
+						</div>
+					</div>
+					<?php
+				}elseif (isset($success)) {
+					?>
+					<div class="col-md-3">
+						<div class="alert alert-success alert-dismissable text-justify">
+							<button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
+							<h4 >
+								<i class="icon glyphicon glyphicon-ok"></i>
+								éxito
+							</h4>
+							<?= $success ?>
+						</div>
+					</div>
+					<?php
+				}
+			?>
+			<div class="col-md-9">
 				<div class="alert alert-info alert-dismissable text-justify">
 					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
 					<h4 >
