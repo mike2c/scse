@@ -22,7 +22,7 @@
 				</div>
 			</div>			
 		</div>
-		<div class="col-md-9 col-lg-9">
+		<div class="col-md-9 col-lg-9" id="contenido">
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<h3 class="box-title">Mensajes de salida</h3>
@@ -51,7 +51,7 @@
 										echo "<tr>
 										<td><input type='checkbox' name='mensajes_marcados' value='$row->mensaje_id'></td>
 										<td>Para: $row->destinatario</td>
-										<td><a href=''>$row->asunto</a></td>
+										<td><a href='javascript:leer_mensaje_salida($row->mensaje_id)'>$row->asunto</a></td>
 										<td>Enviado el $row->fecha_envio</td>	
 										</tr>";
 									}
@@ -62,6 +62,7 @@
 						?>
 					</div>
 				</div>
+	
 			</div>
 		</div>
 	</div>

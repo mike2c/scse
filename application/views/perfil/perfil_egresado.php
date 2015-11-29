@@ -108,7 +108,7 @@
 								<div class="form-group">
 									<label class="control-label col-sm-2">F. de egresado</label>
 									<div class="col-sm-6">
-										<input autocomplete="off" placeholder="año" type="text" class="form-control input-sm">
+										<input placeholder="Fecha de egresado: Año" id="fecha_egresado" autocomplete="off" placeholder="año" type="text" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="form-group">
@@ -216,6 +216,7 @@
 	$(".tel").mask('0000-0000', {placeholder:'0000-0000'});
 	$(".cedula").mask('000-000000-0000A',
 		{placeholder: '000-000000-0000L'});
+	$("#fecha_egresado").mask('0000');
 	$("#fecha_nacimiento").datepicker();
 
 	function cambiar_imagen(){

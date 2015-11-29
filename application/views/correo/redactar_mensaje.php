@@ -20,33 +20,32 @@
 					<!--Lista de usuarios-->
 					<div class="form-group">
 						<div id="lista_usuarios">
-							<select class="form-control" name="usuario" id="usuario" multiple>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-							</select>
+							
 						</div>
 					</div>
 
 					<!--Asunto-->
 					<div class="form-group">
-						<input required placeholder="asunto" name="asunto" type="text" class="form-control">
+						<input autocomplete="off" required placeholder="asunto" id="asunto" name="asunto" type="text" class="form-control">
 					</div>
 					<div class="form-group">
 						<textarea rows="10" name="mensaje" id="mensaje" required class="form-control" placeholder="Escribe tu mensaje aqui..."></textarea>
 					</div>
-					<div class="form-group">
-						<div class="checkbox">
-							<label><input type="checkbox" name="curriculum"> Adjuntar curriculum </label>
-
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-default pull-left">Borrador</button>
-						<button class="btn btn-danger pull-right">Cancelar</button>
-						<button class="btn btn-primary pull-right">Enviar mensaje</button>
+					<?php
+						if(esEgresado()){
+							?>
+							<div class="form-group">
+								<div class="checkbox">
+									<label><input type="checkbox" name="curriculum_adjuntado" id="curriculum_adjuntado"> Adjuntar curriculum</label>
+								</div>
+							</div>
+							<?
+						}
+					?>
+						<div class="modal-footer">
+						<button type="button" onclick="guardar_borrador()" class="btn btn-default pull-left">Borrador</button>
+						<button type="button" onclick="cancelar_envio()" class="btn btn-danger pull-right">Cancelar</button>
+						<button type="button" onclick="enviar_mensaje()" class="btn btn-primary pull-right">Enviar mensaje</button>
 					</div>
 				</form>
 			</div>
@@ -56,9 +55,42 @@
 <link rel="stylesheet" type="text/css" href="<?=base_url('plugins/chosen/chosen.min.css')?>"></link>
 <script type="text/javascript" src="<?=base_url('plugins/chosen/chosen.jquery.min.js')?>"></script>
 <script type="text/javascript">
-	$("#usuario").chosen({
-		width: "570px",
-		placeholder_text_multiple: "selecciona un usuario de la lista",
-		max_selected_options: 1
+	$(document).ready(function(){
+		listar_egresados();
 	});
+
+	$("#redactar_mensaje").on("hide.bs.modal",function(){
+		limpiar_campos();	
+	});
+	
+	$("#tipo_usuario").change(function(){
+		
+		switch(this.value){
+
+			case "1":
+				listar_egresados();
+				break;
+			case "2":
+				listar_empresas();
+				break;
+			case "3":
+				listar_publicadores();
+				break;
+			case "4":
+				listar_administradores();
+				break;
+		}
+
+	});
+	/*Funciones*/
+
+	function limpiar_campos(){
+		$("#asunto").val("")
+		$("#mensaje").val("")
+		listar_egresados();
+	}
+
+	function cancelar_envio(){
+		$("#redactar_mensaje").modal("hide");
+	}
 </script>
