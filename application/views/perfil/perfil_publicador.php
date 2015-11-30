@@ -24,9 +24,9 @@
 							<li class="list-group-item"><a href="<?=base_url('perfil')?>">Mi Perfil</a></b></li>
 							<li class="list-group-item"><a href="<?=base_url('correo')?>">Mensajes</a></b></li>
 
-							<li class="list-group-item"><a href="<?=base_url()?>">Cursos publicados</a></b></li>
-							<li class="list-group-item"><a href="<?=base_url()?>">Fichas publicados</a></b></li>
-							<li class="list-group-item"><a href="<?=base_url()?>">Becas publicados</a></b></li>
+							<li class="list-group-item"><a href="javascript:listar_cursos();">Cursos publicados</a></b></li>
+							<li class="list-group-item"><a href="javascript:listar_cursos();">Fichas publicados</a></b></li>
+							<li class="list-group-item"><a href="javascript:listar_cursos();">Becas publicados</a></b></li>
 						</ul>
 						
 						<a class="btn btn-primary btn-block" href="<?=base_url('sesion/cerrar_sesion')?>">cerrar sesión</a>
@@ -34,7 +34,7 @@
 					
 				</div>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-9" id="contenido">
 				<div id="alert" class="alert alert-danger alert-dismissable hidden-content">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
 					<h4>ERROR:</h4>

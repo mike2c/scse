@@ -1,14 +1,52 @@
+function actualizar_borrador(){
+
+	if($("#asunto_borrador").val() == "" || $("#asunto").val() == null){
+		alert("Escribe un asunto");
+		return
+	}
+	if($("#mensaje_borrador").val() == "" || $("#mensaje").val() == null){
+		alert("Escribe un mensaje");
+		return
+	}
+
+	var mensaje = {
+		"mensaje_id": $("#mensaje_id").val(),
+		"asunto"	: $("#asunto_borrador").val(),
+		"mensaje"	: $("#mensaje_borrador").val()
+	};
+
+	ajax_without_return(baseURL("correo/actualizar_borrador"),mensaje,function(){
+		alert("Mensaje guardado");
+		actualizar();
+	});
+}
+
+function editar_borrador(_mensaje){
+
+	$.post(baseURL('correo/editar_borrador'),
+		{mensaje: _mensaje},
+		function(data){
+			if(data != "" && data != null){
+				$("#mensaje_id").val(data.mensaje_id);
+				$("#asunto_borrador").val(data.asunto);
+				$("#mensaje_borrador").val(data.mensaje);
+				$("#editar_borrador").modal("show");
+			}
+		},
+		"json");
+}
+
 function enviar_mensaje(){
 
 	if($("#destinatario").val() == null || !$("#destinatario").length){
 		alert("Selecciona un usuario de la lista");	
 		return;
 	}
-	if($("#asunto").val() == null){
+	if($("#asunto").val() == "" || $("#asunto").val() == null){
 		alert("Escribe un asunto");
 		return
 	}
-	if($("#mensaje").val() == null){
+	if($("#mensaje").val() == "" || $("#mensaje").val() == null){
 		alert("Escribe un mensaje");
 		return
 	}
@@ -27,7 +65,46 @@ function enviar_mensaje(){
 	});
 }
 
-function curriculum_adjuntado(){
+function enviar_borrador(){
+
+	if($("#destinatario").val() == null || !$("#destinatario").length){
+		alert("Selecciona un usuario de la lista");	
+		return;
+	}
+	if($("#asunto_borrador").val() == "" || $("#asunto").val() == null){
+		alert("Escribe un asunto");
+		return
+	}
+	if($("#mensaje_borrador").val() == "" || $("#mensaje").val() == null){
+		alert("Escribe un mensaje");
+		return
+	}
+
+	mensaje = {
+		mensaje_id: $("#mensaje_id").val(),
+		usuarios: 	$("#destinatario").val(),
+		asunto: 	$("#asunto_borrador").val(),
+		mensaje: 	$("#mensaje_borrador").val(), 
+		curr_adj: 	curriculum_adjuntado(true)
+	};
+
+	ajax_without_return(baseURL("correo/enviar_mensaje"),mensaje,function(){
+		alert("Mensaje enviado");
+		window.location = window.location;
+		$("#redactar_mensaje").modal("hide");
+	});	
+}
+
+function curriculum_adjuntado(borrador){
+	if(borrador != undefined && borrador == true){
+		if($("#curriculum_adjuntado_borrador").length){
+			if($("#curriculum_adjuntado_borrador").prop("checked")){
+				return "true";
+			}
+			return "false";
+		}
+	}
+
 	if($("#curriculum_adjuntado").length){
 		if($("#curriculum_adjuntado").prop("checked")){
 			return "true";
@@ -39,7 +116,11 @@ function curriculum_adjuntado(){
 
 function eliminar_mensaje(mensaje){
 
-	$.ajax(baseURL('correo/eliminar_mensajewss'),
+	if(!confirm("¿Estas seguro que deseas borrar este mensaje?")){
+		return;
+	}
+
+	$.post(baseURL('correo/eliminar_mensajes'),
 		{mensajes: mensaje},
 		function(data){
 			if(data == "" || data == null){
@@ -52,11 +133,6 @@ function eliminar_mensaje(mensaje){
 }
 
 function eliminar_mensajes(){
-
-	if(!confirm("¿Estas seguro que deseas eliminar los mensajes seleccionados?")){
-		return;
-	}
-
 	mjs_marcados = $("input:checked");
 
 	/*Nos salimos de la funcion si no esta ninguna checkbox marcada*/
@@ -64,10 +140,11 @@ function eliminar_mensajes(){
 		alert('No se han seleccionado mensajes');
 		return;
 	}
-	if(mjs_marcados.length ==  0){
-		alert('No se han seleccionado mensajes');
+
+	if(!confirm("¿Estas seguro que deseas eliminar los mensajes seleccionados?")){
 		return;
 	}
+
 	data = Array();
 	$(mjs_marcados).each(function(indice, elemento){
 		data.push(elemento.value);
@@ -178,27 +255,46 @@ function ajax_without_return(target, _data, handler){
 	});
 }
 
-function listar_egresados(){
-	$("#lista_usuarios").load(baseURL('ajax/lista_egresados'),lista_cargada);
-}
-function listar_empresas(){
-	$("#lista_usuarios").load(baseURL('ajax/lista_empresas'),lista_cargada);
-}
-function listar_publicadores(){
-	$("#lista_usuarios").load(baseURL('ajax/lista_publicadores'),lista_cargada);
-}
-function listar_administradores(){
-	$("#lista_usuarios").load(baseURL('ajax/lista_administradores'),lista_cargada);
-}
-function lista_cargada(){
-	$("#destinatario").chosen({
-		width: "570px",
-		placeholder_text_multiple: "selecciona un usuario de la lista",
-		max_selected_options: 1
-	});
-	$("#destinatario").attr("required");
+function listar_usuarios(indice, contenedor){
+	$(".users-list").empty();
+	switch(indice){
+		case "1":
+			listar_egresados(contenedor);
+			break;
+		case "2":
+			listar_empresas(contenedor);
+			break;
+		case "3":
+			listar_publicadores(contenedor);
+			break;
+		case "4":
+			listar_administradores(contenedor);
+			break;
+	}
 }
 
+function listar_egresados(contenedor){
+	$(contenedor).load(baseURL('ajax/lista_egresados'),after_list);
+}
+function listar_empresas(contenedor){
+	$(contenedor).load(baseURL('ajax/lista_empresas'),after_list);
+}
+function listar_publicadores(contenedor){
+	$(contenedor).load(baseURL('ajax/lista_publicadores'),after_list);
+}
+function listar_administradores(contenedor){
+	$(contenedor).load(baseURL('ajax/lista_administradores'),after_list);
+}
+
+/*Despues de listar a los usuarios*/
+function after_list(){
+
+	$("#destinatario").chosen({
+			width: "570px",
+			placeholder_text_multiple: "selecciona un usuario de la lista",
+			max_selected_options: 1
+		});
+}
 /*Leer mensajes individuales*/
 function leer_mensaje_entrada(mensaje){
 

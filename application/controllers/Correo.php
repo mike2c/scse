@@ -103,7 +103,8 @@ class Correo extends CI_Controller{
 		$this->load->view("templates/header");
 		$this->load->view("templates/menu");
 		$this->load->view("correo/drafts",$data);
-		$this->load->view("correo/redactar_mensaje",$data);
+		$this->load->view("correo/redactar_mensaje");
+		$this->load->view("correo/editar_borrador");
 		$this->load->view("templates/footer");
 	}
 
@@ -120,7 +121,7 @@ class Correo extends CI_Controller{
 			}
 		}else{
 			if(is_numeric($mensajes)){
-				$this->mensaje->actualizarTablaEliminados(getUsuarioId(),$mensajes[$i],true);
+				$this->mensaje->actualizarTablaEliminados(getUsuarioId(),$mensajes,true);
 			}
 		}	
 	}
@@ -208,9 +209,9 @@ class Correo extends CI_Controller{
 		}
 	}
 
-	function CargarBorrador(){
+	function editar_borrador(){
 	
-		$mensaje_id = $this->input->get("mensaje");
+		$mensaje_id = $this->input->post("mensaje");
 		$query = $this->mensaje->listarDrafts(array("mensaje_id"=>$mensaje_id));
 		
 		if($query->num_rows() > 0){
@@ -226,6 +227,21 @@ class Correo extends CI_Controller{
 		$data_mensaje["mensaje"] = $this->input->post("mensaje");
 
 		$data_borrador["mensaje_id"] = $this->mensaje->guardarMensaje($data_mensaje);
+	}
+
+	function actualizar_borrador(){
+
+		if(isset($_POST["asunto"]) && !empty($_POST["mensaje"])
+			&& isset($_POST["asunto"]) && !empty($_POST["mensaje"])
+			&& isset($_POST["mensaje_id"]) && !empty($_POST["mensaje_id"]) && is_numeric($_POST["mensaje_id"])){
+					
+			$data = array("mensaje"=>$this->input->post("mensaje"), 
+				"asunto"=>$this->input->post("asunto"),
+				"mensaje_id"=>$this->input->post("mensaje_id"));
+		
+			$this->load->model("mensaje_model");
+			$this->mensaje_model->actualizarMensaje($data);
+		}
 	}
 
 	function buscar_inbox(){

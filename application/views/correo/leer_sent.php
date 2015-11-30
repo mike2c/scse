@@ -8,7 +8,7 @@
 	<div class="box-body no-padding">
 		<div class="mailbox-read-info">
 			<h3><?=$mensaje->asunto?></h3>
-			<h5>From: <?=$mensaje->destinatario?>
+			<h5>Para: <?=$mensaje->destinatario?>
 				<span class="mailbox-read-time pull-right"><?=$mensaje->fecha_envio?></span>
 			</h5>
 		</div>
@@ -23,7 +23,7 @@
 					<ul class="mailbox-attachments clearfix">
 						<li>
 							<span class="mailbox-attachment-icon">
-								<i class="fa  fa-file-o"></i>
+								<i class="fa fa-file-o"></i>
 							</span>
 							<div class="mailbox-attachment-info">
 								<a target="_new" href="<?=base_url('curriculum/ver_curriculum/' . $mensaje->destinatario_id)?>" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> curriculum adjuntado</a>

@@ -14,9 +14,9 @@
 				</div>
 				<div class="box-body no-padding" style="display:block;">
 					<ul class="nav nav-pills nav-stacked">
-						<li><a href="<?=base_url('correo/inbox')?>">Bandeja de entrada <span class="label label-primary pull-right">12</span></a></li>
-						<li class="active"><a href="<?=base_url('correo/sent')?>">Bandeja de salida <span class="label label-primary pull-right">12</span></a></li>
-						<li><a href="<?=base_url('correo/drafts')?>">Borradores <span class="label label-primary pull-right">12</span></a></li>
+						<li><a href="<?=base_url('correo/inbox')?>">Bandeja de entrada <span class="label label-primary pull-right"><?=$cantidad_inbox?></span></a></li>
+						<li class="active"><a href="<?=base_url('correo/sent')?>">Bandeja de salida <span class="label label-primary pull-right"><?=$cantidad_sent?></span></a></li>
+						<li><a href="<?=base_url('correo/drafts')?>">Borradores <span class="label label-primary pull-right"><?=$cantidad_drafts?></span></a></li>
 						<li><a href="<?=base_url('perfil')?>">Salir</a></li>
 					</ul>
 				</div>
@@ -29,8 +29,11 @@
 					<div class="box-tools pull-right">
 						<form action="<?=base_url('correo/sent')?>" method="post" id="form_buscar_correo">
 							<div class="has-feedback">
-								<input type="search" name="busqueda" class="form-control input-sm" placeholder='buscar correo'>
-								<span class="glyphicon glyphicon-search form-control-feedback"></span>
+								<input type="search" name="busqueda" class="form-control input-sm" placeholder='buscar correo' value="<?php
+									if(isset($_POST['busqueda'])){
+										echo $_POST['busqueda'];
+									}
+								?>">								<span class="glyphicon glyphicon-search form-control-feedback"></span>
 							</div>
 						</form>
 					</div>
@@ -44,20 +47,32 @@
 					<div class="table-responsive mailbox-messages">
 						<?php
 							if($mensajes != null || !empty($mensajes)){
-								?>
-								<table class="table table-hover table-striped">
-								<?
-									foreach ($mensajes->result() as $row) {
-										echo "<tr>
-										<td><input type='checkbox' name='mensajes_marcados' value='$row->mensaje_id'></td>
-										<td>Para: $row->destinatario</td>
-										<td><a href='javascript:leer_mensaje_salida($row->mensaje_id)'>$row->asunto</a></td>
-										<td>Enviado el $row->fecha_envio</td>	
-										</tr>";
-									}
-								?>
-								</table>
-								<?
+								if($mensajes->num_rows() > 0){
+									?>
+										<table class="table table-hover table-striped">
+										<?
+											foreach ($mensajes->result() as $row) {
+												echo "<tr>
+												<td><input type='checkbox' name='mensajes_marcados' value='$row->mensaje_id'></td>
+												<td>Para: $row->destinatario</td>
+												<td><a href='javascript:leer_mensaje_salida($row->mensaje_id)'>$row->asunto</a></td>
+												<td>Enviado el $row->fecha_envio</td>	
+												</tr>";
+											}
+										?>
+										</table>
+									<?
+								}else{
+									?>
+									<div class="box-body">
+										<div class="alert alert-info alert-dismissable">
+						                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						                    <h4><i class="icon fa fa-info"></i> Mensaje</h4>
+						                    No se han encontrado mensajes
+						                </div>
+									</div>
+									<?
+								}
 							}
 						?>
 					</div>

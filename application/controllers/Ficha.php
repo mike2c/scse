@@ -65,7 +65,7 @@
 
 			if(IS_AJAX){
 				$this->load->view("ficha/listar_fichas",$data);
-				$this->load->view("ficha/crear_ficha",$data);
+			//	$this->load->view("ficha/crear_ficha",$data);
 			}
 		}
 

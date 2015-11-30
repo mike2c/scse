@@ -263,6 +263,10 @@ function registrar_cargo(){
 	}
 }
 
+function listar_cursos(){
+	$("#contenido").load(baseURL('ficha/listar'));
+}
+
 function esta(element_id){
 if(document.getElementById(element_id) != null){
 	return true;

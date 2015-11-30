@@ -8,7 +8,7 @@
 	<div class="box-body no-padding">
 		<div class="mailbox-read-info">
 			<h3><?=$mensaje->asunto?></h3>
-			<h5>From: <?=$mensaje->remitente?>
+			<h5>De: <?=$mensaje->remitente?>
 				<span class="mailbox-read-time pull-right"><?=$mensaje->fecha_envio?></span>
 			</h5>
 		</div>
@@ -23,7 +23,7 @@
 					<ul class="mailbox-attachments clearfix">
 						<li>
 							<span class="mailbox-attachment-icon">
-								<i class="fa-file-o"></i>
+								<i class="fa fa-file-o"></i>
 							</span>
 							<div class="mailbox-attachment-info">
 								<a target="_new" href="<?=base_url('curriculum/ver_curriculum/' . $mensaje->remitente_id)?>" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> curriculum adjuntado</a>
@@ -35,6 +35,7 @@
 		?>
 	</div>
 	<div class="box-footer">
+		<button onclick="eliminar_mensaje(<?=$mensaje->mensaje_id?>)" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> Eliminar mensaje</button>
 		<a href="<?=base_url('correo/inbox')?>" class="btn btn-default">Cerrar</a>
 	</div>
 </div>
