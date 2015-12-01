@@ -59,7 +59,7 @@
 
 			$this->load->model("ficha_model","ficha");
 			$this->load->model("listas_model","lista");
-
+			$this->load->helper('fecha_helper');
 			$data["fichas"] = $this->ficha->listar(array("usuario_id"=>getUsuarioId()));
 			$data["carreras"] = $this->lista->listarCarreras();
 
@@ -69,7 +69,7 @@
 			}
 		}
 
-		function Editar($publicacion_id){
+		function editar($publicacion_id){
 
 			if(IS_AJAX){
 				
@@ -228,14 +228,18 @@
 			}
 		}
 
-		function CambiarVisibilidad(){
+		function actualizar_visiblidad(){
 			
-			if(!empty($_POST["visible"]) && !empty($_POST["publicacion"])){
-			
-				$visible = ($this->input->post("visible") == "true") ? 0 : 1;
-				echo $visible;	
-				$data["visible"] = $visible;
-				$data["publicacion_id"] = $this->input->post("publicacion");
+			if(isset($_POST["publicacion"]) && !empty($_POST["publicacion"])
+				&& isset($_POST["valor"]) && !empty($_POST["valor"])){
+
+				$visible = ($this->input->post("valor") == "true") ? 0 : 1;
+				$publicacion_id = $this->input->post("publicacion");
+				
+				$data = array(
+					"visible" => $visible,
+					"publicacion_id"=>$valor);
+				
 				$this->ficha->cambiarVisibilidad($data);
 			}
 		}

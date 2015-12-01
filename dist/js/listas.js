@@ -263,10 +263,15 @@ function registrar_cargo(){
 	}
 }
 
-function listar_cursos(){
+function listar_fichas(){
 	$("#contenido").load(baseURL('ficha/listar'));
 }
-
+function listar_cursos(){
+	$("#contenido").load(baseURL('curso/listar'));
+}
+function listar_becas(){
+	$("#contenido").load(baseURL('becas/listar'));
+}
 function esta(element_id){
 if(document.getElementById(element_id) != null){
 	return true;

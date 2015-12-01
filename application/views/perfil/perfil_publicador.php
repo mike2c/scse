@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="box box-primary">
-					<form class="hidden-content" action="<?=base_url('perfil/cambiar_imagen_perfil')?>" id="form_cambiar_imagen" method="post">
+					<form class="hidden-content" action="<?=base_url('perfil/cambiar_imagen_perfil')?>" id="form_cambiar_imagen" method="post" enctype="multipart/form-data">
 						<input type="file" name="imagen" id="imagen">
 					</form>
 					<div class="box-body box-profile">
@@ -25,7 +25,7 @@
 							<li class="list-group-item"><a href="<?=base_url('correo')?>">Mensajes</a></b></li>
 
 							<li class="list-group-item"><a href="javascript:listar_cursos();">Cursos publicados</a></b></li>
-							<li class="list-group-item"><a href="javascript:listar_cursos();">Fichas publicados</a></b></li>
+							<li class="list-group-item"><a href="javascript:listar_fichas();">Fichas publicados</a></b></li>
 							<li class="list-group-item"><a href="javascript:listar_cursos();">Becas publicados</a></b></li>
 						</ul>
 						
@@ -44,7 +44,6 @@
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#miperfil" data-toggle="tab" aria-expanded="true">Mi perfil</a></li>
 						<li><a href="#seguridad" data-toggle="tab" aria-expanded="false">Seguridad</a></li>
-						<li><a href="#privacidad" data-toggle="tab" aria-expanded="false">Privacidad</a></li>
 					</ul>
 					<div class="tab-content">
 						<!--Panel de mi perfil-->
@@ -170,11 +169,6 @@
 								</div>
 							</form>
 						</div>
-
-						<!--Panel de privacidad-->
-						<div class="tab-pane" id="privacidad">
-							<p>prueba 2</p>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -183,6 +177,7 @@
 </div>
 <!--Cargando plugins-->
 <script type="text/javascript" src="<?=base_url('dist/js/listas.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('dist/js/publicaciones.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/validar.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('plugins/jquery.mask/jquery.mask.js')?>"></script>
 <script>
@@ -223,3 +218,20 @@
 		overflow-y: scroll;
 	}
 </style>
+<?php
+	if(isset($_GET["page"])){
+		if ($_GET["page"] == "fichas") {
+			?>
+				<script>listar_fichas();</script>
+			<?
+		}elseif($_GET["page"] == "cursos") {
+			?>
+				<script>listar_cursos();</script>
+			<?
+		}if ($_GET["page"] == "becas") {
+			?>
+				<script>listar_becas();</script>
+			<?
+		}
+	}
+?>

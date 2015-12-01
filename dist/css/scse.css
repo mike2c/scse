@@ -73,6 +73,17 @@ nav h1,h2,h3,h4,h5{
 	display: block;
 	text-align: center;
 }
+.publicacion-controls{
+	padding: 5px 0px;
+	margin-bottom: 5px;
+}
+.form-footer{
+	overflow: auto;
+	padding-top: 10px;
+}
+.form-footer button{
+	margin-right: 5px;
+}
 /*.navigation li:hover > ul{
 	display: block;
 	position: absolute;

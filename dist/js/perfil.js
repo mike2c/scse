@@ -34,3 +34,9 @@ function cambiarClave(form){
 		alert("Hay campos incompletos");
 	}
 }
+
+function help_block(){
+	$(".form-control").hover(function(){
+		alert('');
+	});
+}

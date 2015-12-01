@@ -28,3 +28,12 @@ function validar_form(form,responseArea){
 		async: true
 	});
 }
+
+function help_block(){
+	$(".form-control").focus(function(){
+		$(this).parent().find('.help-block').show('fast');
+	});
+	$(".form-control").focusout(function(){
+		$(this).parent().find('.help-block').hide('fast');
+	});
+}
