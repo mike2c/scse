@@ -1,6 +1,6 @@
 <nav>
 	<div class="container">
-		<div class="row">
+		<!--<div class="row">
 			<div class="col-md-2 col-lg-2">
 				
 			</div>
@@ -11,7 +11,7 @@
 					<h5>Sistema de control y seguimiento de egresados</h5>
 				</center>
 			</div>
-		</div>
+		</div>-->
 		<div class="row">
 			<div class="col-md-12 col-lg-12">
 				<ul class="navigation">
@@ -19,9 +19,8 @@
 					<li><a href="<?=base_url('informacion')?>">Informacion</a>
 						<ul>
 							<li>
-								<a href="<?= base_url('page/informacion_egresados') ?>">Egresados</a>
-								<a href="<?= base_url('page/informacion_empresas') ?>">Empresas</a>
-								<a href=""></a>
+								<a href="<?= base_url('page/informacion_egresados') ?>">Información para egresados</a>
+								<a href="<?= base_url('page/informacion_empresas') ?>">Información para empresas</a>
 							</li>
 						</ul>
 					</li>

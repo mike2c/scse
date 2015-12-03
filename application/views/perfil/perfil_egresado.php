@@ -93,16 +93,15 @@
 								<div class="form-group">
 									<label class="control-label col-sm-2">Carnet</label>
 									<div class="col-sm-6">
-										<input value="<?=$perfil->carnet?>" placeholder="0000-00000" name="carnet" type="text" class="form-control input-sm">
+										<input disabled value="<?=$perfil->carnet?>" placeholder="0000-00000" type="text" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-sm-2">Carrera</label>
 									<div class="col-sm-6">
-										<select class="form-control input-sm" name="carrera" id="carrera">
-											<option value="M">Masculino</option>
-											<option value="F">Femenino</option>
-										</select>
+										<div id="carrera_area">
+											
+										</div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -142,10 +141,19 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-sm-6 col-sm-offset-2">
-										<button type="submit" class="btn btn-primary btn-sm">actualizar</button>
+									<div class="checkbox">
+										<label class="col-sm-offset-2"><input type="checkbox" value="true" name="trabaja">Actualmente me encuentro trabajando</label>
+									</div>
+									<div class="checkbox">
+										<label class="col-sm-offset-2">	<input type="checkbox" value="true" name="titulado">Ya poseo el titulo de mi carrera</label>
 									</div>
 								</div>
+								<div class="form-group">
+									<div class="col-sm-6 col-sm-offset-2">
+										<button type="submit" class="btn btn-primary btn-sm">guardar cambios</button>
+									</div>
+								</div>
+
 							</form>							
 						</div>
 
@@ -157,6 +165,11 @@
 									<label class="control-label col-md-2">Correo</label>
 									<div class="col-md-6">
 										<input value="<?=$perfil->correo?>" form="form_actualizar_perfil" name="correo" type="text" class="form-control input-sm">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-6 col-md-offset-2">
+										<button form="form_actualizar_perfil" class="btn btn-primary btn-sm">cambiar correo</button>
 									</div>
 								</div>
 							</div>
@@ -200,7 +213,63 @@
 
 						<!--Panel de privacidad-->
 						<div class="tab-pane" id="privacidad">
-							<p>prueba 2</p>
+							<div class="form-horizontal">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Foto de perfil</label>
+									<div class="col-sm-5">
+										<select form="form_actualizar_perfil" class="form-control" name="visibilidad_foto" id="visibilidad_foto">
+											<option <?=($privacidad['foto_perfil'] == "publica") ? "selected" : ""?> value="publica"><i class=""></i> Publica</option>
+											<option <?=($privacidad['foto_perfil'] == "empresas") ? "selected" : ""?> value="empresas"><i class=""></i> Empresas únicamente</option>
+											<option <?=($privacidad['foto_perfil'] == "privada") ? "selected" : ""?> value="privada"><i class=""></i> Privada</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Información de contacto</label>
+									<div class="col-sm-5">
+										<select form="form_actualizar_perfil" class="form-control" name="visibilidad_contacto" id="visibilidad_contacto">
+											<option <?=($privacidad['info_contacto'] == "publica") ? "selected" : ""?> value="publica"><i class=""></i> Publica</option>
+											<option <?=($privacidad['info_contacto'] == "empresas") ? "selected" : ""?> value="empresas"><i class=""></i> Empresas únicamente</option>
+											<option <?=($privacidad['info_contacto'] == "privada") ? "selected" : ""?> value="privada"><i class=""></i> Privada</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Información de ubicación</label>
+									<div class="col-sm-5">
+										<select form="form_actualizar_perfil" class="form-control" name="visibilidad_ubicacion" id="visibilidad_ubicacion">
+											<option <?=($privacidad['info_ubicacion'] == "publica") ? "selected" : ""?> value="publica"><i class=""></i> Publica</option>
+											<option <?=($privacidad['info_ubicacion'] == "empresas") ? "selected" : ""?> value="empresas"><i class=""></i> Empresas únicamente</option>
+											<option <?=($privacidad['info_ubicacion'] == "privada") ? "selected" : ""?> value="privada"><i class=""></i> Privada</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Información de curriculum</label>
+									<div class="col-sm-5">
+										<select form="form_actualizar_perfil" class="form-control" name="visibilidad_curriculum" id="visibilidad_curriculum">
+											<option <?=($privacidad['info_curriculum'] == "publica") ? "selected" : ""?> value="publica"><i class=""></i> Publica</option>
+											<option <?=($privacidad['info_curriculum'] == "empresas") ? "selected" : ""?> value="empresas"><i class=""></i> Empresas únicamente</option>
+											<option <?=($privacidad['info_curriculum'] == "privada") ? "selected" : ""?> value="privada"><i class=""></i> Privada</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Información adicional</label>
+									<div class="col-sm-5">
+										<select form="form_actualizar_perfil" class="form-control" name="visibilidad_info_adicional" id="visibilidad_info_adicional">
+											<option <?=($privacidad['info_adicional'] == "publica") ? "selected" : ""?> value="publica"><i class=""></i> Publica</option>
+											<option <?=($privacidad['info_adicional'] == "empresas") ? "selected" : ""?> value="empresas"><i class=""></i> Empresas únicamente</option>
+											<option <?=($privacidad['info_adicional'] == "privada") ? "selected" : ""?> value="privada"><i class=""></i> Privada</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-5 col-sm-offset-3">
+										<button form="form_actualizar_perfil" class="btn btn-primary btn-sm">guardar cambios</button>	
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -227,8 +296,7 @@
 	});
 	listar_departamentos("<?=$perfil->departamento_id?>",null,'form-control');
 	listar_municipios($("#departamento").val(),<?=$perfil->municipio_id?>,null,'form-control');
-
-
+	listar_carreras('<?=$perfil->carrera_id?>', null, 'form-control');
 	$("#form_actualizar_perfil").submit(function(e){
 		e.preventDefault();
 		validar_form(this,$("#alert"));

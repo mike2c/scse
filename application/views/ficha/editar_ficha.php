@@ -63,7 +63,7 @@
       </div>
       <div class="form group">
         <label>Fecha de culminación:</label>
-        <input autocomplete="off" placeholder="00/00/0000" type="text" class="form-control" id="fecha" name="fecha_alta">
+        <input value="<?=$fecha->fecha_alta?>" autocomplete="off" placeholder="00/00/0000" type="text" class="form-control" id="fecha" name="fecha_alta">
         <p class="help-block"><i class="fa fa-info-circle"></i> Fecha en la que dejara de estar visible la publicacion</p>
       </div>
       <div class="form-group">

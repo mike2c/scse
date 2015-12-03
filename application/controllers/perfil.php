@@ -38,7 +38,7 @@
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");
 			$this->load->view("perfil/perfil_egresado",$data);
-			$this->load->view("footer");
+			$this->load->view("templates/footer");
 
 		}
 		
@@ -50,7 +50,7 @@
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");
 			$this->load->view("perfil/perfil_empresa",$data);
-			$this->load->view("footer");
+			$this->load->view("templates/footer");
 
 		}
 
@@ -61,7 +61,7 @@
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");
 			$this->load->view("perfil/perfil_publicador",$data);
-			$this->load->view("footer");
+			$this->load->view("templates/footer");
 
 		}
 
@@ -75,7 +75,7 @@
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");
 			$this->load->view("perfil/perfil_admin",$data);
-			$this->load->view("footer");
+			$this->load->view("templates/footer");
 		}
 
 		/*Componer este codigo*/

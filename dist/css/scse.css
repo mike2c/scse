@@ -20,7 +20,7 @@ footer p{
 	margin-bottom: 0px;
 }	
 body{
-	padding-bottom: 30px;
+	padding-bottom: 40px;
 	background-color: #ecf0f5;
 	overflow-y: scroll;
 }	
@@ -57,14 +57,22 @@ nav h1,h2,h3,h4,h5{
 	padding: 5px 10px;
 }
 .navigation li a:hover{
-	color: purple;
 	background-color: white;
 }
-.navigation li:hover > {
-
+.navigation li:hover > ul{
+	background-color: white;
+	list-style: none;
+	display: block;
+	padding-left: 10px;
+	position: absolute;
+	z-index: 1;
 }
+
 .navigation li ul{
 	display: none;
+}
+.navigation li ul li{
+	height: 60px;
 }
 .hidden-content{
 	display: none;

@@ -102,6 +102,11 @@
 										<input value="<?=$perfil->correo?>" form="form_actualizar_perfil" name="correo" type="text" class="form-control input-sm">
 									</div>
 								</div>
+								<div class="form-group">
+									<div class="col-md-6 col-md-offset-2">
+										<button form="form_actualizar_perfil" class="btn btn-primary btn-sm">cambiar correo</button>
+									</div>
+								</div>
 							</div>
 							
 							<form class="form-horizontal" id="form_cambiar_clave" action="<?=base_url('perfil/cambiar_clave');?>">

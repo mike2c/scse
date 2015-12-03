@@ -60,7 +60,7 @@
 			}else{
 				$this->load->view("pages/login",$data);
 			}
-			$this->load->view("footer");
+			$this->load->view("templates/footer");
 		}
 		
 		private function actualizar_informacion(){

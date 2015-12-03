@@ -240,8 +240,20 @@
 				$data_egresado["egresado_id"]= $this->input->post("egresado_id");
 				
 				$data_egresado["cedula"] = $this->input->post("cedula");
-				$data_egresado["titulado"] = $this->input->post("titulado");
-				$data_egresado["trabaja"] = $this->input->post("trabaja");
+				$data_egresado["titulado"] = 0;
+				$data_egresado["trabaja"] = 0;
+
+				if(isset($_POST["titulado"])){
+					if($this->input->post("titulado") == "true"){
+						$data_egresado["titulado"] = 1;
+					}
+				}
+				if(isset($_POST["trabaja"])){
+					if($this->input->post("trabaja") == "true"){
+						$data_egresado["trabaja"] = 1;
+					}
+				}
+
 				$data_egresado["carrera_id"] = $this->input->post("carrera");
 	
 				$data_usuario["usuario_id"]= $this->input->post("usuario_id");
