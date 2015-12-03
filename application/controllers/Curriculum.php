@@ -140,19 +140,19 @@
 			$campo= $this->input->post("campo");
 			$id= $this->input->post("id");
 			
-			if($campo=="formacion_academica"){
+			if($campo=="tabla_academica"){
 				$this->modelo->borrarFormacionAcademica($id);
 			}
-			if($campo=="experiencia_laboral"){
+			if($campo=="tabla_laboral"){
 				$this->modelo->borrarExperienciaLaboral($id);
 			}
-			if($campo=="formacion_complementaria"){
+			if($campo=="tabla_complementaria"){
 				$this->modelo->borrarFormacionComplementaria($id);
 			}
-			if($campo=="dominio_idiomas"){
+			if($campo=="tabla_idiomas"){
 				$this->modelo->borrarIdioma($id);
 			}
-			if($campo=="informatica"){
+			if($campo=="tabla_informatica"){
 				$this->modelo->borrarInformatica($id);
 			}
 		}

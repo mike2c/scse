@@ -105,7 +105,7 @@
 													<th>
 														<div class="input-group">
 															<a href='javascript:nuevaFormacionAcademica()' class="btn btn-info btn-flat btn-sm" name='btn_agregar'>Agregar Fila</a>
-															<a href='javascript:removerFila("tabla_academica")' class="btn btn-danger btn-flat btn-sm" name='btn_eliminar'>Eliminar Fila</a>
+															<a href='javascript:removerFilaFA()' class="btn btn-danger btn-flat btn-sm" name='btn_eliminar'>Eliminar Fila</a>
 														</div>
 													</th>
 													<th></th>
@@ -359,7 +359,7 @@
 																		1.
 																	</td>
 																	<td style='width:500px;'>
-																		<div class='input-grou''>
+																		<div class='input-group'>
 																			<span class='input-group-addon'>
 																				<i class='fa fa-language'></i>
 																			</span>
@@ -589,7 +589,6 @@
 		margin-right: 6px;
 	}
 </style>
-<script type="text/javascript" src="<?=base_url()?>dist/js/curriculum.js"></script>
 <script type="text/javascript" src="<?=base_url()?>dist/js/validar.js"></script>
 <script type="text/javascript" src="<?=base_url()?>plugins/jquery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript" src="<?=base_url()?>plugins/iCheck/icheck.min.js"></script>
@@ -759,19 +758,68 @@
 		estiloRadio();
 	}
 
-	function removerFila(parent){
-		console.log(parent);
-		if (!confirm('¿De verdad Desea eliminar esta fila?')) {
+	function removerFilaFA(){
+		if (!confirm('¿Esta seguro que desea eliminar este campo?')) {
 			return ;
 		}
+		var parent = $("#tabla_academica");
+		var hidden_value = $(parent).find("tr").last().find("input:hidden").val();
 		var table = document.getElementById(parent);
+
 		if(table.rows.length > 2){
-			table.deleteRow(table.rows.length-1);
+			eliminarDOM(table);
+			if(hidden_value != 0 && hidden_value > 0 && hidden_value != ""){
+				json_data = {
+					campo: 	parent,
+					id: 	hidden_value
+				};
+
+				eliminarDatosBD(json_data);
+			}
+		}else{
+			alert("Debes tener al menos un campo en formación académica.");
 		}
 	}
 
-	function eliminarDatosBD(){
+	function removerFila(parent){
+	
+		if (!confirm('¿De verdad Desea eliminar esta fila?')) {
+			return ;
+		}
 
+		var hidden_value = $("#"+parent).find("tr").last().find("input:hidden").val();
+		var table = document.getElementById(parent);
+		
+		if(table.rows.length > 0){
+			eliminarDOM(table);
+			if(hidden_value != 0 && hidden_value > 0 && hidden_value != ""){
+				json_data = {
+					campo: 	parent,
+					id: 	hidden_value
+				};
+
+				eliminarDatosBD(json_data);
+			}
+		}
+	}
+
+	function eliminarDOM(table){
+		table.deleteRow(table.rows.length-1);
+	}
+
+	function eliminarDatosBD(json_data){
+
+		$.post(baseURL('curriculum/borrar'),
+			json_data,
+			function(data){
+				if(data == ""){
+					alert("Campo eliminado");
+				}else{
+					alert("Ha ocurrido un error y no se ha podido procesar la petición.");
+					console.log(data);
+				}
+			},
+			"text");
 	}
 
 	function agregarTitulo(){
