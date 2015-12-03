@@ -255,7 +255,7 @@
 				echo "
 					<script stype='text/javascript'>
 						alert('Actualizada');
-						window.location='". base_url("Perfil")."';
+						window.location='". base_url("curriculum")."';
 					</script>
 				";
 			}else{

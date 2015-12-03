@@ -504,7 +504,7 @@
 															echo"
 															<tr>
 																<td style='width:10px;'>
-																	1.
+																	$cont2.
 																</td>
 																<td style='width:500px;'>
 																	<div class='input-group'>
@@ -518,19 +518,19 @@
 																<td style='width:100px;'>
 																	<div class='input-group'>
 																		<label>Basico</label>
-																		<input type='radio' class='flat-red' value='basico' name='nivel_software[".$cont."]' ".(($infor->nivel == "basico") ? 'checked':'').">
+																		<input type='radio' class='flat-red' value='basico' name='nivel_software[".$cont1."]' ".(($infor->nivel == "basico") ? 'checked':'').">
 																	</div>
 																</td>
 																<td style='width:100px;'>
 																	<div class='input-group'>
 																		<label>Medio</label>
-																		<input type='radio' class='flat-red' value='usuario' name='nivel_software[".$cont."]' ".(($infor->nivel == "usuario") ? 'checked':'').">
+																		<input type='radio' class='flat-red' value='usuario' name='nivel_software[".$cont1."]' ".(($infor->nivel == "usuario") ? 'checked':'').">
 																	</div>
 																</td>
 																<td style='width:100px;'> 
 																	<div class='input-group'>
 																		<label>Alto</label>
-																		<input type='radio' class='flat-red' value='experto' name='nivel_software[".$cont."]' ".(($infor->nivel == "experto") ? 'checked':'').">
+																		<input type='radio' class='flat-red' value='experto' name='nivel_software[".$cont1."]' ".(($infor->nivel == "experto") ? 'checked':'').">
 																	</div>
 																</td>
 															</tr>
@@ -760,17 +760,16 @@
 
 	function removerFilaFA(){
 		if (!confirm('¿Esta seguro que desea eliminar este campo?')) {
-			return ;
+			return;
 		}
 		var parent = $("#tabla_academica");
 		var hidden_value = $(parent).find("tr").last().find("input:hidden").val();
-		var table = document.getElementById(parent);
 
-		if(table.rows.length > 2){
-			eliminarDOM(table);
+		if($(parent).find("tr").size() > 2){
+			$(parent).find("tr").last().remove();
 			if(hidden_value != 0 && hidden_value > 0 && hidden_value != ""){
 				json_data = {
-					campo: 	parent,
+					campo: 	"tabla_academica",
 					id: 	hidden_value
 				};
 
@@ -783,14 +782,14 @@
 
 	function removerFila(parent){
 	
-		if (!confirm('¿De verdad Desea eliminar esta fila?')) {
+		if (!confirm('¿Esta seguro que desea eliminar este campo?')) {
 			return ;
 		}
 
 		var hidden_value = $("#"+parent).find("tr").last().find("input:hidden").val();
 		var table = document.getElementById(parent);
 		
-		if(table.rows.length > 0){
+		if(table.rows.length > 1){
 			eliminarDOM(table);
 			if(hidden_value != 0 && hidden_value > 0 && hidden_value != ""){
 				json_data = {
