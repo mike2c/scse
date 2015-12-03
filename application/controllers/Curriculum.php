@@ -32,10 +32,10 @@
 			if(IS_AJAX){
 				$this->load->view("curriculum/registro_curriculum");
 			}else{
-				$this->load->view("cabecera");
-				$this->load->view("nav");
+				$this->load->view("templates/header");
+				$this->load->view("templates/menu");
 				$this->load->view("curriculum/registro_curriculum");
-				$this->load->view("footer");
+				$this->load->view("templates/footer");
 			}
 		}
 		
@@ -46,10 +46,10 @@
 			if(IS_AJAX){
 				$this->load->view("curriculum/actualizar_curriculum",$data_curriculo);
 			}else{
-				$this->load->view("cabecera");
-				$this->load->view("nav");
+				$this->load->view("templates/header");
+				$this->load->view("templates/menu");
 				$this->load->view("curriculum/actualizar_curriculum",$data_curriculo);
-				$this->load->view("footer");
+				$this->load->view("templates/footer");
 			}
 		}
 
@@ -320,10 +320,10 @@
 			$data["curriculum"] = $this->modelo->listarCurriculo($curriculum_id);
 			$data["privacidad"] = $priv;
 
-			$this->load->view("cabecera");
-			$this->load->view("nav");
-			$this->load->view("curriculum/ver_curriculum",$data);
-			$this->load->view("footer");
+			$this->load->view("templates/header");
+			$this->load->view("templates/menu");
+			$this->load->view("pages/ver_curriculum",$data);
+			$this->load->view("templates/footer");
 
 		}
 

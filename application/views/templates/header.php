@@ -16,6 +16,7 @@
 		<script type="text/javascript" src="<?=base_url('dist/js/demo.js')?>"></script>
 
 		<!--Cargando plugins-->
+		<link rel="stylesheet" href="<?=base_url()?>plugins/iCheck/all.css">
 		<link rel="stylesheet" href="<?=base_url('plugins/jquery-ui/jquery-ui.min.css')?>">
 		<script type="text/javascript" src="<?=base_url('plugins/jquery-ui/jquery-ui.min.js')?>"></script>
 		
