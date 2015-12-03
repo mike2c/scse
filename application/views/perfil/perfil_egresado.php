@@ -22,7 +22,7 @@
 						<p class="text-muted text-center"><?=$perfil->carrera?></p>
 						<ul class="list-group list-group-unbordered">
 							<li class="list-group-item"><a href="<?=base_url('perfil')?>">Mi Perfil</a></b></li>
-							<li class="list-group-item"><a href="<?=base_url()?>">Curriculum</a></b></li>
+							<li class="list-group-item"><a href="<?=base_url('Curriculum')?>">Curriculum</a></b></li>
 							<li class="list-group-item"><a href="<?=base_url('correo')?>">Mensajes</a></b></li>
 						</ul>
 						

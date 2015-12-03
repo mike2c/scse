@@ -29,7 +29,7 @@
 			<?php
 				if (isset($existe)||isset($no_existe)) {
 					?>
-					<div class="col-md-3">
+					<div class="col-md-3 text-justify">
 						<div class="alert alert-danger alert-dismissable text-justify">
 							<button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
 							<h4 >
@@ -48,7 +48,7 @@
 					<?php
 				}elseif (isset($success)) {
 					?>
-					<div class="col-md-3">
+					<div class="col-md-3 text-justify">
 						<div class="alert alert-success alert-dismissable text-justify">
 							<button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
 							<h4 >

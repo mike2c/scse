@@ -147,7 +147,7 @@
 			$query = $this->registro->listarTitulos();
 
 			if($query->num_rows() > 0){
-				echo "<select required name='titulo[]' id='titulo'>";
+				echo "<select class='form-control' required name='titulo[]' id='titulo'>";
 				foreach($query->result() as $row){
 					if($selected == $row->titulo_id){
 						echo "<option selected value='$row->titulo_id'>$row->titulo</option>";
@@ -155,7 +155,7 @@
 						echo "<option value='$row->titulo_id'>$row->titulo</option>";
 					}
 				}
-				echo "</selected>";
+				echo "</select>";
 			}else{
 				echo "No se han encontrador registros";
 			}
