@@ -26,7 +26,20 @@
 		<div class="row">
 			<div class="col-md-12">
 				<?php
-				    if(!isset($formacion_academica)){
+				if (isset($errors)) {
+				?>
+					<div class="alert alert-danger alert-dismissable text-justify">
+						<button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
+							<h4>
+								<i class="icon fa fa-warning"></i>
+								Aviso
+							</h4>
+							<?php echo $errors; ?>
+							<br><button class="btn btn-danger btn-flat btn-sm" onclick="redirect('<?=base_url('Curriculum')?>')" name="redireccionar" type="button">Regresar</button>
+						</div>
+					</div>
+				<?php
+				}elseif(!isset($formacion_academica)){
 				?>
 						<div class="alert alert-danger alert-dismissable text-justify">
 							<button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
@@ -35,6 +48,7 @@
 								Aviso
 							</h4>
 							No se ha podido cargar la informacion de curriculum.
+							<br><button class="btn btn-danger btn-flat btn-sm" onclick="redirect('<?=base_url('pefil')?>')" name="redireccionar" type="button">Regresar</button>
 						</div>
 				<?php
 				    }else{
@@ -575,6 +589,9 @@
 	</section>
 </div>
 <style type="text/css">
+	.hide{
+		opacity: 0px;
+	}
 	.titulo select#titulo{
 		border-style: solid;
 		width: auto;
@@ -843,5 +860,8 @@
           checkboxClass: 'icheckbox_flat-green',
           radioClass: 'iradio_flat-green'
         });
+	}
+	function redirect(path){
+		window.location.href=path;
 	}
 </script>

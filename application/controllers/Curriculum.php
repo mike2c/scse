@@ -259,7 +259,8 @@
 					</script>
 				";
 			}else{
-				echo validation_errors();
+				$data['errors'] = validation_errors();
+				$this->Editar($data);
 			}
 		}
 		
