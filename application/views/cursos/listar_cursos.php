@@ -1,29 +1,29 @@
 <section class="content-header">
   <h1>
      Publicaciones
-     <small>Fichas ocupacionales</small>
+     <small>Cursos</small>
   </h1>
 </section>
 <div class="content">
   
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h3 class="box-title">Fichas ocupacionales publicadas</h3>
+    <h3 class="box-title">Listado de cursos publicados</h3>
   </div>
   <div class="box-body">
     <div class="publicacion-controls">
-       <button class="btn btn-primary" onclick="crear_ficha_ocupacional()"> <i class="glyphicon glyphicon-file
-"></i> Nueva ficha</button>
+       <button class="btn btn-primary" onclick="crear_curso()"> <i class="glyphicon glyphicon-file
+"></i> Nuevo curso</button>
     </div>
     <table class="table table-default table-condensed table-hover">
       <tbody>
         <?php
-          if(!is_null($fichas) && !empty($fichas) && $fichas->num_rows() > 0){
+          if(!is_null($cursos) && !empty($cursos) && $cursos->num_rows() > 0){
             $cont = 1;
-            foreach ($fichas->result() as $row) {
+            foreach ($cursos->result() as $row) {
               echo "<tr>";
               echo "<td>$cont</td>";
-              echo "<td><a href='javascript:editar_ficha_ocupacional($row->publicacion_id)'><i class='fa fa-edit'></i> $row->cargo</a></td>";
+              echo "<td><a href='javascript:editar_curso($row->publicacion_id)'><i class='fa fa-edit'></i> $row->nombre_curso</a></td>";
               echo "<td><p>".date_toDMY($row->fecha_publicacion)."</p></td>";
               if($row->visible == true){
                 echo "<td><input type='checkbox' checked class='toggle-publicacion' value='$row->publicacion_id'></td>";  

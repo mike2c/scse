@@ -40,6 +40,7 @@
 			        isRTL: false,
 			        showMonthAfterYear: false,
 			        yearSuffix: ''
+
 			    };
 			    $.datepicker.setDefaults($.datepicker.regional['es']);
 			});

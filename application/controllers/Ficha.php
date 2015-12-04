@@ -20,17 +20,17 @@
 			$this->load->library("form_validation");
 
 			$this->form_validation->set_rules("descripcion","Descripcion","required|min_length[10]");
-			$this->form_validation->set_rules("fecha_alta","Fecha de Alta","required|max_length[10]|min_length[10]");
-			$this->form_validation->set_rules("cargo","Denominacion del cargo","required|max_length[60]|min_length[10]");
+			$this->form_validation->set_rules("fecha_alta","Fecha de culminación","required|max_length[10]|min_length[10]");
+			$this->form_validation->set_rules("cargo","Denominacion del cargo","required|max_length[100]|min_length[8]");
 			$this->form_validation->set_rules("ubicacion","Ubicacion del Cargo","required|max_length[40]|min_length[6]");
 			$this->form_validation->set_rules("cantidad","Cantidad de Puestos","required|max_length[20]|min_length[1]");
 			$this->form_validation->set_rules("jefe","Jefe inmediato","required|max_length[30]|min_length[6]");
-			$this->form_validation->set_rules("a_cargo","Personal a Cargo","required|min_length[10]");
-			$this->form_validation->set_rules("finalidad","Finalidad del Puesto","required|min_length[10]");
-			$this->form_validation->set_rules("funciones","Funciones y Responsabilidades","required|max_length[300]|min_length[10]");
-			$this->form_validation->set_rules("requisitos","Requisitos del Puesto","required|min_length[10]");
-			$this->form_validation->set_rules("experiencia","Experiencia Necesario","required|max_length[100]|min_length[4]");
-			$this->form_validation->set_rules("competencia","Competencia","required|min_length[10]");
+			$this->form_validation->set_rules("a_cargo","Personal a Cargo","required|min_length[4]");
+			$this->form_validation->set_rules("finalidad","Finalidad del Puesto","min_length[10]");
+			$this->form_validation->set_rules("funciones","Funciones y Responsabilidades","required|min_length[10]");
+			$this->form_validation->set_rules("requisitos","Requisitos del Puesto","min_length[10]");
+			$this->form_validation->set_rules("experiencia","Experiencia","required|max_length[100]|min_length[1]");
+			$this->form_validation->set_rules("competencia","Competencia","min_length[10]");
 			$this->form_validation->set_rules("carreras[]","Carreras","required");
 
 			if($this->form_validation->run()==FALSE){
@@ -39,9 +39,16 @@
 		}
 		
 		#CREANDO UNA FICHA OCUPACIONAL NUEVA	
-		function Crear(){
+		function crear(){
 			
 			if(IS_AJAX){
+
+				$this->load->model("listas_model","lista");
+
+				$data["carreras"] = $this->lista->listarCarreras();
+				$this->load->view("ficha/crear_ficha",$data);
+			}
+			/*if(IS_AJAX){
 				if(is_string($this->validarCampos())){
 					echo $this->validarCampos();
 				}
@@ -52,7 +59,7 @@
 						window.location='" . base_url("Perfil") . "';	
 					</script>";
 				}
-			}
+			}*/			
 		}
 
 		function Listar(){
@@ -65,7 +72,6 @@
 
 			if(IS_AJAX){
 				$this->load->view("ficha/listar_fichas",$data);
-			//	$this->load->view("ficha/crear_ficha",$data);
 			}
 		}
 
@@ -76,6 +82,7 @@
 				$this->load->model("ficha_model","ficha");
 				$this->load->model("listas_model","lista");
 				$this->load->helper("texto");
+				$this->load->helper("fecha");
 
 				$result = $this->ficha->listar(array("usuario_id"=>getUsuarioId(),"publicacion_id"=>$publicacion_id));
 				if($result != null){
@@ -89,25 +96,29 @@
 		}
 
 		function Eliminar(){
-
-			$this->load->model("ficha_model","ficha");
+			
 			$publicacion = $this->input->post("publicacion");
 			$usuario_id = getUsuarioId();
-			if(empty($publicacion)){
-				return;
+			if($publicacion == null || empty($publicacion)){
+				throw new Exception("Entrada invalida", 1);
+				
 			}
+			$this->load->model("ficha_model","ficha");
 			if(is_array($publicacion)){
 				foreach ($publicacion as $key => $value) {
 					$this->ficha->eliminarFicha($value,$usuario_id);
 				}
 			}else{
-				$this->ficha->eliminarFicha($value,$usuario_id);
+				$this->ficha->eliminarFicha($publicacion,$usuario_id);
 			}			
 		}
 
-		private function Insertar(){
+		function insertar(){
+			
+			if(IS_AJAX)	{
+				$this->validarCampos();
+			}else{
 
-			try{
 				$this->load->model("ficha_model","ficha");
 				$this->load->helper(array("imagen","fecha"));
 
@@ -146,13 +157,17 @@
 
 				$this->ficha->insertarFiltro($data_ficha);
 				$this->ficha->actualizarFiltro($data_carrera,$data_ficha["publicacion_id"]);
+				try{
+					$this->enviarCorreo($this->input->post("carreras[]"));
+				}catch(Exception $e){
+
+				}
 				
-				$this->enviarCorreo($this->input->post("carreras[]"));
-			}catch(Exception $e){
-				return false;
+				echo "<script type='text/javascript'>
+					alert('Ficha ocupacional creada');
+					window.location = '". base_url('perfil?page=fichas') ."';
+				</script>";
 			}
-			
-			return true;	
 		}
 		
 		function enviarCorreo($carreras){
@@ -183,6 +198,7 @@
 		}
 
 		function Actualizar(){
+
 			if(IS_AJAX){
 				echo $this->validarCampos();
 			}else{
@@ -202,7 +218,7 @@
 					$data_imagen["imagen"]= $img["imagen"];
 					$data_imagen["tipo"]= $img["tipo"];
 					$data_imagen["imagen_publicacion_id"] = $this->input->post("imagen_publicacion_id");
-					$this->ficha->actualizarImagen();
+					$this->ficha->actualizarImagen($data_imagen);
 				}
 							
 				$data_ficha["ficha_id"] = $this->input->post("ficha_id");
@@ -223,22 +239,22 @@
 				echo "
 					<script stype='text/javascript'>
 						alert('Actualizada');
-						window.location='". base_url("Perfil")."';
+						window.location='". base_url("perfil?page=fichas")."';
 					</script>";
 			}
 		}
 
 		function actualizar_visiblidad(){
-			
+		
 			if(isset($_POST["publicacion"]) && !empty($_POST["publicacion"])
 				&& isset($_POST["valor"]) && !empty($_POST["valor"])){
 
-				$visible = ($this->input->post("valor") == "true") ? 0 : 1;
+				$visible = ($this->input->post("valor") == "true") ? 1 : 0;
 				$publicacion_id = $this->input->post("publicacion");
 				
 				$data = array(
 					"visible" => $visible,
-					"publicacion_id"=>$valor);
+					"publicacion_id"=>$publicacion_id);
 				
 				$this->ficha->cambiarVisibilidad($data);
 			}

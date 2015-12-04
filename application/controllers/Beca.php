@@ -19,64 +19,28 @@
 
 			$this->load->library("form_validation");
 
-			$this->form_validation->set_rules("programa_academico","Programa académico","required|max_length[60]|min_length[10]");
-			$this->form_validation->set_rules("fecha_alta","Fecha de Alta","required|max_length[10]|min_length[10]");
-			$this->form_validation->set_rules("descripcion","Descripción","required|min_length[10]");
-			$this->form_validation->set_rules("carreras[]","Carreras","required");
+			$this->form_validation->set_rules("programa_academico","programa académico","required|max_length[100]|min_length[5]");
+			$this->form_validation->set_rules("fecha_alta","fecha de culminación","required|max_length[10]|min_length[10]");
+			$this->form_validation->set_rules("descripcion","descripción","required|min_length[10]");
+			$this->form_validation->set_rules("carreras[]","seleccionar carreras","required");
 			if($this->form_validation->run()==FALSE){
-				echo  validation_errors();
-				return FALSE;
+				echo validation_errors();
 			}
-
-			return TRUE;
 		}
 
-		function CrearBeca(){
-
-			$this->load->helper(array("imagen","fecha"));
-			$imagen = escaparImagen("imagen");	
-			if($imagen != null){
-				$data_imagen["imagen"] = $imagen["imagen"];
-				$data_imagen["tipo"] = $imagen["tipo"];
-			}else{
-				$data_imagen["imagen"] = null;
-				$data_imagen["tipo"] = null;
+		function crear(){
+			if(IS_AJAX){
+				$this->load->model("listas_model","lista");
+				$data["carreras"] = $this->lista->listarCarreras();
+				$this->load->view("becas/crear_beca",$data);
 			}
-
-			$data_publicacion["usuario_id"] = getUsuarioId();
-			$data_publicacion["descripcion"] = nl2br($this->input->post("descripcion"));
-			$data_publicacion["fecha_publicacion"] = date("Y-m-d");
-			$data_publicacion["fecha_alta"] =  format_date($this->input->post("fecha_alta"));
-			$data_publicacion["visible"] = TRUE;
-
-			//Insertamos la informacion de la imagen y capturamos su id
-			$data_publicacion["imagen_publicacion_id"] = $this->beca_model->insertarImagen($data_imagen);
-			
-			//Insertamos la informacion en la tabla publicacion y capturamos su id
-			$data_beca["publicacion_id"] = $this->beca_model->insertarPublicacion($data_publicacion);
-			$data_beca["url"] = $this->input->post("url");
-			$data_beca["programa_academico"] = $this->input->post("programa_academico");
-
-			//Insertamos la informacion en la tabla beca	
-			$this->beca_model->insertarBeca($data_beca);
-
-			$data_carrera = $this->input->post("carreras[]");
-			$this->beca_model->insertarFiltro($data_beca);
-			$this->beca_model->actualizarFiltro($data_carrera,$data_beca["publicacion_id"]);
-			
-			$this->enviarCorreo($this->input->post("carreras[]"));
-			
-			echo "<script>
-				alert('Publicacion guardada correctamente');
-				window.location= '". base_url('Perfil') ."';
-			</script>";
 		}
 		
 		function enviarCorreo($carreras){
 			$carreras_id["carrera_id"] = $carreras;			
 			$query=$this->egresado_model->listar("","","",$carreras_id,"");
 			$correoInfo = null;
-			$cont = 0 ;
+			$cont = 0;
 			if($query->num_rows() > 0){
 				foreach($query->result() as $datos){
 					$correoInfo["destinatario"][$cont] = $datos->correo;
@@ -100,71 +64,124 @@
 			}
 		}
 		
-		function Listar(){
+		function listar(){
 
 			$data["becas"] = $this->beca_model->listar(array("usuario_id"=>getUsuarioId()));
 			$this->load->model("listas_model");
+			$this->load->helper("fecha");
 			$data["carreras"] = $this->listas_model->listarCarreras();
-			if (IS_AJAX) {
-				$this->load->view("beca/crear_beca",$data);
-				$this->load->view("beca/listar_becas",$data);
+			if (IS_AJAX){
+				$this->load->view("becas/listar_becas",$data);
 			}
 		}
 
-		function Editar($publicacion_id){
-			$data["beca"]=$this->beca_model->listar(array("usuario_id"=>getUsuarioId(),"publicacion_id"=>$publicacion_id));
-			
-			$data["carrera"] = $this->beca_model->listarCarrera($publicacion_id);
+		function editar($publicacion_id){
 			if (IS_AJAX) {
-				$this->load->view("beca/editar_beca",$data);
+				$data["beca"]=$this->beca_model->listar(array("usuario_id"=>getUsuarioId(),"publicacion_id"=>$publicacion_id))->row();
+				if($data["beca"] == null || empty($data["beca"])){
+					throw new Exception("Publicacion no encontrada", 1);
+					exit();
+				}
+				$this->load->model("listas_model");
+				$data["carrera"] = $this->beca_model->listarCarrera($publicacion_id);
+				$data["carreras"] = $this->listas_model->listarCarreras();
+
+				$this->load->helper("texto");
+				$this->load->helper("fecha");
+				$this->load->view("becas/editar_beca",$data);
 			}
 		}
 
-	function Actualizar(){
+	function insertar(){
+		if(IS_AJAX){
+			$this->validarCampos();
+		}else{
+			if($this->validarCampos() == ""){
+
+				$this->load->helper(array("imagen","fecha"));
+				$imagen = escaparImagen("imagen");	
+				if($imagen != null){
+					$data_imagen["imagen"] = $imagen["imagen"];
+					$data_imagen["tipo"] = $imagen["tipo"];
+				}else{
+					$data_imagen["imagen"] = null;
+					$data_imagen["tipo"] = null;
+				}
+
+				$data_publicacion["usuario_id"] = getUsuarioId();
+				$data_publicacion["descripcion"] = nl2br($this->input->post("descripcion"));
+				$data_publicacion["fecha_publicacion"] = date("Y-m-d");
+				$data_publicacion["fecha_alta"] =  format_date($this->input->post("fecha_alta"));
+				$data_publicacion["visible"] = TRUE;
+
+				//Insertamos la informacion de la imagen y capturamos su id
+				$data_publicacion["imagen_publicacion_id"] = $this->beca_model->insertarImagen($data_imagen);
+				
+				//Insertamos la informacion en la tabla publicacion y capturamos su id
+				$data_beca["publicacion_id"] = $this->beca_model->insertarPublicacion($data_publicacion);
+				$data_beca["url"] = $this->input->post("url");
+				$data_beca["programa_academico"] = $this->input->post("programa_academico");
+
+				//Insertamos la informacion en la tabla beca	
+				$this->beca_model->insertarBeca($data_beca);
+
+				$data_carrera = $this->input->post("carreras[]");
+				$this->beca_model->insertarFiltro($data_beca);
+				$this->beca_model->actualizarFiltro($data_carrera,$data_beca["publicacion_id"]);
+				
+				$this->enviarCorreo($this->input->post("carreras[]"));
+				echo "<script>
+					alert('Publicación guardada');
+					window.location= '". base_url('Perfil') ."';
+				</script>";
+			}
+		}
+	}
+
+	function actualizar(){
 
 		if(IS_AJAX){
 			$this->validarCampos();
 		}else{
-			if(!$this->validarCampos()){
-				echo "Los campos que estas ingresando son invalidos";
-			}
-			$this->load->model("beca_model");
-			$this->load->model("listas_model");
-			$this->load->helper(array("imagen","fecha"));
+			if($this->validarCampos() == ""){
+						
+				$this->load->model("beca_model");
+				$this->load->model("listas_model");
+				$this->load->helper(array("imagen","fecha"));
 
-			$data_publicacion["usuario_id"] = getUsuarioId();
-			$data_publicacion["publicacion_id"] = $this->input->post("publicacion_id");
-			$data_publicacion["descripcion"] = nl2br($this->input->post("descripcion"));
-			$data_publicacion["fecha_publicacion"] = date("Y-m-d");
-			$data_publicacion["fecha_alta"] =  format_date($this->input->post("fecha_alta"));
+				$data_publicacion["usuario_id"] = getUsuarioId();
+				$data_publicacion["publicacion_id"] = $this->input->post("publicacion_id");
+				$data_publicacion["descripcion"] = nl2br($this->input->post("descripcion"));
+				$data_publicacion["fecha_publicacion"] = date("Y-m-d");
+				$data_publicacion["fecha_alta"] =  format_date($this->input->post("fecha_alta"));
+				
+				$img = escaparImagen("imagen");
+				if($img != null && !empty($img)){
+					$data_imagen["imagen"] = $img["imagen"];
+					$data_imagen["tipo"] = $img["tipo"];
+					$data_imagen["imagen_publicacion_id"] = $this->input->post("imagen_publicacion_id");
+					$this->beca_model->actualizarImagen($data_imagen);
+				}
 			
-			$img = escaparImagen("imagen");
-			if($img != null && !empty($img)){
-				$data_imagen["imagen"] = $img["imagen"];
-				$data_imagen["tipo"] = $img["tipo"];
-				$data_imagen["imagen_publicacion_id"] = $this->input->post("imagen_publicacion_id");
-				$this->beca_model->actualizarImagen($data_imagen);
+				$data_beca["beca_id"] = $this->input->post("beca_id");
+				$data_beca["programa_academico"] = $this->input->post("programa_academico");
+				$data_beca["url"] = $this->input->post("url");
+
+				$data_carrera = $this->input->post("carreras[]");
+
+				$this->beca_model->actualizarPublicacion($data_publicacion);
+				$this->beca_model->actualizarFiltro($data_carrera,$data_publicacion["publicacion_id"]);
+				$this->beca_model->actualizarBeca($data_beca);
+
+				echo "<script stype='text/javascript'>
+				alert('Publicación actualizada');
+				window.location='". base_url("Perfil")."?page=becas';
+				</script>";
 			}
-		
-			$data_beca["beca_id"] = $this->input->post("beca_id");
-			$data_beca["programa_academico"] = $this->input->post("programa_academico");
-			$data_beca["url"] = $this->input->post("url");
-
-			$data_carrera = $this->input->post("carreras[]");
-
-			$this->beca_model->actualizarPublicacion($data_publicacion);
-			$this->beca_model->actualizarFiltro($data_carrera,$data_publicacion["publicacion_id"]);
-			$this->beca_model->actualizarBeca($data_beca);
-
-			echo "<script stype='text/javascript'>
-			alert('Actualizada');
-			window.location='". base_url("Perfil")."?page=becas';
-			</script>";
-			
 		}
 	}
 	
-	function Eliminar(){
+	function eliminar(){
 
 		$this->load->model("beca_model");
 
@@ -180,7 +197,7 @@
 			}
 
 		}else{
-			$this->beca_model->eliminarBeca($value,$usuario_id);
+			$this->beca_model->eliminarBeca($becas,$usuario_id);
 		}
 	}
 }
