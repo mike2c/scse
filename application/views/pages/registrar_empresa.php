@@ -1,10 +1,14 @@
 <div class="container">
-	<section class="content-header">
-		<h1>Registro <strong><small>de Empresa</small></strong></h1>
-	</section>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<section class="content-header">
+				<h1>Registro <strong><small>de Empresa</small></strong></h1>
+			</section>		
+		</div>
+	</div>
 	<section class="content">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-6 col-md-offset-3">
 				<div class="box box-primary">
 					<div class="box-header with-border">
 						<h3 class="box-title">Los campos marcados con <small><i class="glyphicon glyphicon-asterisk"></i></small> son obligatorios</h3>

@@ -26,7 +26,7 @@
 
 							<li class="list-group-item"><a href="javascript:listar_cursos();">Cursos publicados</a></b></li>
 							<li class="list-group-item"><a href="javascript:listar_fichas();">Fichas publicados</a></b></li>
-							<li class="list-group-item"><a href="javascript:listar_cursos();">Becas publicados</a></b></li>
+							<li class="list-group-item"><a href="javascript:listar_becas();">Becas publicados</a></b></li>
 						</ul>
 						
 						<a class="btn btn-primary btn-block" href="<?=base_url('sesion/cerrar_sesion')?>">cerrar sesión</a>
@@ -181,6 +181,8 @@
 	</div>
 </div>
 <!--Cargando plugins-->
+<link rel="stylesheet" type="text/css" href="<?=base_url('plugins/bootstrap-toggle/css/bootstrap-toggle.min.css')?>">
+<script type="text/javascript" src="<?=base_url('plugins/bootstrap-toggle/js/bootstrap-toggle.min.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/listas.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/publicaciones.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/validar.js')?>"></script>
@@ -199,7 +201,6 @@
 	});
 	listar_areas("<?=$perfil->area_id?>",null,'form-control input-sm');
 	listar_cargos($("#area").val(),<?=$perfil->cargo_id?>,null,'form-control input-sm');
-
 
 	$("#form_actualizar_perfil").submit(function(e){
 		e.preventDefault();

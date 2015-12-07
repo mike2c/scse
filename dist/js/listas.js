@@ -270,7 +270,7 @@ function listar_cursos(){
 	$("#contenido").load(baseURL('curso/listar'));
 }
 function listar_becas(){
-	$("#contenido").load(baseURL('becas/listar'));
+	$("#contenido").load(baseURL('beca/listar'));
 }
 function esta(element_id){
 if(document.getElementById(element_id) != null){

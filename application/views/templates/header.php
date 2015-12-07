@@ -12,9 +12,10 @@
 		<!--Cargando archivos generados-->
 		<link rel="stylesheet" type="text/css" href="<?=base_url('dist/css/AdminLTE.css')?>"></link>
 		<link rel="stylesheet" type="text/css" href="<?=base_url('dist/css/scse.css')?>"></link>
+		<link rel="stylesheet" href="<?=base_url('dist/css/skins/_all-skins.css')?>">
 		<script type="text/javascript" src="<?=base_url('dist/js/app.min.js')?>"></script>
 		<script type="text/javascript" src="<?=base_url('dist/js/demo.js')?>"></script>
-
+		
 		<!--Cargando plugins-->
 		<link rel="stylesheet" href="<?=base_url()?>plugins/iCheck/all.css">
 		<link rel="stylesheet" href="<?=base_url('plugins/jquery-ui/jquery-ui.min.css')?>">
@@ -40,6 +41,7 @@
 			        isRTL: false,
 			        showMonthAfterYear: false,
 			        yearSuffix: ''
+
 			    };
 			    $.datepicker.setDefaults($.datepicker.regional['es']);
 			});

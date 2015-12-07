@@ -12,7 +12,8 @@
   </div>
   <div class="box-body">
     <div class="publicacion-controls">
-       <button class="btn btn-primary">Nueva ficha</button>
+       <button class="btn btn-primary" onclick="crear_ficha_ocupacional()"> <i class="glyphicon glyphicon-file
+"></i> Nueva ficha</button>
     </div>
     <table class="table table-default table-condensed table-hover">
       <tbody>
@@ -34,20 +35,21 @@
             }
           }else{
             ?>
-              
+              <div class="alert alert-danger alert-dismissable">
+                <!--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
+                <h4> Mensaje</h4>
+                No se han encontrado publicaciones de fichas ocupacionales
+              </div>
             <?
           }
         ?>
       </tbody>  
     </table>
   </div><!-- /.box-body -->
-  <div class="box-footer">
 
-  </div><!-- /.box-footer-->
 </div>
 </div>
-<link rel="stylesheet" type="text/css" href="<?=base_url('plugins/bootstrap-toggle/css/bootstrap-toggle.min.css')?>">
-<script type="text/javascript" src="<?=base_url('plugins/bootstrap-toggle/js/bootstrap-toggle.min.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('dist/js/publicaciones.js')?>"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $(".toggle-publicacion").bootstrapToggle({
@@ -57,7 +59,12 @@
     });
     //1 - 48
     $(".toggle-publicacion").change(function(){
-      actualizar_visiblidad(this.value,$(this).prop('checked'));
+
+      var data = {
+        publicacion:  this.value,
+        valor:        $(this).prop('checked')
+      };
+      actualizar_visibilidad(data);
     });
   });
 </script>

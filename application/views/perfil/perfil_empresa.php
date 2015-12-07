@@ -22,7 +22,7 @@
 						<ul class="list-group list-group-unbordered">
 							<li class="list-group-item"><a href="<?=base_url('perfil')?>">Mi Perfil</a></b></li>
 							<li class="list-group-item"><a href="<?=base_url('correo')?>">Mensajes</a></b></li>
-							<li class="list-group-item"><a href="<?=base_url('')?>">Fichas publicadas</a></b></li>
+							<li class="list-group-item"><a href="javascript:listar_fichas();">Fichas publicadas</a></b></li>
 						</ul>
 						
 						<a class="btn btn-primary btn-block" href="<?=base_url('sesion/cerrar_sesion')?>">cerrar sesión</a>
@@ -30,7 +30,7 @@
 					
 				</div>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-9" id="contenido">
 				<div id="alert" class="hidden-content alert alert-warning alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
 					<h4>ERROR:</h4>
@@ -183,6 +183,8 @@
 	</div>
 </div>
 <!--Cargando plugins-->
+<link rel="stylesheet" type="text/css" href="<?=base_url('plugins/bootstrap-toggle/css/bootstrap-toggle.min.css')?>">
+<script type="text/javascript" src="<?=base_url('plugins/bootstrap-toggle/js/bootstrap-toggle.min.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/listas.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/validar.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('plugins/jquery.mask/jquery.mask.js')?>"></script>

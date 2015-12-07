@@ -24,8 +24,8 @@
 
 			$this->load->library("form_validation");
 			$this->form_validation->set_rules("descripcion","Descripcion","required|min_length[10]");
-			$this->form_validation->set_rules("nombre_curso","Nombre del curso","required|min_length[10]|max_length[80]");
-			$this->form_validation->set_rules("fecha_alta","Fecha de Alta","required|max_length[10]|min_length[10]");
+			$this->form_validation->set_rules("nombre_curso","Nombre del curso","required|min_length[10]|max_length[100]");
+			$this->form_validation->set_rules("fecha_alta","Fecha de culminación","required|max_length[10]|min_length[10]");
 			$this->form_validation->set_rules("carreras[]","Carreras del Curso","required");
 			$this->form_validation->set_rules("costo","Costo del Curso","numeric|required|min_length[1]|max_length[10]");
 			$this->form_validation->set_rules("duracion","Duracion del Curso","required|integer");
@@ -35,15 +35,12 @@
 			}
 		}
 
-		function Crear(){
+		function crear(){
 			
-			$data["carreras"] = $this->lista->listarCarreras();
-			$data["errores"] = $this->validarCampos();
-
 			if(IS_AJAX){
-				if(!$data["errores"]==TRUE){
-					$this->load->view("ficha/crear_ficha",$data);
-				}
+				$this->load->model("listas_model","lista");
+				$data["carreras"] = $this->lista->listarCarreras();
+				$this->load->view("cursos/crear_curso",$data);
 			}
 		}
 
@@ -73,6 +70,7 @@
 
 					$data_curso["costo"] = $this->input->post("costo");
 					$data_curso["duracion"] = $this->input->post("duracion");
+					$data_curso["inicio"] = format_date($this->input->post("inicio"));
 					$data_curso["nombre_curso"] = $this->input->post("nombre_curso");
 					$data_curso["libre"] = FALSE;
 
@@ -90,7 +88,7 @@
 					
 					$this->enviarCorreo($this->input->post("carreras[]"));
 					echo "<script>
-						alert('Publicacion guardada correctamente');
+						alert('Publicación guardada');
 						window.location= '". base_url('Perfil') ."?page=cursos';
 					</script>";
 				}
@@ -132,18 +130,21 @@
 			$data["carreras"] = $this->lista->listarCarreras();
 
 			if(IS_AJAX){
-				$this->load->view("cursos/crear_curso",$data);
+				#$this->load->view("cursos/crear_curso",$data);
 				$this->load->view("cursos/listar_cursos",$data);
 			}
 		}
 
 		function Editar($publicacion_id){
 			$this->load->model("curso_model");
+			$this->load->model("listas_model");
+
 			$data["curso"] = $this->curso_model->listar(array("usuario_id"=>getUsuarioId(),"publicacion_id"=>$publicacion_id));
 			if($data["curso"] != null){
 				$data["curso"] = $data["curso"]->row();
 			}
 			$data["carrera"] = $this->curso_model->listarCarrera($publicacion_id);
+			$data["carreras"] = $this->listas_model->listarCarreras();
 			if(IS_AJAX){
 				$this->load->view("cursos/editar_curso",$data);	
 			}
@@ -169,8 +170,10 @@
 					$data_imagen["imagen_publicacion_id"] = $this->input->post("imagen_publicacion_id");
 					$this->curso_model->actualizarImagen($data_imagen);
 				}
-			
+				
+				$data_curso["nombre_curso"] = $this->input->post("nombre_curso");
 				$data_curso["costo"] = $this->input->post("costo");
+				$data_curso["inicio"] = format_date($this->input->post("inicio"));
 				$data_curso["duracion"] = $this->input->post("duracion");
 				$data_curso["curso_id"] = $this->input->post("curso_id");
 
@@ -187,7 +190,7 @@
 				$this->curso_model->actualizarFiltro($data_carrera,$data_publicacion["publicacion_id"]);
 
 				echo "<script type='text/javascript'>
-				alert('Publicación registrada correctamente');
+				alert('Publicación actualizada');
 				window.location='". base_url('Perfil') ."?page=cursos';
 				</script>";
 			}
@@ -208,7 +211,7 @@
 					$this->curso_model->eliminar($value,$usuario_id);
 				}
 			}else{
-				$this->curso_model->eliminar($value,$usuario_id);
+				$this->curso_model->eliminar($cursos,$usuario_id);
 			}
 		}
 	}
