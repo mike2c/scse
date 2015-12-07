@@ -27,7 +27,7 @@ footer p{
 #menu_superior{
 	width: 100%;
 	display: block;
-	background-color: gray;
+	background-color: #3c8dbc;
 }
 .menu{
 	list-style: none;
@@ -35,19 +35,49 @@ footer p{
 }
 .menu > li{
 	display: inline-block;
+	height: 35px;
+	line-height: 35px;
+	color: white;
+	font-size: 14px;
 }
 .menu li ul{
 	display: none;
 }
 .menu li a{
 	text-align: center;
-	
-	padding: 0px 5px;
+	padding: 0px 10px;
 	display: block;
-	height: 35px;
-	line-height: 35px;
-	color: white;
-	font-size: 14px;
+	color: inherit;
+}
+.menu li:hover{
+	background-color: white;
+	color: #367fa9;
+
+}
+.menu li ul{
+	margin-left: -1px;
+	background-color: white;
+	list-style: none;
+	z-index: 1;
+	min-width: 200px;
+	padding: 0px 5px;
+	padding-left: 0px;
+	position: absolute;
+	display: none;
+	border-right: 1px solid lightgray;
+	border-left: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+	
+}
+.menu li ul li{
+	display: list-item;
+}
+.menu li ul li a{
+	text-align: left;
+	padding: 0px 15px;
+}
+.menu li:hover > ul{
+	display: block;
 }
 /*
 td a{

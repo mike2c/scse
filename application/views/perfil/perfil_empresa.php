@@ -56,7 +56,7 @@
 								<div class="form-group">
 									<label class="control-label col-sm-2">Numero ruc</label>
 									<div class="col-sm-6">
-										<input value=<?=$perfil->ruc?> id="ruc" name="ruc" type="text" class="form-control input-sm">
+										<input value="<?=$perfil->ruc?>" id="ruc" name="ruc" type="text" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="form-group">

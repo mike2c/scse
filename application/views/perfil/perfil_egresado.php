@@ -141,12 +141,36 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="checkbox">
-										<label class="col-sm-offset-2"><input type="checkbox" value="true" name="trabaja">Actualmente me encuentro trabajando</label>
-									</div>
-									<div class="checkbox">
-										<label class="col-sm-offset-2">	<input type="checkbox" value="true" name="titulado">Ya poseo el titulo de mi carrera</label>
-									</div>
+									<?php
+										if($perfil->trabaja){
+											?>
+											<div class="checkbox">
+												<label class="col-sm-offset-2"><input checked type="checkbox" value="true" name="trabaja">Actualmente me encuentro trabajando</label>
+											</div>
+											<?
+										}else{
+											?>
+											<div class="checkbox">
+												<label class="col-sm-offset-2"><input type="checkbox" value="true" name="trabaja">Actualmente me encuentro trabajando</label>
+											</div>
+											<?
+										}
+									?>
+									<?php
+										if($perfil->titulado){
+											?>
+											<div class="checkbox">
+												<label class="col-sm-offset-2">	<input checked type="checkbox" value="true" name="titulado">Ya poseo el titulo de mi carrera</label>
+											</div>
+											<?
+										}else{
+											?>
+											<div class="checkbox">
+												<label class="col-sm-offset-2">	<input type="checkbox" value="true" name="titulado">Ya poseo el titulo de mi carrera</label>
+											</div>
+											<?
+										}
+									?>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-6 col-sm-offset-2">
