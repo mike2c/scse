@@ -181,6 +181,8 @@
 	</div>
 </div>
 <!--Cargando plugins-->
+<link rel="stylesheet" type="text/css" href="<?=base_url('plugins/bootstrap-toggle/css/bootstrap-toggle.min.css')?>">
+<script type="text/javascript" src="<?=base_url('plugins/bootstrap-toggle/js/bootstrap-toggle.min.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/listas.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/publicaciones.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/validar.js')?>"></script>

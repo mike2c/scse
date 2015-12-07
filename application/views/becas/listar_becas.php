@@ -35,21 +35,21 @@
             }
           }else{
             ?>
-              
+              <div class="alert alert-danger alert-dismissable">
+                <!--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
+                <h4> Mensaje</h4>
+                No se han encontrado publicaciones de becas
+              </div>
             <?
           }
         ?>
       </tbody>  
     </table>
   </div><!-- /.box-body -->
-  <div class="box-footer">
 
-  </div><!-- /.box-footer-->
 </div>
 </div>
 <script type="text/javascript" src="<?=base_url('dist/js/publicaciones.js')?>"></script>
-<link rel="stylesheet" type="text/css" href="<?=base_url('plugins/bootstrap-toggle/css/bootstrap-toggle.min.css')?>">
-<script type="text/javascript" src="<?=base_url('plugins/bootstrap-toggle/js/bootstrap-toggle.min.js')?>"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $(".toggle-publicacion").bootstrapToggle({

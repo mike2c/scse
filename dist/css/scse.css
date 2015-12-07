@@ -1,8 +1,10 @@
-td a{
-	display: block;
-	width: 100%;
-	height: inherit;
+body{
+
+	padding-bottom: 40px;
+	background-color: #ecf0f5;
+	overflow-y: scroll;
 }
+
 footer{
 	border-top: 1px solid #d2d6de;
 	background-color: white;
@@ -14,25 +16,52 @@ footer{
 	text-align: center;
 	padding-bottom: 0px;
 }	
+
 footer p{
 	color: black;/*rgba(150,150,150,1.0);*/
 	padding: 2px 0px;
 	margin-bottom: 0px;
-}	
-body{
-	padding-bottom: 40px;
-	background-color: #ecf0f5;
-	overflow-y: scroll;
-}	
+}
+
+/*Menu superior*/
+#menu_superior{
+	width: 100%;
+	display: block;
+	background-color: gray;
+}
+.menu{
+	list-style: none;
+	margin-bottom: 0px;
+}
+.menu > li{
+	display: inline-block;
+}
+.menu li ul{
+	display: none;
+}
+.menu li a{
+	text-align: center;
+	
+	padding: 0px 5px;
+	display: block;
+	height: 35px;
+	line-height: 35px;
+	color: white;
+	font-size: 14px;
+}
+/*
+td a{
+	display: block;
+	width: 100%;
+	height: inherit;
+}
+	
+	
 nav{
 	color: white;
 	background-color: #03274B;
 	border-bottom: 3px solid white;
-	padding-top: 10px;
-}
-nav h1,h2,h3,h4,h5{
-	margin-bottom: 3px;
-	margin-top: 0px;
+
 }
 
 .logo{
@@ -100,4 +129,4 @@ nav h1,h2,h3,h4,h5{
 .navigation li a:hover{
 	background-color: white;
 }
-*/
+*/*/

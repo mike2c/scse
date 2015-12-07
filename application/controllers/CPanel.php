@@ -14,9 +14,17 @@
 		}
 
 		function index(){
+
 			$this->load->view("templates/header");
 			$this->load->view("panel/panel.php");
 			$this->load->view("templates/footer");
+		}
+
+		function reportes(){
+
+			if(IS_AJAX){
+				$this->load->view('panel/reportes/reportes.php');
+			}
 		}
 
 		function ListarEgresados(){
@@ -44,7 +52,7 @@
 				}
 				
 				$data["carreras"] = $this->listas->listarCarreras();
-				$this->load->view("panel/lista/listar_egresados",$data);
+				$this->load->view("panel/listado/listar_egresados",$data);
 			}
 		}
 
@@ -81,7 +89,7 @@
 				}
 				
 				$data["sociedades"] = $this->listas->listarSociedades();
-				$this->load->view("panel/lista/listar_empresas",$data);
+				$this->load->view("panel/listado/listar_empresas",$data);
 			}
 		}
 
@@ -115,7 +123,7 @@
 					$data["registros"] = $this->publicadores->listar();
 				}
 
-				$this->load->view("panel/lista/listar_publicadores",$data);
+				$this->load->view("panel/listado/listar_publicadores",$data);
 			}
 		}
 
@@ -139,7 +147,7 @@
 					$data["registros"] = $this->admin->listar();
 				}
 
-				$this->load->view("panel/lista/listar_admins",$data);
+				$this->load->view("panel/listado/listar_admins",$data);
 			}
 		}
 
@@ -193,6 +201,7 @@
 		}
 
 		function ReporteEgresadosTitulados(){
+			
 			if(IS_AJAX){
 
 				$fecha_inicial = $this->input->post("fecha_inicial");
@@ -202,47 +211,13 @@
 				$this->load->helper("graficos");
 				$this->load->model("egresado_model","egresados");
 
-				$data[0]["name"] = "Titulados";
-				$data[0]["y"] = $this->egresados->contar(array("titulado"=>TRUE))->row('cantidad');
-				$data[1]["name"] = "Sin titulo";
-				$data[1]["y"] = $this->egresados->contar(array("titulado"=>FALSE))->row('cantidad');
+				$arr[0]["name"] = "Titulados";
+				$arr[0]["y"] = $this->egresados->contar(array("titulado"=>TRUE))->row('cantidad');
+				$arr[1]["name"] = "Sin titulo";
+				$arr[1]["y"] = $this->egresados->contar(array("titulado"=>FALSE))->row('cantidad');
 				
-				echo '<div class="panel panel-default">';
-				echo '<div class="panel-body">';
-
-				crear_grafico_pastel($data,"Porcentaje de egresados titulados","Porcentaje");
-					
-
-					$porcentaje_titulados = (($data[0]["y"]/($data[0]["y"]+$data[1]["y"]))*100);
-					$porcentaje_notitulados = (($data[1]["y"]/($data[0]["y"]+$data[1]["y"]))*100);
-					echo "<table class='table table-striped table-hover'>";
-					echo "<thead>
-					<tr>
-						<td></td>
-						<td>Cantidad</td>
-						<td>Porcentaje</td>
-						
-					</tr>
-					</thead>";
-					echo "<tbody>";
-					echo "<tr>
-					<td>Titulados</td><td>".$data[0]["y"]."</td><td>".$porcentaje_titulados."% </td>
-
-					</tr>";
-						echo "<tr>
-					<td>No Titulados</td><td>".$data[1]["y"]."</td><td>".$porcentaje_notitulados."% </td>
-
-					</tr>";
-						echo "<tr>
-					<td>Totales</td><td>".($data[1]["y"] + $data[0]["y"])."</td><td>".($porcentaje_notitulados + $porcentaje_titulados)."% </td>
-
-					</tr>";
-					echo "</tbody>";
-					echo "</table>";
-				echo '</div>';
-				echo '</div>';
-
-				
+				$data["data"] = $arr;
+				$this->load->view("panel/reportes/egresados_titulados.php",$data);
 			}
 		}
 
@@ -257,42 +232,17 @@
 				$carreras = $this->listas->listarCarreras();
 				$contador = 0;
 				$total_egresados = 0;
+
 				foreach ($carreras->result() as $row) {
-					$data[$contador]["name"] = $row->nombre_carrera;
-					$data[$contador]["y"] = $this->egresados->listar(array("carrera_id"=>$row->carrera_id))->num_rows();
-					$total_egresados += $data[$contador]["y"];
+					$arr[$contador]["name"] = $row->nombre_carrera;
+					$arr[$contador]["y"] = $this->egresados->listar(array("carrera_id"=>$row->carrera_id))->num_rows();
+					$total_egresados += $arr[$contador]["y"];
 					$contador++;
 				}
 
-				echo '<div class="panel panel-default">';
-				echo '<div class="panel-body">';
-
-				crear_grafico_pastel($data,"Porcentaje de egresados por carrera","Porcentaje");
-
-				$porcentaje_titulados = (($data[0]["y"]/($data[0]["y"]+$data[1]["y"]))*100);
-				$porcentaje_notitulados = (($data[1]["y"]/($data[0]["y"]+$data[1]["y"]))*100);
-				echo "<table class='table table-striped table-hover'>";
-				echo "<thead>
-				<tr>
-					<td></td>
-					<td>Cantidad</td>
-					<td>Porcentaje</td>
-					
-				</tr>
-				</thead>";
-				echo "<tbody>";
-				
-				foreach ($data as $key => $value) {
-					$porcentaje = ($value['y']/$total_egresados)*100;
-					echo "<tr><td>$value[name]</td><td>$value[y]</td><td>". round($porcentaje,2) ."% </td></td>";
-				}
-				echo "<tr><td>Total</td><td>$total_egresados</td><td>100%</td></tr>";
-				echo "</tbody>";
-				echo "</table>";
-
-
-				echo '</div>';
-				echo '</div>';
+				$data["data"] = $arr;
+				$data["total_egresados"] = $total_egresados;
+				$this->load->view("panel/reportes/egresados_carrera",$data);
 			}
 		}
 
