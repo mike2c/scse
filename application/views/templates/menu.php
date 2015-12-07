@@ -35,7 +35,13 @@
 						</ul>
 					</li>
 					<li><a href="<?=base_url('page/contacto')?>">Contacto</a></li>
-					<li><a href="<?=base_url('sesion/iniciar_sesion')?>">Login</a></li>
+					<?php
+						if(!sesionIniciada()){
+							?>
+								<li><a href="<?=base_url('sesion/iniciar_sesion')?>">Login</a></li>
+							<?
+						}
+					?>
 				</ul>
 			</div>
 		</div>
