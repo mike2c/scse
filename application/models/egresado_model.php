@@ -12,14 +12,14 @@
 			if ($query->num_rows()>0) {
 				$data_user = $query->row();
 				if ($data_user->activo == TRUE) {
-					return TRUE;
+					return "cuenta_activa";
 				}else {
 					$this->db->where("correo",$data);
 					$this->db->update("usuario",array("activo"=>TRUE));
 					return $data_user;
 				}
 			}else {
-				$msg = "ERROR";
+				$msg = "no_existe";
 				return $msg;
 			}
 		}

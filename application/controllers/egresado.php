@@ -16,9 +16,9 @@
 			if (!$this->input->post('correo')=="") {
 			
 				$data = $this->modelo->autenticarEgresado($this->input->post('correo'));
-				if ($data == TRUE || $data=="ERROR") {
+				if ($data == "cuenta_activa" || $data=="no_existe") {
 					
-					if ($data == 1){
+					if ($data == "cuenta_activa"){
 						$msg["existe"] = "El correo proporcionado ya se encuentra autenticado y en uso.";
 					}else{
 						$msg["no_existe"] = "El correo proporcionado no se encuentra registrado en el sistema, por favor contactar con el administrador.";
@@ -290,26 +290,23 @@
 			}
 		}
 
-	}
-		
-	function enviar_correo_egresado($data){
-		$clave = Encrypter::decrypt($data->clave);
-		 
-		$this->email->from("UniAdmin@gmail.com","UNIVERSIDAD NACIONAL DE INGENIERIA");
-		$this->email->reply_to("UniAdmin@gmail.com","UNIVERSIDAD NACIONAL DE INGENIERIA");
-		$this->email->to($data->correo);	
-		$this->email->subject("Autentificación de Egresados");
-		$this->email->message("Hola, tu cuenta ha sido autentificada, tu correo y contraseña para iniciar sesion son los siguientes:
-		Correo: $data->correo
-		Contraseña: $clave
-		Te recomendamos que no borres este correo, en caso de que olvides tu contraseña.");	
-			
-		if (!$this->email->send()) {
-			echo "ERROR, no se pudo enviar el mensaje<br/>";
-			echo $this->email->print_debugger();
-		}else {
-			redirect("Sesion");
+		function enviar_correo_egresado($data){
+			$clave = Encrypter::decrypt($data->clave);
+			 
+			$this->email->from("UniAdmin@gmail.com","UNIVERSIDAD NACIONAL DE INGENIERIA");
+			$this->email->reply_to("UniAdmin@gmail.com","UNIVERSIDAD NACIONAL DE INGENIERIA");
+			$this->email->to($data->correo);	
+			$this->email->subject("Autentificación de Egresados");
+			$this->email->message("Hola, tu cuenta ha sido autentificada, tu correo y contraseña para iniciar sesion son los siguientes:
+			Correo: $data->correo
+			Contraseña: $clave
+			Te recomendamos que no borres este mensaje, en caso de que olvides tu contraseña.");	
+				
+			if (!$this->email->send()) {
+				echo "ERROR, no se pudo enviar el mensaje<br/>";
+				echo $this->email->print_debugger();
+			}
 		}
-	}
-		
+
+	}	
 ?>
