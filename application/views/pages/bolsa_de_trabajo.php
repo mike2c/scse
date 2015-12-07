@@ -10,7 +10,7 @@
 						<h3 class="box-title">Busqueda por Carrera</h3>
 						<div class="box-tools">
 							<button class="btn btn-box-tool" data-widget="collapse">
-								<i class="glyphicon glyphicon-minus"></i>
+								<i class="fa fa-minus"></i>
 							</button>
 						</div>
 					</div>

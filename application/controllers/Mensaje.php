@@ -95,27 +95,29 @@
 			$this->form_validation->set_rules("correo","Correo","required|valid_email");
 			
 			if($this->form_validation->run()==false){
-				$this->load->view("cabecera");
-				$this->load->view("nav");
-				$this->load->view("pages/recuperacion_pass");
-				$this->load->view("footer");
+				$this->load->view("templates/header");
+				$this->load->view("templates/menu");
+				$this->load->view("pages/recuperar_pass");
+				$this->load->view("templates/footer");
 			}else{
 				$correo = $this->input->post("correo");
 				if($this->usuario_model->existe_correo($correo)){
 					$pass = $this->usuario_model->obtenerPass($correo);
 					if($pass == false){
-						echo "Error, No se encontro la cuenta";
+						$data['error']="Error, No se encontro la cuenta";
 					}else{
 						$this->email->set_newline("\r\n");
 						$this->EnviarPass($pass->clave,$correo);
+						$data['success'] = "Se ha enviado un mensaje a tu correo con tu contraseña para que puedas ingresar en el sistema.";
 					}
+
 				}else{
-					$data["error"] = "El correo proporcionado no se encuentra registrado en el sistema, asegurate de ingresar un correo valido.";
-					$this->load->view("cabecera");
-					$this->load->view("nav");
-					$this->load->view("pages/recuperacion_pass",$data);
-					$this->load->view("footer");
+					$data["no_existe"] = "El correo proporcionado no se encuentra registrado en el sistema, asegurate de ingresar un correo valido.";
 				}
+					$this->load->view("templates/header");
+					$this->load->view("templates/menu");
+					$this->load->view("pages/recuperar_pass",$data);
+					$this->load->view("templates/footer");
 			}
 		}
 		
@@ -133,12 +135,6 @@
 			if (!$this->email->send()) {
 				echo "<strong>ERROR, no se pudo enviar el mensaje</strong><br/>";
 				echo $this->email->print_debugger();
-			}else {
-				$data["mensaje"] = "Mensaje Enviado Correctamente, Revisa tu correo electronico para obtener tu contraseña";
-				$this->load->view("cabecera");
-				$this->load->view("nav");
-				$this->load->view("pages/success_envio_pass",$data);
-				$this->load->view("footer");
 			}
 		}
 	}
