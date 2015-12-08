@@ -28,6 +28,7 @@ footer p{
 	width: 100%;
 	display: block;
 	background-color: #3c8dbc;
+	overflow: auto;
 }
 .menu{
 	padding-left: 0px;

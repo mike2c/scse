@@ -99,14 +99,14 @@
 																}else{
 																	/* FOTO DE PERFIL */
 																	if ($privacidad[$row->usuario_id]["foto_perfil"] == "publica") {
-																		if (imagen_disponible()) {
+																		if (file_exists("uploads/".$row->imagen)) {
 																			echo "<td class='no-padding'><img title='ampliar' class='thumbnail zoom' src='" . base_url("uploads/". $row->imagen) . "' alt=''></td>";
 																		}else{
 																			echo "<td class='no-padding'><img title='ampliar' class='thumbnail zoom' src='" . base_url("dist/img/no_image.gif") . "' alt=''></td>";
 																		}
 																	}elseif ($privacidad[$row->usuario_id]["foto_perfil"] == "empresas") {
 																		if (esEmpresa() || esPublicador() || esAdministrador()) {
-																			if (imagen_disponible()) {
+																			if (file_exists("uploads/".$row->imagen)) {
 																				echo "<td class='no-padding'><img title='ampliar' class='thumbnail zoom' src='" . base_url("uploads/". $row->imagen) . "' alt=''></td>";
 																			}else{
 																				echo "<td class='no-padding'><img title='ampliar' class='thumbnail zoom' src='" . base_url("dist/img/no_image.gif") . "' alt=''></td>";
@@ -115,7 +115,7 @@
 																			echo "<td class='no-padding'><img title='ampliar' class='thumbnail zoom' src='" . base_url("dist/img/no_image.gif") . "' alt=''></td>";
 																		}
 																	}else{
-																		echo "<td class='no-padding'><img title='ampliar' class='thumbnail zoom' src='" . base_url("uploads/default/no_image.gif") . "' alt=''></td>";
+																		echo "<td class='no-padding'><img title='ampliar' class='thumbnail zoom' src='" . base_url("dist/img/no_image.gif") . "' alt=''></td>";
 																	}
 																	/*DATOS PERSONALES */
 																	echo "<td class='$tdclass'><label>$row->nombre $row->apellido</label

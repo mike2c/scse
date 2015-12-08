@@ -82,10 +82,10 @@
 				echo $this->email->print_debugger();
 			}else {
 				$data["mensaje"] = "Su mensaje a sido enviado correctamente, su consulta sera tomada en cuenta gracias.";
-				$this->load->view("cabecera");
-				$this->load->view("nav");
+				$this->load->view("templates/header");
+				$this->load->view("templates/menu");
 				$this->load->view("pages/mensaje_contacto_enviado",$data);
-				$this->load->view("footer");
+				$this->load->view("templates/footer");
 			}
 		}
 		

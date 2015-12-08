@@ -17,12 +17,12 @@
 		function Index(){
 
 			if(IS_AJAX){
-				$this->load->view("upload_functions/importar_egresados");
+				$this->load->view("panel/importar/importar_egresados");
 			}else{
 
 				$this->load->view("cabecera");
 				$this->load->view("nav");
-				$this->load->view("upload_functions/importar_egresados");
+				$this->load->view("panel/importar/importar_egresados");
 				$this->load->view("footer");
 			}
 		
@@ -30,7 +30,8 @@
 
 		function importarEgresados(){
 
-			if(is_uploaded_file("excel")){
+			if(is_uploaded_file($_FILES['excel']['tmp_name'])){
+				
 				$this->load->library("import_manager");
 				$filename = $this->import_manager->cargar_archivo($_FILES);
 				//Cargar PHPExcel library
@@ -41,6 +42,9 @@
 				$data_persona = array();
 				$data_usuario = array();
 				$data_contacto = array();
+				$data["registros_correctos"] = array();
+				$data["registros_incorrectos"] = array();
+
 				$cont = null;
 				//llenamos los arreglos con la informacion del archivo excel.
 				foreach ($sheetData as $index => $value) { 
@@ -69,54 +73,81 @@
 							'correo'  =>  $value['G'],
 							'clave' => Encrypter::encrypt(generarClave(20))
 						);
+
 						foreach ($data_egresado as $llave => $valor) {
-						$data_egresado[$llave] = $valor;
+							$data_egresado[$llave] = $valor;
 						}
 						foreach ($data_persona as $llave2 => $valor2) {
-						$data_persona[$llave2] = $valor2;
+							$data_persona[$llave2] = $valor2;
 						}
 						foreach ($data_contacto as $llave3 => $valor3) {
-						$data_contacto[$llave3] = $valor3;
+							$data_contacto[$llave3] = $valor3;
 						}
 						foreach ($data_usuario as $llave4 => $valor4) {
-						$data_usuario[$llave4] = $valor4;
+							$data_usuario[$llave4] = $valor4;
 						}
+
 						if($data_egresado["carnet"]!=""|| $data_persona["nombre"]!="" || $data_persona["apellido"]!="" || $data_persona["sexo"]!=""){
+							
+							$error = $this->has_error($data_egresado,$data_usuario);
+							if(!$error){
+								$this->egresado_model->insertarEgresado($data_egresado,$data_persona,$data_usuario,$data_contacto);									
+								array_push($data["registros_correctos"], 
+									array($data_egresado['carnet'],$data_egresado['cedula'],
+										$data_persona['nombre']. " ". $data_persona['apellido'],
+										$data_usuario['correo']));
+							}else{
+								array_push($data["registros_incorrectos"], 
+									array($data_egresado['carnet'],$data_egresado['cedula'],
+										$data_persona['nombre']. " ". $data_persona['apellido'],
+										$data_usuario['correo'],
+										$error));
+							}
+
+							/*
 							if($this->validarCampos($data_egresado)){
-								$this->egresado_model->insertarEgresado($data_egresado,$data_persona,$data_usuario,$data_contacto);
+								
 								echo "Se guardo el Registro N#". $index."<br/>";
 							}else{
 								echo "Los campos Cedula o Carnet del registro N#".$index." ya se encuentran registrados en la base de datos <br/>" ;
 								$cont -= 1; 
-							}
+							}*/
 						}else{
 							$cont -= 1; 
 						}
 					}
-				}		
+				}
+						
 				if($cont > 1){
-					echo "Datos importados Correctamente";
+					#echo "Datos importados Correctamente";
 				}else{
-					echo "No se encontraron datos a importar, revise que el archivo contenga datos a importar";
+					#echo "No se encontraron datos a importar, revise que el archivo contenga datos a importar";
 				}
 				unlink($filename);
-			}else{
 
-				$this->load->view("cabecera");
-				echo "<br><h1 class='text-center'>No se ha proporcionado el archivo de excel</h1><br>
-					<center><button onclick='window.history.back()' class='btn btn-default'>Regresar</button></center>'";
+				$this->load->view('templates/header');
+				$this->load->view('templates/upload_results',$data);
+			}else{
+				$data['title'] = 'ERROR';
+				$data['errors'] = 'No se ha proporcionado el archivo de excel';
 				
+				$this->load->view("templates/header");
+				$this->load->view("errors/html/error_upload",$data);
 			}
 		}
 		
-		function validarCampos($campo){
-			$cedula = $this->egresado_model->validarCedulaEgresado($campo["cedula"]);
-			$carnet = $this->egresado_model->validarCarnetEgresado($campo["carnet"]);
-			if ($cedula || $carnet) {
-				return false;
-			}else {
-				return true;
+		private function has_error($data_egresado,$data_usuario){
+
+			if($this->egresado_model->existe_carnet($data_egresado["carnet"])){
+				return "El carnet ingresado ya se encuentra asignado a otro egresado.";
+			}elseif($this->egresado_model->existe_cedula($data_egresado["cedula"])){
+				return "La cedula ingresada pertenece a otro egresado.";
+			}elseif($this->egresado_model->existe_correo($data_usuario["correo"])){
+				return "El correo ingresado ya esta en uso";
 			}
+
+			return false;
 		}
-	}
+
+	}/*Fin de la clase*/
 ?>

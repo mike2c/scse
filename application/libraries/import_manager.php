@@ -22,7 +22,7 @@
 				$destino = "bak_".$archivo;
 
 				if (copy($_FILES['excel']['tmp_name'],$destino)){
-					echo "Archivo Cargado Con Éxito <br>";
+					//echo "Archivo Cargado Con Éxito <br>";
 					return $destino;
 				}else{
 					echo "Error Al Cargar el Archivo";

@@ -26,7 +26,7 @@
 								<i class="fa fa-file-o"></i>
 							</span>
 							<div class="mailbox-attachment-info">
-								<a target="_new" href="<?=base_url('curriculum/ver_curriculum/' . $mensaje->destinatario_id)?>" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> curriculum adjuntado</a>
+								<a target="_new" href="<?=base_url('curriculum/ver/' . $mensaje->destinatario_id)?>" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> curriculum adjuntado</a>
 							</div>
 						</li>
 					</ul>

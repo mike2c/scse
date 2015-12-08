@@ -15,6 +15,7 @@
        <button class="btn btn-primary" onclick="crear_curso()"> <i class="glyphicon glyphicon-file
 "></i> Nuevo curso</button>
     </div>
+    <br>
     <table class="table table-default table-condensed table-hover">
       <tbody>
         <?php
@@ -35,6 +36,7 @@
             }
           }else{
             ?>
+            <br>
               <div class="alert alert-danger alert-dismissable">
                 <!--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
                 <h4> Mensaje</h4>

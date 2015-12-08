@@ -19,5 +19,8 @@
 			echo $cedula;
 		}
 
+		function carrera(){
+			$this->load->model("carrera_model");
+		}
 	}
 ?>

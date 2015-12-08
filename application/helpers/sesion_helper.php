@@ -94,7 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		if(isset($_SESSION) && !empty($_SESSION)){
 
-			if(file_exists("uploads/".getImagenPerfil()) && (getImagenPerfil() !== null) && (getImagenPerfil() !== "")){
+			if(file_exists("uploads/".getImagenPerfil())){
 				return true;
 			}
 		}

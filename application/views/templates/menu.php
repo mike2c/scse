@@ -54,31 +54,37 @@
 						}
 					?>
 				</ul>
-				<div class="dropdown menu-perfil pull-right">
-					<a href="#" data-toggle="dropdown"><?=getNombre()?> <i class="glyphicon glyphicon-menu-down"></i></a>
-					<ul class="dropdown-menu">
-						<li class="menu-header">
-							<?php
-								if(!file_exists('uploads/'. getImagenPerfil())){
-									?><img src="<?=base_url('dist/img/no_image.gif')?>" alt="" class="img-circle"><?
-								}else{
-									?><img src="<?=base_url('uploads/'. getImagenPerfil())?>" alt="" class="img-circle"><?
-								}
-							?>
-							<p><?=getNombreCompleto()?>
-								<small><?=getCorreo()?></small>
-							</p>
-						</li>
-						<li class="menu-footer">
-							<div class="pull-left">
-								<a href="<?=base_url('perfil')?>" class="btn btn-default btn-flat">Mi perfil</a>
-							</div>
-							<div class="pull-right">
-								<a href="<?=base_url('sesion/cerrar_sesion')?>" class="btn btn-default btn-flat">Cerrar sesión</a>
-							</div>
-						</li>
-					</ul>
-				</div>
+				<?php
+					if(sesionIniciada()){
+						?>
+						<div class="dropdown menu-perfil pull-right">
+							<a href="#" data-toggle="dropdown"><?=getNombre()?> <i class="glyphicon glyphicon-menu-down"></i></a>
+							<ul class="dropdown-menu">
+								<li class="menu-header">
+									<?php
+										if(!file_exists('uploads/'. getImagenPerfil())){
+											?><img src="<?=base_url('dist/img/no_image.gif')?>" alt="" class="img-circle"><?
+										}else{
+											?><img src="<?=base_url('uploads/'. getImagenPerfil())?>" alt="" class="img-circle"><?
+										}
+									?>
+									<p><?=getNombreCompleto()?>
+										<small><?=getCorreo()?></small>
+									</p>
+								</li>
+								<li class="menu-footer">
+									<div class="pull-left">
+										<a href="<?=base_url('perfil')?>" class="btn btn-default btn-flat">Mi perfil</a>
+									</div>
+									<div class="pull-right">
+										<a href="<?=base_url('sesion/cerrar_sesion')?>" class="btn btn-default btn-flat">Cerrar sesión</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<?
+					}
+				?>
 			</div>
 		</div>
 	</div>

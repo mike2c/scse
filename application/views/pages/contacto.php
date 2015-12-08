@@ -8,12 +8,22 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6 col-lg-6">
-				<form action="https://www.facebook.com" type="get">
+				<form action="<?=base_url('Mensaje/mensajeContacto')?>" method="post">
 					<div class="form-group has-feedback">
-						<input placeholder="nombre" type="text" name="nombre" class="form-control">
+						<input placeholder="nombre" type="text" name="nombre" class="form-control"
+						<?php
+							if(sesionIniciada()){
+								echo "value='".getNombreCompleto()."' disabled";
+							}
+						?>>
 					</div>
 					<div class="form-group ">
-						<input placeholder="correo" type="text" name="nombre" class="form-control">
+						<input placeholder="correo" type="text" name="nombre" class="form-control"
+						<?php
+							if(sesionIniciada()){
+								echo "value='".getCorreo()."' disabled";
+							}
+						?>>
 					</div>
 					<div class="form-group ">
 						<input placeholder="asunto" type="text" name="nombre" class="form-control">
@@ -21,7 +31,7 @@
 					<div class="form-group">
 						<textarea placeholder="mensaje" name="mensaje" id="mensaje" rows=5 class="form-control"></textarea>
 					</div>
-					<button class="btn btn-primary">Enviar</button>
+					<button class="btn btn-primary">Enviar mensaje</button>
 		
 				</form>
 			</div>
