@@ -19,18 +19,29 @@
 					<li><a href="#">Informacion</a>
 						<ul>
 							<li>
+								<a href="<?= base_url('egresado/listado') ?>">Lista de egresados</a>
 								<a href="<?= base_url('page/informacion_egresados') ?>">Información para egresados</a>
 								<a href="<?= base_url('page/informacion_empresas') ?>">Información para empresas</a>
 							</li>
 						</ul>
 					</li>
-					<li><a href="<?=base_url('Publicaciones/Cursos')?>">Cursos</a></li>
-					<li><a href="<?=base_url('Publicaciones/Becas')?>">Becas</a></li>
-					<li><a href="<?=base_url('registro')?>">Registro</a>
+					<li><a href="<?=base_url('Publicaciones/cursos')?>">Cursos</a></li>
+					<li><a href="<?=base_url('Publicaciones/becas')?>">Becas</a></li>
+					<?php
+						if(sesionIniciada()){
+							if(esEgresado()){
+								?>
+								<li><a href="<?=base_url('Publicaciones/bolsa_de_trabajo')?>">Bolsa de trabajo</a></li>
+								<?
+							}
+						}
+					?>
+					<li><a href="#">Registro</a>
 						<ul>
 							<li>
-								<a href="<?= base_url('page/informacion_egresados') ?>">Registrar empresa</a>
-								<a href="<?= base_url('page/informacion_empresas') ?>">Autenticar egresado</a>
+								<a href="<?= base_url('page/registrar_empresa') ?>">Registrar empresa</a>
+								<a href="<?= base_url('page/autenticar_egresado') ?>">Autenticar egresado</a>
+
 							</li>
 						</ul>
 					</li>
@@ -43,6 +54,31 @@
 						}
 					?>
 				</ul>
+				<div class="dropdown menu-perfil pull-right">
+					<a href="#" data-toggle="dropdown"><?=getNombre()?> <i class="glyphicon glyphicon-menu-down"></i></a>
+					<ul class="dropdown-menu">
+						<li class="menu-header">
+							<?php
+								if(!file_exists('uploads/'. getImagenPerfil())){
+									?><img src="<?=base_url('dist/img/no_image.gif')?>" alt="" class="img-circle"><?
+								}else{
+									?><img src="<?=base_url('uploads/'. getImagenPerfil())?>" alt="" class="img-circle"><?
+								}
+							?>
+							<p><?=getNombreCompleto()?>
+								<small><?=getCorreo()?></small>
+							</p>
+						</li>
+						<li class="menu-footer">
+							<div class="pull-left">
+								<a href="<?=base_url('perfil')?>" class="btn btn-default btn-flat">Mi perfil</a>
+							</div>
+							<div class="pull-right">
+								<a href="<?=base_url('sesion/cerrar_sesion')?>" class="btn btn-default btn-flat">Cerrar sesión</a>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

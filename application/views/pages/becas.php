@@ -16,7 +16,7 @@
 					</div>
 					<div class="box-body no padding">
 						<div class="table-responsive mailbox-messages">
-							<form method="post" id="formBuscar" action="<?=base_url("Publicaciones/Becas")?>">
+							<form method="post" id="formBuscar" action="<?=base_url("Publicaciones/becas")?>">
 								<table class="table table-hover table-striped">
 									<tbody>
 										<?php

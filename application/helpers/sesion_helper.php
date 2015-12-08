@@ -56,7 +56,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	
 	function getNombreCompleto(){
 		$val = getSesion();
-		return $val["nombre"]. " ". $val["apellido"];
+		if(isset($val["apellido"])){
+			return $val["nombre"]. " ". $val["apellido"];
+		}
+		return $val["nombre"];
 	}
 
 	function getUsuarioId(){

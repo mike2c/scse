@@ -16,7 +16,7 @@
 					</div>
 					<div class="box-body no padding">
 						<div class="table-responsive mailbox-messages">
-							<form method="post" id="formBuscar" action="<?=base_url("Publicaciones/BolsaDeTrabajo")?>">
+							<form method="post" id="formBuscar" action="<?=base_url("Publicaciones/bolsa_de_trabajo")?>">
 								<table class="table table-hover table-striped">
 									<tbody>
 										<?php

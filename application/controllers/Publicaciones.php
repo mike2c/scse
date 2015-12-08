@@ -30,7 +30,7 @@
 			$this->load->view("templates/footer");
 		}
 
-		public function BolsaDeTrabajo(){
+		public function bolsa_de_trabajo(){
 
 			$this->load->model("ficha_model");
 			$this->load->model("listas_model");

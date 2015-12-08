@@ -30,13 +30,15 @@ footer p{
 	background-color: #3c8dbc;
 }
 .menu{
+	padding-left: 0px;
 	list-style: none;
+	display: inline-block;
 	margin-bottom: 0px;
 }
 .menu > li{
 	display: inline-block;
-	height: 35px;
-	line-height: 35px;
+	height: 40px;
+	line-height: 40px;
 	color: white;
 	font-size: 14px;
 }
@@ -45,7 +47,8 @@ footer p{
 }
 .menu li a{
 	text-align: center;
-	padding: 0px 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 	display: block;
 	color: inherit;
 }
@@ -59,8 +62,9 @@ footer p{
 	background-color: white;
 	list-style: none;
 	z-index: 1;
-	min-width: 200px;
-	padding: 0px 5px;
+	min-width: 180px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 	padding-left: 0px;
 	position: absolute;
 	display: none;
@@ -76,8 +80,63 @@ footer p{
 	text-align: left;
 	padding: 0px 15px;
 }
+.menu li ul li a:hover{
+	background-color: rgba(240,240,240,0.8);
+}
 .menu li:hover > ul{
 	display: block;
+}
+.menu-perfil{
+
+	padding-left: 0px;
+	list-style: none;
+	display: inline-block;
+	margin-bottom: 0px;
+}
+.menu-perfil a{
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	color: white;
+	font-size: 14px;
+}
+.menu-perfil .dropdown-menu{
+	
+	margin-top: 0px;
+	padding: 0px 0px;
+	min-width: 278px;
+}
+.menu-header{
+	background-color: #3c8dbc;
+	padding: 20px 10px;
+	padding-bottom: 2px;
+}
+.menu-header p{
+	margin-top: 10px;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.8);
+	font-size: 17px;
+}
+.menu-header p span{
+	text-align: inherit;
+	display: block;
+}
+.menu-header img{
+	display: block;
+	margin: 0 auto;
+	height: 90px;
+	width: 90px;
+}
+.menu-footer{
+	padding: 10px 10px;
+	overflow: auto;
+}
+.menu-footer a{
+	padding: 0px 10px;
+	color: #666666;
+	height: 34px;
+	display: block;
+	line-height: 34px;
 }
 /*
 td a{
