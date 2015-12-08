@@ -18,8 +18,8 @@
 				throw new Exception("El parametro debe de ser un arreglo con los campos de la tabla", 1);
 			}
 
-			/*Regresa verdadero si la consulta se ejecuto correctamente*/
-			return true;
+			/*Retorna el ultimo id de la tabla que se le asigno al registro*/
+			return $this->db->insert_id();
 		}
 
 		/*Actualiza la tabla carrera con el nombre e id especificado en el arreglo*/
@@ -27,6 +27,12 @@
 
 			if(empty($data)){
 				throw new Exception("El nombre de la carrera no puede ser nulo o vacio.", 1);
+			}
+
+			if(isset($data['carrera_id'])){
+				$this->db->where('carrera_id',$data['carrera_id']);
+			}else{
+				throw new Exception("No se ha especificado un id de carrera", 1);
 			}
 
 			if(is_array($data)){
@@ -40,7 +46,7 @@
 		}
 
 		/*Retorna un valor boleano si el nombre de la carrera existe*/
-		function nombre_carrera_existe($nombre_carrera){
+		function existe_nombre_carrera($nombre_carrera){
 
 			if(!empty($nombre_carrera)){
 				$this->db->where('nombre_carrera',$nombre_carrera);
@@ -51,11 +57,11 @@
 				return true;
 			}
 
-			return false;
+			return $query->row();
 		}
 
 		/*Retorna un valor boleano si el id de la carrera existe*/
-		function carrera_existe($carrera_id){
+		function existe_carrera($carrera_id){
 
 			if(!empty($carrera_id)){
 				$this->db->where('carrera_id',$carrera_id);

@@ -87,6 +87,10 @@
 							$data_usuario[$llave4] = $valor4;
 						}
 
+						if(!$this->carrera_model->exist_carrera($data_egresado['carrera_id'])){
+							$data_egresado["carrera_id"] = $this->carrera_model->insert();
+						}
+
 						if($data_egresado["carnet"]!=""|| $data_persona["nombre"]!="" || $data_persona["apellido"]!="" || $data_persona["sexo"]!=""){
 							
 							$error = $this->has_error($data_egresado,$data_usuario);
@@ -117,7 +121,7 @@
 						}
 					}
 				}
-						
+
 				if($cont > 1){
 					#echo "Datos importados Correctamente";
 				}else{

@@ -21,6 +21,10 @@
 
 		function carrera(){
 			$this->load->model("carrera_model");
+
+			$last_id = $this->carrera_model->actualizar(array('nombre_carrera'=>'de mierda','carrera_id'=>6));
+			echo $last_id;
+			
 		}
 	}
 ?>
