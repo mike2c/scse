@@ -82,20 +82,62 @@
         </div>
         <div class="box-body">
         <?php 
-        if (isset($lista)) {
+        if (isset($publicaciones)) {
          ?> 
-          <ul class="product-list product-list-in-box">
-            
+          <ul class="products-list product-list-in-box">
+            <?php
+            if($publicaciones['curso']->num_rows() > 0){
+            ?>
+              <li class="item">
+                <div class="product-img">
+                  <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['curso']->row()->imagen_publicacion_id) ?>" alt="">
+                </div>
+                <div class="product-info">
+                  <a href="<?=base_url('publicaciones/cursos')?>" class="product-title"><?= $publicaciones['curso']->row()->nombre_curso ?> <span class="label label-warning pull-right">$<?=$publicaciones['curso']->row()->costo?></span></a>
+                  <span class="product-description">
+                    <?= $publicaciones['curso']->row()->descripcion ?>
+                  </span>
+                </div>
+              </li>
+            <?php
+            }if($publicaciones['beca']->num_rows() > 0){
+            ?>
+              <li class="item">
+                <div class="product-img">
+                  <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['beca']->row()->imagen_publicacion_id) ?>" alt="">
+                </div>
+                <div class="product-info">
+                  <a href="<?=$publicaciones['beca']->row()->url?>" class="product-title"><?= $publicaciones['beca']->row()->programa_academico ?></a>
+                  <span class="product-description">
+                    <?= $publicaciones['beca']->row()->descripcion ?>
+                  </span>
+                </div>
+              </li>
+            <?php
+            }if($publicaciones['ficha']->num_rows() > 0){
+            ?>
+              <li class="item">
+                <div class="product-img">
+                  <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['ficha']->row()->imagen_publicacion_id) ?>" alt="">
+                </div>
+                <div class="product-info">
+                  <a href="<?=base_url('publicaciones/bolsa_de_trabajo')?>" class="product-title"><?= $publicaciones['ficha']->row()->cargo ?></a>
+                  <span class="product-description">
+                    <?= $publicaciones['ficha']->row()->descripcion ?>
+                  </span>
+                </div>
+              </li>
+            <?php
+            }
+            ?>
           </ul>
         <?php
         }else{
         ?>
-          <div class="alert alert-danger alert-dismissable text-justify">
+          <div class="callout callout-info text-justify">
             <h4 >
-              <i class="icon glyphicon glyphicon-info-sign"></i>
-              Alerta
+              No hay Nuevas Publicaciones.
             </h4>
-            No hay Nuevas Publicaciones.
           </div>
         <?php
         }

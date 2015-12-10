@@ -90,7 +90,7 @@
 				$data["cursos"] = $this->curso_model->consultar_por_carrera($this->input->post("carrera"));
 				$data["carreras_marcadas"] = $this->input->post("carrera");
 			}else{
-				$data["cursos"] = $this->curso_model->listar(array("visible"=>TRUE,"fecha_alta >="=>date("Y-m-d")));
+				$data["cursos"] = $this->curso_model->listar(array("visible"=>TRUE,"fecha_alta >="=>date("Y-m-d")),"","fecha_publicacion");
 			}
 			
 			$data["carreras"] = $this->listas_model->listarCarreras();

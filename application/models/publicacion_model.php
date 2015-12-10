@@ -56,6 +56,14 @@
 			return $this->db->query("select publicacion_carrera_id,nombre_carrera, carrera.carrera_id,filtro from publicacion_carrera,carrera where publicacion_carrera.publicacion_id = '$publicacion_id' and carrera.carrera_id=publicacion_carrera.carrera_id;");
 		}
 
+		function listarUltimasPublicaciones(){
+			$data['curso'] = $this->db->query("select nombre_curso, imagen_publicacion_id, costo, descripcion from curso, publicacion where publicacion.visible = true and publicacion.fecha_alta >= curdate() and publicacion.publicacion_id = curso.publicacion_id order by publicacion.publicacion_id desc limit 1;");
+			$data['beca'] = $this->db->query("select programa_academico, imagen_publicacion_id, url, descripcion from beca, publicacion where publicacion.visible = true and publicacion.fecha_alta >= curdate() and publicacion.publicacion_id = beca.publicacion_id order by publicacion.publicacion_id desc limit 1;");
+			$data['ficha'] = $this->db->query("select cargo, imagen_publicacion_id,descripcion from ficha, publicacion where publicacion.visible = true and publicacion.fecha_alta >= curdate() and publicacion.publicacion_id = ficha.publicacion_id order by publicacion.publicacion_id desc limit 1;");
+
+			return $data;
+		}
+
 		function eliminarPublicacion($publicacion_id,$usuario_id){
 
 			$this->db->where("publicacion_id",$publicacion_id);
