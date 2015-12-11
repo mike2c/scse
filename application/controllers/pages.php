@@ -18,6 +18,7 @@
 
         	$data['title'] = ucfirst($page); // Capitalize the first letter
 			$data['publicaciones'] = $this->ficha_model->listarUltimasPublicaciones();
+
 			$this->load->view('templates/header');
 			$this->load->view('templates/menu');	 
 	        $this->load->view('pages/'.$page, $data);

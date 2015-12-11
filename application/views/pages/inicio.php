@@ -1,47 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
-          <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
-          <li data-target="#carousel-example-generic" data-slide-to="3" class=""></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="item active">
-            <img src="http://placehold.it/1200x400/3c8dbc/ffffff?text=Universidad+Nacional+De+Ingeniería" alt="First slide">
-            <div class="carousel-caption">
-              Recinto Universitario Augusto César Sandino <br>
-              Sistema de control y seguimiento de egresados
-            </div>
-          </div>
-          <div class="item">
-            <img src="http://placehold.it/1200x400/3c8dbc/ffffff?text=Curriculum+Vitae" alt="Second slide">
-            <div class="carousel-caption">
-              Crea y actualiza tu curriculum vitae con tu información personal, experiencia laboral y estudios realizados
-            </div>
-          </div>
-          <div class="item">
-            <img src="http://placehold.it/1200x400/3c8dbc/ffffff?text=Egresados" alt="Third slide">
-            <div class="carousel-caption">
-              Formen parte del programa de control y seguimiento de egresados de la universidad nacional de ingeniería, Recinto Universitario Augusto C. Sandino.
-            </div>
-          </div>
-          <div class="item">
-            <img src="http://placehold.it/1200x400/3c8dbc/ffffff?text=Empresas" alt="Third slide">
-            <div class="carousel-caption">
-              Agiliza el proceso de reclutamiento y selección de personal consultando en nuestra base de datos de egresados.
-            </div>
-          </div>
-        </div>
-        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-          <span class="fa fa-angle-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-          <span class="fa fa-angle-right"></span>
-        </a>
-      </div>
+   <div class="col-md-12 col-lg-12">
+      <ul class="pgwSlider">
+        <li><img src="<?=base_url()?>dist/img/Uni_banner.jpg" alt='SCSE' data-description='Recinto Universitario Augusto César Sandino - Sistema de control y seguimiento de egresados'></li>
+        <li><img src="<?=base_url()?>dist/img/Curriculum_banner.jpg" alt='Curriculum Vitae' data-description='Crea y actualiza tu curriculum vitae con tu información personal, experiencia laboral y estudios realizados.'></li>
+        <li><img src="<?=base_url()?>dist/img/Egresados_banner.jpg" alt='Egresados' data-description='Formen parte del programa de control y seguimiento de egresados de la universidad nacional de ingeniería, Recinto Universitario Augusto C. Sandino.'></li>
+        <li><img src="<?=base_url()?>dist/img/Empresas_banner.jpg" alt='Empresas' data-description='Agiliza el proceso de reclutamiento y selección de personal consultando en nuestra base de datos de egresados.'></li>
+      </ul>
     </div>
     <div class="col-md-8">
       <br>
@@ -90,7 +55,7 @@
             ?>
               <li class="item">
                 <div class="product-img">
-                  <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['curso']->row()->imagen_publicacion_id) ?>" alt="">
+                  <img src="<?= base_url('Imagen/deUltimaPublicacion/'.$publicaciones['curso']->row()->imagen_publicacion_id) ?>" alt="">
                 </div>
                 <div class="product-info">
                   <a href="<?=base_url('publicaciones/cursos')?>" class="product-title"><?= $publicaciones['curso']->row()->nombre_curso ?> <span class="label label-warning pull-right">$<?=$publicaciones['curso']->row()->costo?></span></a>
@@ -104,7 +69,7 @@
             ?>
               <li class="item">
                 <div class="product-img">
-                  <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['beca']->row()->imagen_publicacion_id) ?>" alt="">
+                  <img src="<?= base_url('Imagen/deUltimaPublicacion/'.$publicaciones['beca']->row()->imagen_publicacion_id) ?>" alt="">
                 </div>
                 <div class="product-info">
                   <a href="<?=$publicaciones['beca']->row()->url?>" class="product-title"><?= $publicaciones['beca']->row()->programa_academico ?></a>
@@ -118,7 +83,7 @@
             ?>
               <li class="item">
                 <div class="product-img">
-                  <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['ficha']->row()->imagen_publicacion_id) ?>" alt="">
+                  <img src="<?= base_url('Imagen/deUltimaPublicacion/'.$publicaciones['ficha']->row()->imagen_publicacion_id) ?>" alt=""> 
                 </div>
                 <div class="product-info">
                   <a href="<?=base_url('publicaciones/bolsa_de_trabajo')?>" class="product-title"><?= $publicaciones['ficha']->row()->cargo ?></a>
@@ -196,3 +161,19 @@
   </div>
 </div>
 <script src="<?=base_url()?>dist/js/app.min.js"></script>
+<script type="text/javascript" src="<?=base_url()?>dist/js/pgwslider.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<?=base_url()?>dist/css/pgwslider.min.css">
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('.pgwSlider').pgwSlider({
+        transitionEffect: "sliding",
+        intervalDuration: 5000,
+        transitionDuration: 700,
+        displayList: false,
+        displayControls: true,
+        adaptiveHeight: true,
+        verticalCentering: true,
+        touchControls: true,
+      });
+  });
+</script>
