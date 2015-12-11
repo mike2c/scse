@@ -19,17 +19,6 @@
 			echo $data["data"];
 		}
 
-		function deUltimaPublicacion($imagen_id){
-			$data = $this->imagenes->mostrar($imagen_id);
-			
-			if (empty($data['data'])) {
-				echo base_url('dis/img/imagen_publicaciones.jpg');
-			}else{
-				header("CONTENT-TYPE: $data[tipo]");
-				echo $data["data"];
-			}
-		}
-
 		function DeFichaOcupacional($ficha_id){
 			$data = $this->imagenes->DeFichaOcupacional($ficha_id);
 			$this->load->view("imagen",$data);

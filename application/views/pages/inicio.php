@@ -55,7 +55,17 @@
             ?>
               <li class="item">
                 <div class="product-img">
-                  <img src="<?= base_url('Imagen/deUltimaPublicacion/'.$publicaciones['curso']->row()->imagen_publicacion_id) ?>" alt="">
+                <?php
+                  if (isset($publicaciones['imagenCurso'])) {
+                ?>
+                    <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['curso']->row()->imagen_publicacion_id) ?>" alt="">
+                <?php
+                  }else{
+                ?>
+                    <img src="<?= base_url()?>dist/img/imagen_publicaciones.jpg" alt="">
+                <?php
+                  }
+                ?>
                 </div>
                 <div class="product-info">
                   <a href="<?=base_url('publicaciones/cursos')?>" class="product-title"><?= $publicaciones['curso']->row()->nombre_curso ?> <span class="label label-warning pull-right">$<?=$publicaciones['curso']->row()->costo?></span></a>
@@ -69,7 +79,18 @@
             ?>
               <li class="item">
                 <div class="product-img">
-                  <img src="<?= base_url('Imagen/deUltimaPublicacion/'.$publicaciones['beca']->row()->imagen_publicacion_id) ?>" alt="">
+                <?php
+                  if (isset($publicaciones['imagenBeca'])) {
+                ?>
+                    <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['beca']->row()->imagen_publicacion_id) ?>" alt="">
+                <?php
+                  }else{
+                ?>
+                    <img src="<?= base_url()?>dist/img/imagen_publicaciones.jpg" alt="">
+                <?php
+                  }
+                ?>
+                  
                 </div>
                 <div class="product-info">
                   <a href="<?=$publicaciones['beca']->row()->url?>" class="product-title"><?= $publicaciones['beca']->row()->programa_academico ?></a>
@@ -83,7 +104,17 @@
             ?>
               <li class="item">
                 <div class="product-img">
-                  <img src="<?= base_url('Imagen/deUltimaPublicacion/'.$publicaciones['ficha']->row()->imagen_publicacion_id) ?>" alt=""> 
+                <?php
+                  if (isset($publicaciones['imagenFicha'])) {
+                ?>
+                   <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['ficha']->row()->imagen_publicacion_id) ?>" alt=""> 
+                <?php
+                  }else{
+                ?>
+                    <img src="<?= base_url()?>dist/img/imagen_publicaciones.jpg" alt="">
+                <?php
+                  }
+                ?>
                 </div>
                 <div class="product-info">
                   <a href="<?=base_url('publicaciones/bolsa_de_trabajo')?>" class="product-title"><?= $publicaciones['ficha']->row()->cargo ?></a>
