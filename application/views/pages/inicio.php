@@ -56,7 +56,7 @@
               <li class="item">
                 <div class="product-img">
                 <?php
-                  if (isset($publicaciones['imagenCurso'])) {
+                  if ($imagenCurso) {
                 ?>
                     <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['curso']->row()->imagen_publicacion_id) ?>" alt="">
                 <?php
@@ -80,7 +80,7 @@
               <li class="item">
                 <div class="product-img">
                 <?php
-                  if (isset($publicaciones['imagenBeca'])) {
+                  if ($imagenBeca) {
                 ?>
                     <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['beca']->row()->imagen_publicacion_id) ?>" alt="">
                 <?php
@@ -105,7 +105,7 @@
               <li class="item">
                 <div class="product-img">
                 <?php
-                  if (isset($publicaciones['imagenFicha'])) {
+                  if ($imagenFicha) {
                 ?>
                    <img src="<?= base_url('Imagen/Cargar/'.$publicaciones['ficha']->row()->imagen_publicacion_id) ?>" alt=""> 
                 <?php
