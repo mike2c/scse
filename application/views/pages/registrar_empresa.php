@@ -69,7 +69,7 @@
 								<span class="input-group-addon">
 									<i class="glyphicon glyphicon-earphone"></i>
 								</span>
-								<input class="form-control" pattern="([0-9]{4})+[-]([0-9]{4})" placeholder="0000-0000" autocomplete="off" type="text" name="telefono">
+								<input class="form-control" id="telefono" pattern="([0-9]{4})+[-]([0-9]{4})" placeholder="0000-0000" autocomplete="off" type="text" name="telefono">
 							</div>
 							<br>
 
@@ -117,6 +117,7 @@
 </div>
 <script type="text/javascript" src="<?=base_url('dist/js/listas.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/validar.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('plugins/jquery.mask/jquery.mask.js')?>"></script>
 <script type="text/javascript">
 	
 	listar_departamentos(null,null,"form-control");
@@ -127,4 +128,6 @@
 	});
 	$(".active").removeClass("active");
 	$("#menu_registro").addClass("active");
+
+	$('#telefono').mask('0000-0000');
 </script>
