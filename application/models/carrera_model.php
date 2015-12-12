@@ -74,5 +74,15 @@
 
 			return false;
 		}
+
+		function id_carrera($nombre_carrera){
+					
+			$this->db->where("nombre_carrera",$nombre_carrera);
+			$query = $this->db->get('carrera');
+
+			if($query != null && $query->num_rows() > 0){
+				return $query->row('carrera_id');
+			}
+		}
 	}
 ?>

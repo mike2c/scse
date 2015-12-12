@@ -100,7 +100,7 @@
       <li class="treeview">
         <a href="#">
           <i class="fa fa-industry"></i>
-          <i class="fa fa-graduation-cap"></i> <span>Empresas</span> <i class="fa fa-angle-left pull-right"></i>      
+         <span>Empresas</span> <i class="fa fa-angle-left pull-right"></i>      
         </a>
         <ul class="treeview-menu">
           <li><a href="javascript:listarEmpresas()"><i class="fa fa-circle-o"></i> Listado</a></li>

@@ -1,12 +1,6 @@
 <?php 
-	require_once 'Excel_pdf/PHPExcel.php';
-	require_once 'Excel_pdf/PHPExcel/IOFactory.php';
 	
-	class Import_manager extends PHPExcel
-	{
-		public function __construct(){
-			parent::__construct();
-		}	
+	class Import_manager{
 		
 		function cargar_archivo($_FILES){	
 			if ( !$_FILES["excel"]["name"] == "" ){

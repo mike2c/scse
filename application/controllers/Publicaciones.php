@@ -84,7 +84,8 @@
 
 			$this->load->model("curso_model");
 			$this->load->model("listas_model");
-
+			$this->load->helper("fecha");
+			
 			if(isset($_POST["carrera"]) && !empty($_POST["carrera"])){
 			
 				$data["cursos"] = $this->curso_model->consultar_por_carrera($this->input->post("carrera"));

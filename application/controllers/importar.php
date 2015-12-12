@@ -11,6 +11,7 @@
 			$this->load->library(array("form_validation","Encrypter"));
 			$this->load->helper(array("form_helper","sesion","fecha","pass_gen_helper"));
 			$this->load->model("egresado_model");
+			$this->load->model("carrera_model");
 
 		}
 
@@ -26,6 +27,169 @@
 				$this->load->view("footer");
 			}
 		
+		}
+
+		function subir_archivo(){
+
+			if(!is_uploaded_file($_FILES['excel']['tmp_name'])){
+				// Mostrar vista de que no se pudo subir el archivo
+
+				return;
+			}
+
+			// Creamos una instancia de la clase Import_manager para cargar el archivo
+			$this->load->library("import_manager");
+			$file_name = $this->import_manager->cargar_archivo($_FILES);
+
+			// Llamamos a la funcion encargada de leer el archivo
+			$records = $this->leer_archivo($file_name);
+			$this->guardar_egresados($records);
+		}
+		
+		/**
+	     *Funcion que regresa una arreglo con los registros de el archivo
+	     */
+		private function leer_archivo($file_name){
+
+			$this->load->library('PHPExcel');
+
+			$objPHPExcel =	PHPExcel_IOFactory::load($file_name);
+			$objWorkSheet = $objPHPExcel->getActiveSheet();
+
+			$highestRow = $objWorkSheet->getHighestRow();
+			$highestColumn = $objWorkSheet->getHighestColumn();
+
+			$records = array();
+			if($highestRow > 1){// Preguntamos si el archivo contiene mas de una fila
+
+				for($row = 2; $row < $highestRow; $row++){
+
+					$arr = array(
+						"carnet"=>$objWorkSheet->getCellByColumnAndRow(0,$row)->getFormattedValue(),
+						"cedula"=>$objWorkSheet->getCellByColumnAndRow(1,$row)->getFormattedValue(),
+						"nombre"=>$objWorkSheet->getCellByColumnAndRow(2,$row)->getFormattedValue(),
+						"apellido"=>$objWorkSheet->getCellByColumnAndRow(3,$row)->getFormattedValue(),
+						"sexo"=>$objWorkSheet->getCellByColumnAndRow(4,$row)->getFormattedValue(),
+						"fecha_nacimiento"=>$objWorkSheet->getCellByColumnAndRow(5,$row)->getFormattedValue(),
+						"correo"=>$objWorkSheet->getCellByColumnAndRow(6,$row)->getFormattedValue(),
+						"telefono"=>$objWorkSheet->getCellByColumnAndRow(7,$row)->getFormattedValue(),
+						"celular"=>$objWorkSheet->getCellByColumnAndRow(8,$row)->getFormattedValue(),
+						"direccion"=>$objWorkSheet->getCellByColumnAndRow(9,$row)->getFormattedValue(),
+						"carrera"=>$objWorkSheet->getCellByColumnAndRow(10,$row)->getFormattedValue());
+					
+					// Agregamos el registro a el arreglo
+					array_push($records, $arr);
+				}
+			}else{
+				// Mensaje: El archivo no contiene registros
+			}
+
+			// Regresamos el arreglo
+			return $records;
+		}
+
+		private function guardar_egresados($records){
+
+			$this->load->model('egresado_model');
+			$this->load->helper('pass_gen');
+			$this->load->helper('fecha_helper');
+			$this->load->library('Encrypter');
+			$this->load->model('carrera_model');
+
+			// Validamos que el registro no este vacio y sea un arreglo
+			$cont = 1;
+			$error = "";
+			$correctos = array();// Almacena los registros que se han insertado correctamente
+			$fallidos = array();// Almacena los registros que no pudieron ser insertados
+
+			foreach ($records as $key => $value) {
+
+				// Si encontramos una fila vacia entonces nos salimos del for
+				if($this->empty_record($value)){
+					break;
+				}
+
+				$error = $this->buscar_errores($value);
+				// Si la variable es un string entonces retorno un error
+				if(is_string($error)){
+					$correctos = $value;
+				}else{
+
+					$data_persona = array(
+						"nombre"=>$value['nombre'],
+						"apellido"=>$value['apellido'],
+						"sexo"=>$value['sexo'],
+						"fecha_nacimiento"=>format_date($value['fecha_nacimiento']));
+					$data_contacto = array(
+						"telefono"=>$value['telefono'],
+						"celular"=>$value['celular'],
+						"direccion"=>$value['direccion']);
+					$data_usuario = array(
+						"correo"=>$value['correo'],
+						"clave"=> Encrypter::encrypt(generarClave(20)),// Contraseña generada aleatoriamente,
+						"direccion"=>$value['direccion']);
+					$data_egresado = array(
+						"carnet"=>$value['carnet'],
+						"cedula"=>$value['cedula'],
+						"carrera_id"=> $this->carrera_model->id_carrera($value['carrera']));
+				}
+
+				$cont++;
+			}
+
+			echo $cont;
+		}	
+
+		/**
+		 *Comprueba todos los campos de un registro estan vacios
+		 */
+		private function empty_record($arr){
+
+			foreach ($arr as $key => $value) {
+
+				if($value != "" || $value != null){
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		/**
+		 *Regresa un string describiendo un error si el registro
+		 *no se puede insertar
+		 */
+		private function buscar_errores($arr){
+
+			// Preguntamos si existe el objeto egresado_model, sino lo creamos.
+			if(isset($this->egresado_model)){
+				$this->load->model('egresado_model');
+			}
+
+			// Preguntamos si no esta cargado
+
+			// Si el arreglo esta vacio arrojamos una excepsión.
+			if(empty($arr)){
+				throw new Exception("El arreglo no puede ser vacio", 1);
+			}
+
+			if(empty($arr['carnet'])){
+				return "El numero de carnet no puede ser vacio";
+			}elseif(empty($arr['correo'])){
+				return "El numero de carnet no puede ser vacio";
+			}elseif(empty($arr['nombre']) || empty($arr['apellido'])){
+				return "El nombre no puede ser vacio";
+			}elseif(empty($arr['sexo'])){
+				return "No se ha definido el genero sexual";
+			}elseif($this->egresado_model->existe_correo($arr['correo'])){
+				return "El correo proporcionado ya esta en uso.";
+			}elseif(!empty($arr['cedula']) && $this->egresado_model->existe_cedula($arr['cedula'])){
+				return "La cedula que se esta intentando registrar ya pertenece a otra persona.";
+			}elseif($this->egresado_model->existe_carnet($arr['carnet'])){
+				return "El numero de carnet que estas intentando ingresar ya pertenece a otro egresado.";
+			}
+
+			return false;
 		}
 
 		function importarEgresados(){
@@ -87,8 +251,13 @@
 							$data_usuario[$llave4] = $valor4;
 						}
 
-						if(!$this->carrera_model->exist_carrera($data_egresado['carrera_id'])){
-							$data_egresado["carrera_id"] = $this->carrera_model->insert();
+						if(!$this->carrera_model->existe_nombre_carrera($data_egresado['carrera_id'])){
+							$nueva_carrera = array("nombre_carrera"=>$data_egresado['carrera_id']);
+							$data_egresado["carrera_id"] = $this->carrera_model->insertar($nueva_carrera);
+							echo "<br> Nueva carrera insertada ". $data_egresado["carrera_id"];
+						}else{
+							$data_egresado["carrera_id"] = $this->carrera_model->id_carrera($data_egresado["carrera_id"]);
+							echo "<br> Carrera ya creada". $data_egresado["carrera_id"];
 						}
 
 						if($data_egresado["carnet"]!=""|| $data_persona["nombre"]!="" || $data_persona["apellido"]!="" || $data_persona["sexo"]!=""){

@@ -7,7 +7,7 @@
 <div class="content">
 	<div class="box box-primary">
 		<div class="box-body">
-			<form class="form-inline" action="<?=base_url("importar/importarEgresados")?>" method="post" id="formImportarEgresados" enctype="multipart/form-data">
+			<form class="form-inline" action="<?=base_url("importar/subir_archivo")?>" method="post" id="formImportarEgresados" enctype="multipart/form-data">
 								
 				<input type="hidden" value="upload" name="action">
 				<label for="">Selecciona un archivo de excel</label><br>

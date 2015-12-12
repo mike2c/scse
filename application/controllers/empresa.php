@@ -111,6 +111,7 @@
 				$data_empresa['nombre_empresa'] = $this->input->post('nombre_empresa');
 				
 				#Tabla usuario
+				$data_usuario['imagen'] = 'dist/img/no_image.gif';
 				$data_usuario['correo'] = $this->input->post('correo');
 				$data_usuario['clave'] = Encrypter::encrypt($this->input->post('clave'));
 				$data_usuario['activo'] = TRUE;
@@ -124,7 +125,7 @@
 				
 				echo "<script type='text/javascript'>
 					alert('Registrado');
-					window.location='". base_url('login') ."';
+					window.location='". base_url('sesion/iniciar_sesion') ."';
 				</script>";
 	
 			}/*END ELSE*/

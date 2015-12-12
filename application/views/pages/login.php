@@ -29,9 +29,11 @@
 			</div>
 			<button class="btn btn-primary btn-flat" type="submit">Aceptar</button>
 			<hr>
-			<a href="<?=base_url()?>">He olvidado mi contraseña</a>
+			<a href="<?=base_url('page/recuperar_pass')?>">He olvidado mi contraseña</a>
 			<br>
-			<a href="<?=base_url()?>">Registrarme (empresa)</a>
+			<a href="<?=base_url('page/registrar_empresa')?>">Registrarme (empresa)</a>
+			<br>
+			<a href="<?=base_url('page/autenticar_egresado')?>">Autenticar (egresado)</a>
 		</form>
 	</div>
 </div>

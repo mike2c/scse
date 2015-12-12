@@ -112,6 +112,10 @@
 													<td><?= $row->duracion; ?> meses</td>
 												</tr>
 												<tr>
+													<td>Fecha de inicio</td>
+													<td><?= date_toDMY($row->inicio);?></td>
+												</tr>
+												<tr>
 													<td>Costo</td>
 													<td> <?= "$".$row->costo; ?> dólares</td>
 												</tr>

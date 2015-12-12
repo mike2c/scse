@@ -76,7 +76,7 @@
 							echo "<td>$row->sociedad</td>";
 							echo "<td>$row->correo</td>";
 							echo "<td>$row->sitio_web</td>";
-							echo "<td>". (($row->autenticada)? "Autenticada":"Sin autenticar") ."</td>";
+							//echo "<td>". (($row->autenticada)? "Autenticada":"Sin autenticar") ."</td>";
 							
 							echo "<td>$row->telefono</td>";
 							echo "<td>$row->celular</td>";
