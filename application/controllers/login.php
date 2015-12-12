@@ -11,10 +11,10 @@
 		}
 
 		function index(){
-			$this->load->view("cabecera");
-			$this->load->view("nav");
-			$this->load->view("login");
-			$this->load->view("footer");
+			$this->load->view("templates/header");
+			$this->load->view("templates/menu");
+			$this->load->view("pages/login");
+			$this->load->view("templates/footer");
 		}
 
 		function IniciarSesion(){
@@ -54,4 +54,3 @@
 			<?
 		}
 	} 
-}

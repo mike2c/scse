@@ -107,7 +107,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6 col-md-offset-3">
 				<div id="respuesta" class="box box-danger box-body hidden-content">
 
 				</div>
