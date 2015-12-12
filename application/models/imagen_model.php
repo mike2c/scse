@@ -28,5 +28,21 @@
 
 			return $data;
 		}
+
+		function existe($imagen_id){
+
+			$this->db->where("imagen_publicacion_id",$imagen_id);
+			$result = $this->db->get("imagen_publicacion");
+
+			if($result != null && $result->num_rows() == 1){
+				
+				$imagen = $result->row('imagen');
+				if(!empty($imagen)){
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 ?>

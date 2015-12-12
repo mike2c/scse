@@ -13,6 +13,7 @@
 		function page($page = "inicio"){
 			$this->load->model("ficha_model");
 			$this->load->model("imagen_model");
+		
 			if ( ! file_exists(APPPATH.'/views/pages/'.$page.'.php')){
             	show_404();
         	}
@@ -23,7 +24,7 @@
 			$imagenFicha= $this->imagen_model->mostrar($data['publicaciones']['ficha']->row()->imagen_publicacion_id);
 			$imagenBeca= $this->imagen_model->mostrar($data['publicaciones']['beca']->row()->imagen_publicacion_id);
 			$imagenCurso= $this->imagen_model->mostrar($data['publicaciones']['curso']->row()->imagen_publicacion_id);
-
+		
 			if (!empty($imagenFicha)) {
 				$data['publicaciones']['imagenFicha'] = $imagenFicha;
 			}

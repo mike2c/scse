@@ -321,6 +321,8 @@
 			$data["curriculum"] = $this->modelo->listarCurriculo($curriculum_id);
 			$data["privacidad"] = $priv;
 
+			
+			
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");
 			$this->load->view("pages/ver_curriculum",$data);
