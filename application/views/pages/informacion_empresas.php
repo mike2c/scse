@@ -14,7 +14,7 @@
 				</div>
 				
 				<div class="box-body text-justify">
-					Para registrar una cuenta de empresa, completa la información del siguiente <a href="<?php echo base_url('pages/registro_empresa') ?>"> formulario </a>
+					Para registrar una cuenta de empresa, completa la información del siguiente <a href="<?php echo base_url('page/registrar_empresa') ?>"> formulario </a>
 				</div>
 				
 				<div class="box-header with-border">

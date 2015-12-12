@@ -23,7 +23,7 @@
       </div>
       <div class="form-group">
         <label>Pagina o link con mas información:</label>
-        <input autocomplete="off" type="text" class="form-control" name="url" id="url" value="<?=$beca->url?>">
+        <input autocomplete="off" data-parsley-type="url" type="url" class="form-control" name="url" id="url" value="<?=$beca->url?>">
         <p class="help-block hidden-content"><i class="fa fa-info-circle"></i> Sitio web opcional en donde el estudiante puede encontrar mas información.</p>
       </div>
 
@@ -91,6 +91,8 @@
   </div><!-- /.box-body -->
 </div>
 <script type="text/javascript" src="<?=base_url('plugins/jquery-form/jquery.form.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('plugins/Parsley.js-master/dist/parsley.min.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('plugins/Parsley.js-master/dist/i18n/es.js')?>"></script>
 <script type="text/javascript">
   $("#fecha_alta").datepicker();
   $("#inicio").datepicker();
