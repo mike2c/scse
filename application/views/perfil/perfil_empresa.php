@@ -68,7 +68,7 @@
 								<div class="form-group">
 									<label class="control-label col-sm-2">Sitio web</label>
 									<div class="col-sm-6">
-										<input value="<?=$perfil->sitio_web?>" placeholder="sitio web" name="sitio_web" type="text" class="form-control input-sm">
+										<input value="<?=$perfil->sitio_web?>" placeholder="sitio web" name="sitio_web" data-parsley-type="url" type="url" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="form-group">
@@ -188,6 +188,8 @@
 <script type="text/javascript" src="<?=base_url('dist/js/listas.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('dist/js/validar.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('plugins/jquery.mask/jquery.mask.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('plugins/Parsley.js-master/dist/parsley.min.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('plugins/Parsley.js-master/dist/i18n/es.js')?>"></script>
 <script>
 	$(".tel").mask('0000-0000', {placeholder:'0000-0000'});
 	$(".cedula").mask('000-000000-0000A',
