@@ -46,7 +46,7 @@
 					?>
 					<div class="modal-footer">
 						<button id="btn_borrador" type="button" onclick="actualizar_borrador()" class="btn btn-default pull-left">Guardar</button>
-						<button id="btn_cancelar" type="button" onclick="cancelar_envio()" class="btn btn-danger pull-right">Cancelar</button>
+						<button id="btn_cancelar" type="button" onclick="cancelar_envio_borrador()" class="btn btn-danger pull-right">Cancelar</button>
 						<button id="btn_enviar" type="button" onclick="enviar_borrador()" class="btn btn-primary pull-right btn-send">Enviar mensaje</button>
 					</div>
 					<img class="loading-img hidden-content" src="<?=base_url('dist/img/loading.gif')?>" alt="No se puede visualizar la imagen.">
@@ -76,7 +76,7 @@
 		listar_usuarios(1,$("#lista_usuarios_eb"));
 	}
 
-	function cancelar_envio(){
+	function cancelar_envio_borrador(){
 		$("#editar_borrador").modal("hide");
 	}
 	
