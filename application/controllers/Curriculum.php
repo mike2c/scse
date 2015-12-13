@@ -296,6 +296,13 @@
 			}
 		}
 		
+		function cargarVistaError(){
+			$this->load->view("templates/header");
+			$this->load->view("templates/menu");
+			$this->load->view("curriculum/errores");
+			$this->load->view("templates/footer");
+			return;
+		}
 
 		/*Mostrar curriculum*/
 		function Ver($id){
@@ -305,14 +312,17 @@
 			$priv = $this->privacidad->consultar_privacidad($id);
 		
 			if($priv == FALSE){
-				exit("<p>Esta información no esta disponible en este momento.</p>");
+				$this->cargarVistaError();
+				return;
 			}else{
 				if($priv["info_curriculum"] == "empresas"){
 					if(!esPublicador() && !esEmpresa() && !esAdministrador()){
-						exit("<p>Esta información no esta disponible para tí.</p>");
+						$this->cargarVistaError();
+						return;
 					}
 				}elseif($priv["info_curriculum"] == "privada"){
-					exit("<p>Esta información no esta disponible para tí.</p>");
+					$this->cargarVistaError();
+					return;
 				}
 			}
 
