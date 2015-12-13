@@ -7,7 +7,7 @@
 			parent::__construct();
 			
 			$this->load->library("session");
-			$this->load->library("Correo");
+			$this->load->library("EnvioCorreo");
 			$this->load->helper(array("imagen","fecha","sesion","texto"));
 			$this->load->model("egresado_model");
 			$this->load->model("mensaje_model");
@@ -110,7 +110,7 @@
 			}
 			$correoInfo["asunto"] = "NUEVO CURSO PUBLICADO";
 			$correoInfo["mensaje"] = "La Universidad Nacional de Ingeniería ha publicado un nuevo Curso, puedes obtener mas información sobre el en el siguiente enlace: ". base_url('publicaciones/Curso') ;
-			$this->correo->correoPublicaciones($correoInfo);
+			$this->enviocorreo->correoPublicaciones($correoInfo);
 			$msgInfo["asunto"] = "NUEVO CURSO PUBLICADO";
 				$msgInfo["mensaje"] = "La Universidad Nacional de Ingeniería ha publicado un nuevo Curso, puedes obtener mas información sobre el en el siguiente enlace: <a href='". base_url('publicaciones/Curso').">Cursos</a>" ;
 				$msgInfo["fecha_envio"] = date("Y-m-d");

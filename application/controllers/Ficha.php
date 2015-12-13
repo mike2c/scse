@@ -8,7 +8,7 @@
 			
 			$this->load->model("ficha_model","ficha");
 			$this->load->model("egresado_model");
-			$this->load->library("Correo");
+			$this->load->library("EnvioCorreo");
 			$this->load->model("mensaje_model");
 			if(!isset($_SESSION["publicador"]) && !isset($_SESSION["empresa"]) && !isset($_SESSION["administrador"])){
 				show_404();
@@ -185,7 +185,7 @@
 			}
 			$correoInfo["asunto"] = "NUEVO FICHA OCUPACIONAL PUBLICADA";
 			$correoInfo["mensaje"] = "La Universidad Nacional de Ingeniería ha publicado una nueva Ficha Ocupacional, puedes obtener mas información sobre ella en el siguiente enlace: ". base_url('publicaciones/BolsaDeTrabajo') ;
-			$this->correo->correoPublicaciones($correoInfo);
+			$this->enviocorreo->correoPublicaciones($correoInfo);
 			$msgInfo["asunto"] = "NUEVO FICHA OCUPACIONAL PUBLICADA";
 			$msgInfo["mensaje"] = "La Universidad Nacional de Ingeniería ha publicado una nueva Ficha Ocupacional, puedes obtener mas información sobre ella en el siguiente enlace: <a href='". base_url('publicaciones/BolsaDeTrabajo')."'>Fichas Ocupacionales</a>" ;
 			$msgInfo["fecha_envio"] = date("Y-m-d");

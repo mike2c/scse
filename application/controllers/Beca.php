@@ -9,7 +9,7 @@
 			$this->load->model("listas_model");
 			$this->load->model("egresado_model");
 			$this->load->model("mensaje_model");
-			$this->load->library("Correo");
+			$this->load->library("EnvioCorreo");
 			if(!isset($_SESSION["publicador"]) && !isset($_SESSION["administrador"])){
 				show_404();
 			}
@@ -51,7 +51,7 @@
 			}
 			$correoInfo["asunto"] = "NUEVA BECA PUBLICADA";
 			$correoInfo["mensaje"] = "La Universidad Nacional de Ingeniería ha publicado una nueva Beca puedes obtener mas información sobre ella en el siguiente enlace: ". base_url('publicaciones/Becas') ;
-			$this->correo->correoPublicaciones($correoInfo);
+			$this->enviocorreo->correoPublicaciones($correoInfo);
 			
 			$msgInfo["asunto"] = "NUEVA BECA PUBLICADA";
 			$msgInfo["mensaje"] = "La Universidad Nacional de Ingeniería ha publicado una nueva Beca puedes obtener mas información sobre ella en el siguiente enlace: <a href='". base_url('publicaciones/Becas')."'>Becas</a>" ;

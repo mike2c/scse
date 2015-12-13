@@ -7,9 +7,8 @@ class Correo extends CI_Controller{
 		parent::__construct();
 
 		$this->load->model("mensaje_model","mensaje");
-		$this->load->library("session");
+		$this->load->library("Session");
 		$this->load->helper("sesion");
-		$this->load->library("Correo");
 					
 		if(!sesionIniciada()){
 			show_404();
@@ -188,15 +187,13 @@ class Correo extends CI_Controller{
 
 	function enviarCorreo($data,$destino){
 		$this->load->model("egresado_model");
-
-		$data['nombre'] =  getNombreCompleto();
-		$data['correo'] = getCorreo();
+		$this->load->library("EnvioCorreo");
 
 		foreach($destino as $key => $value){
-			$destinatario = $this->egresado_model->listar_usuario($value);
+			$destinatario = $this->egresado_model->listar_usuario(array('usuario_id'=>$value));
 			$data['destinatario'] = $destinatario->row('correo');
-			$this->Correo->correoMensaje($data);
 		}
+		$this->enviocorreo->correoMensaje($data);
 	}
 
 	function guardar_borrador(){
