@@ -232,7 +232,7 @@
 					}
 										
 					// Insertar los datos en la base de datos
-					$this->egresado_model->insertarEgresado($data_egresado,$data_persona,$data_usuario,$data_contacto);
+					$privacidad['usuario_id'] = $this->egresado_model->insertarEgresado($data_egresado,$data_persona,$data_usuario,$data_contacto);
 					$privacidad["foto_perfil"] = "empresas";
 					$privacidad["info_contacto"] = "empresas";
 					$privacidad["info_ubicacion"] = "empresas";
