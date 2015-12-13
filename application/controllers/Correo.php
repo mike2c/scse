@@ -9,6 +9,7 @@ class Correo extends CI_Controller{
 		$this->load->model("mensaje_model","mensaje");
 		$this->load->library("session");
 		$this->load->helper("sesion");
+		$this->load->library("Correo");
 					
 		if(!sesionIniciada()){
 			show_404();
@@ -181,7 +182,22 @@ class Correo extends CI_Controller{
 			$this->mensaje->registrarEnTablaEliminados(getUsuarioId(),$data_destino["mensaje_id"]);
 			$this->mensaje->registrarEnTablaEliminados($data_destino["usuario_id"],$data_destino["mensaje_id"]);
 		}
+
+		$this->enviarCorreo($data_mensaje,$arr_usuarios);
 	}	
+
+	function enviarCorreo($data,$destino){
+		$this->load->model("egresado_model");
+
+		$data['nombre'] =  getNombreCompleto();
+		$data['correo'] = getCorreo();
+
+		foreach($destino as $key => $value){
+			$destinatario = $this->egresado_model->listar_usuario($value);
+			$data['destinatario'] = $destinatario->row('correo');
+			$this->Correo->correoMensaje($data);
+		}
+	}
 
 	function guardar_borrador(){
 

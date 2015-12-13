@@ -32,7 +32,7 @@
                 echo "<td><input type='checkbox' class='toggle-publicacion' value='$row->publicacion_id'></td>";  
               }              
               echo "</tr>";
-              $cont++;
+              $cont++; 
             }
           }else{
             ?>

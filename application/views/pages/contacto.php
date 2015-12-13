@@ -18,7 +18,7 @@
 						?>>
 					</div>
 					<div class="form-group ">
-						<input placeholder="correo" type="text" name="nombre" class="form-control"
+						<input placeholder="correo" type="text" name="correo" class="form-control"
 						<?php
 							if(sesionIniciada()){
 								echo "value='".getCorreo()."' disabled";
@@ -26,7 +26,7 @@
 						?>>
 					</div>
 					<div class="form-group ">
-						<input placeholder="asunto" type="text" name="nombre" class="form-control">
+						<input placeholder="asunto" type="text" name="asunto" class="form-control">
 					</div>
 					<div class="form-group">
 						<textarea placeholder="mensaje" name="mensaje" id="mensaje" rows=5 class="form-control"></textarea>
