@@ -5,14 +5,13 @@ class Correo extends CI_Controller{
 
 	function __construct(){
 		parent::__construct();
-
-		$this->load->model("mensaje_model","mensaje");
-		$this->load->library("Session");
-		$this->load->helper("sesion");
-					
 		if(!sesionIniciada()){
 			show_404();
 		}
+
+		$this->load->model("mensaje_model","mensaje");
+		$this->load->helper("sesion");
+		$this->load->model('curriculum_model');
 	}
 
 	function index(){
@@ -50,7 +49,9 @@ class Correo extends CI_Controller{
 		$data["cantidad_inbox"] = $this->mensaje->contar_inbox(getUsuarioId());
 		$data["cantidad_sent"] = $this->mensaje->contar_sent(getUsuarioId());
 		$data["cantidad_drafts"] = $this->mensaje->contar_drafts(getUsuarioId());
-
+		$id = $this->curriculum_model->getEgresadoID(getUsuarioId());
+		$data['tiene_curriculum'] = $this->curriculum_model->existe($id->egresado_id);
+		
 		$data["mensajes"] = $result;
 		$this->load->view("templates/header");
 		$this->load->view("templates/menu");
@@ -76,6 +77,8 @@ class Correo extends CI_Controller{
 		$data["cantidad_inbox"] = $this->mensaje->contar_inbox(getUsuarioId());
 		$data["cantidad_sent"] = $this->mensaje->contar_sent(getUsuarioId());
 		$data["cantidad_drafts"] = $this->mensaje->contar_drafts(getUsuarioId());
+		$id = $this->curriculum_model->getEgresadoID(getUsuarioId());
+		$data['tiene_curriculum'] = $this->curriculum_model->existe($id->egresado_id);
 
 		$this->load->view("templates/header");
 		$this->load->view("templates/menu");
@@ -98,7 +101,9 @@ class Correo extends CI_Controller{
 		$data["cantidad_inbox"] = $this->mensaje->contar_inbox(getUsuarioId());
 		$data["cantidad_sent"] = $this->mensaje->contar_sent(getUsuarioId());
 		$data["cantidad_drafts"] = $this->mensaje->contar_drafts(getUsuarioId());
-		
+		$id = $this->curriculum_model->getEgresadoID(getUsuarioId());
+		$data['tiene_curriculum'] = $this->curriculum_model->existe($id->egresado_id);
+
 		$data["mensajes"] = $result;
 		$this->load->view("templates/header");
 		$this->load->view("templates/menu");
@@ -189,10 +194,13 @@ class Correo extends CI_Controller{
 		$this->load->model("egresado_model");
 		$this->load->library("EnvioCorreo");
 
+		$cont = 0;
 		foreach($destino as $key => $value){
 			$destinatario = $this->egresado_model->listar_usuario(array('usuario_id'=>$value));
-			$data['destinatario'] = $destinatario->row('correo');
+			$data['destinatario'][$cont] = $destinatario->row('correo');
+			$cont++;
 		}
+
 		$this->enviocorreo->correoMensaje($data);
 	}
 

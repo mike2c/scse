@@ -33,20 +33,24 @@
 					</div>
 					<?php
 						if(esEgresado()){
-							?>
-							<div class="form-group">
-								<div class="checkbox">
-									<label><input type="checkbox" name="curriculum_adjuntado" id="curriculum_adjuntado"> Adjuntar curriculum</label>
+							if($tiene_curriculum){
+								?>
+								<div class="form-group">
+									<div class="checkbox">
+										<label><input type="checkbox" name="curriculum_adjuntado" id="curriculum_adjuntado"> Adjuntar curriculum</label>
+									</div>
 								</div>
-							</div>
-							<?
+								<?
+							}
 						}
 					?>
 					<div class="modal-footer">
 						<button id="btn_borrador" type="button" onclick="guardar_borrador()" class="btn btn-default pull-left">Borrador</button>
+						
 						<button id="btn_cancelar" type="button" onclick="cancelar_envio()" class="btn btn-danger pull-right">Cancelar</button>
-						<button id="btn_enviar" type="button" onclick="enviar_mensaje()" class="btn btn-primary pull-right">Enviar mensaje</button>
+						<button id="btn_enviar" type="button" onclick="enviar_mensaje()" class="btn btn-primary pull-right btn-send">Enviar mensaje</button>
 					</div>
+					<img class="loading-img hidden-content" src="<?=base_url('dist/img/loading.gif')?>" alt="No se puede visualizar la imagen.">
 				</form>
 			</div>
 		</div>

@@ -316,12 +316,13 @@
 				}
 			}
 
+			$r = $this->modelo->getEgresadoID($id);
+			$data['existe_curriculum'] = $this->modelo->existe($r->egresado_id);
+
 			$curriculum_id = $this->modelo->getCurriculumID($id);
 			$data["egresado"] = $this->egresado->listar(array("usuario_id"=>$id))->row();
 			$data["curriculum"] = $this->modelo->listarCurriculo($curriculum_id);
 			$data["privacidad"] = $priv;
-
-			
 			
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");

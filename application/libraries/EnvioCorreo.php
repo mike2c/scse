@@ -34,13 +34,17 @@
 			$CI->email->to($data["destinatario"]);
 			$CI->email->subject($data["asunto"]);
 			$CI->email->message($data["mensaje"]);
-	
-			if (!$CI->email->send()) {
-				echo "ERROR, no se pudo enviar el mensaje";
-				echo $CI->email->print_debugger();
-			}else {
-				return TRUE;
-			}
+		
+			$CI->email->send() or die();
 		}
+
+		/*if () {
+			// Devuelve verdadero si el mensaje se envio
+			
+			# "ERROR, no se pudo enviar el mensaje";
+			# $CI->email->print_debugger();
+		}else {
+			return TRUE;
+		}*/
 	}
 ?>

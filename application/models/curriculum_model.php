@@ -164,5 +164,18 @@
 			$this->db->where("curriculum_id",$id);
 			$this->db->delete("curriculum");
 		}
+
+		function existe($egresado_id){
+
+			$query = $this->db->query("select curriculum.curriculum_id from egresado,curriculum
+				where egresado.egresado_id = curriculum.egresado_id
+				and egresado.egresado_id = ". $egresado_id);
+
+			if($query->num_rows() == 1){
+				return true;
+			}
+			
+			return false;
+		}
 	}
 ?>

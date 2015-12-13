@@ -58,7 +58,12 @@ function enviar_mensaje(){
 		curr_adj: 	curriculum_adjuntado()
 	};
 
+	$(".btn-send").attr("disabled",'true');
+	$(".loading-img").show();
+
 	ajax_without_return(baseURL("correo/enviar_mensaje"),mensaje,function(){
+		$(".btn-send").attr("disabled",'false');
+		$(".loading-img").hide();
 		alert("Mensaje enviado");
 		window.location = window.location;
 		$("#redactar_mensaje").modal("hide");
@@ -88,7 +93,14 @@ function enviar_borrador(){
 		curr_adj: 	curriculum_adjuntado(true)
 	};
 
+
+	$(".btn-send").attr("disabled",'true');
+	$(".loading-img").show();
+
 	ajax_without_return(baseURL("correo/enviar_mensaje"),mensaje,function(){
+
+		$(".btn-send").attr("disabled",'false');
+		$(".loading-img").hide();
 		alert("Mensaje enviado");
 		window.location = window.location;
 		$("#redactar_mensaje").modal("hide");
@@ -292,7 +304,7 @@ function after_list(){
 	$("#destinatario").chosen({
 			width: "570px",
 			placeholder_text_multiple: "selecciona un usuario de la lista",
-			max_selected_options: 1
+			max_selected_options: 2
 		});
 }
 /*Leer mensajes individuales*/

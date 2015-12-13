@@ -138,6 +138,16 @@ footer p{
 	display: block;
 	line-height: 34px;
 }
+
+.loading-img{
+	position: absolute;
+	z-index: 2;
+	left: 50%;
+	margin-left: -35px;
+	width: 60px;
+	top:50%;
+	margin-top: -40px;
+}
 /*
 td a{
 	display: block;
