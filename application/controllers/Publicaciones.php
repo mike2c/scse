@@ -31,23 +31,25 @@
 		}
 
 		public function bolsa_de_trabajo(){
+			if (sesionIniciada() && esEgresado()) {
+				$this->load->model("ficha_model");
+				$this->load->model("listas_model");
 
-			$this->load->model("ficha_model");
-			$this->load->model("listas_model");
+				if(isset($_POST["carrera"]) && !empty($_POST["carrera"])){
+					$data["fichas"] = $this->ficha_model->consultar_publicadas(getUsuarioId(),$this->input->post("carrera"));
+						$data["carreras_marcadas"] = $this->input->post("carrera");
+				}else{
+					$data["fichas"]= $this->ficha_model->consultar_publicadas(getUsuarioId());
+				}
 
-			if(isset($_POST["carrera"]) && !empty($_POST["carrera"])){
-				$data["fichas"] = $this->ficha_model->consultar_publicadas(getUsuarioId(),$this->input->post("carrera"));
-					$data["carreras_marcadas"] = $this->input->post("carrera");
+				$data["carreras"] = $this->listas_model->listarCarreras();
+				$this->load->view("templates/header");
+				$this->load->view("templates/menu");
+				$this->load->view("pages/bolsa_de_trabajo",$data);
+				$this->load->view("templates/footer");
 			}else{
-				$data["fichas"]= $this->ficha_model->consultar_publicadas(getUsuarioId());
+				show_404();
 			}
-
-			$data["carreras"] = $this->listas_model->listarCarreras();
-			$this->load->view("templates/header");
-			$this->load->view("templates/menu");
-			$this->load->view("pages/bolsa_de_trabajo",$data);
-			$this->load->view("templates/footer");
-			
 		}
 		
 		public function aplicarFicha(){

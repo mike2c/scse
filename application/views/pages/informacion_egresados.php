@@ -1,3 +1,10 @@
+<?php
+	if (sesionIniciada()) {
+		$url = base_url('Curriculum/Crear');
+	}else{
+		$url = base_url('login');
+	}
+?>
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12 col-xs-12">
@@ -38,7 +45,7 @@
 									<div class="box-body">
 										Al hacer click en el formulario de currículo desde el perfil de usuario, los egresados o graduados podrán crear su hoja de vida sin la tediosa necesidad de subir archivos, simplemente deben completar la información requerida por el formulario y guardarla.
 										Una de las ventajas de esto es que podrán actualizar la información de sus currículos en cualquier momento sin necesidad de subir un archivo siempre que deseen agregar información en su currículo, volviendo este proceso más rápido y menos tedioso.
-										Si aún no has completado el formulario de currículo, haz click <a href="<?= base_url('Curriculum/Crear') ?>">aquí.
+										Si aún no has completado el formulario de currículo, haz click <a href="<?= $url ?>">aquí.
 									</div>
 								</div>							
 							</div>
@@ -56,7 +63,7 @@
 									<div class="box-body">
 										La bolsa de trabajo muestra las ofertas de empleo publicadas por las empresas, estas publicaciones estarán clasificadas según las carreras impartidas en el Recinto Universitario Augusto C. Sandino, esto con el fin de crear un filtro en las publicaciones y mostrar únicamente lo relevante a cada usuario.
 										Los egresados y graduados tendrán la posibilidad de navegar en la bolsa de trabajo, y podrán enviar su currículo si creen que cumple con los requisitos del cargo ofertado.
-										Si eres un egresado o graduado del Recinto Universitario Augusto C. Sandino te invitamos a que pruebes la <a href="<?= base_url('Publicaciones/BolsaDeTrabajo') ?>">bolsa de trabajo.</a>
+										Si eres un egresado o graduado del Recinto Universitario Augusto C. Sandino te invitamos a que pruebes la <a href="<?= base_url('Publicaciones/bolsa_de_trabajo') ?>">bolsa de trabajo.</a>
 									</div>
 								</div>
 							</div>
