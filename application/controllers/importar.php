@@ -176,6 +176,7 @@
 		private function guardar_egresados($records){
 
 			$this->load->model('egresado_model');
+			$this->load->model('privacidad_model');
 			$this->load->helper('pass_gen');
 			$this->load->helper('fecha_helper');
 			$this->load->library('Encrypter');
@@ -232,6 +233,13 @@
 										
 					// Insertar los datos en la base de datos
 					$this->egresado_model->insertarEgresado($data_egresado,$data_persona,$data_usuario,$data_contacto);
+					$privacidad["foto_perfil"] = "empresas";
+					$privacidad["info_contacto"] = "empresas";
+					$privacidad["info_ubicacion"] = "empresas";
+					$privacidad["info_curriculum"] = "empresas";
+					$privacidad["info_adicional"] = "empresas";
+					$this->privacidad_model->configurar_privacidad($privacidad);
+
 					array_push($correctos, $value);
 				}
 
