@@ -77,7 +77,7 @@
 								<div class="form-group has-feedback">
 									<label class="control-label col-sm-2">F. de nacimiento</label>
 									<div class="col-sm-6">
-										<input value="<?=date_toDMY($perfil->fecha_nacimiento)?>" autocomplete="off" placeholder="dia/mes/año" type="text" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control input-sm">
+										<input value="<?=($perfil->fecha_nacimiento)?>" autocomplete="off" placeholder="dia/mes/año" type="text" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control input-sm">
 										<span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 									</div>
 								</div>

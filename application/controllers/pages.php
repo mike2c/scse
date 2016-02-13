@@ -21,11 +21,17 @@
         	$data['title'] = ucfirst($page); // Capitalize the first letter
 			$data['publicaciones'] = $this->ficha_model->listarUltimasPublicaciones();
 
-			$data['imagenFicha']= $this->imagen_model->existe($data['publicaciones']['ficha']->row()->imagen_publicacion_id);
-			$data['imagenBeca']= $this->imagen_model->existe($data['publicaciones']['beca']->row()->imagen_publicacion_id);
-			$data['imagenCurso']= $this->imagen_model->existe($data['publicaciones']['curso']->row()->imagen_publicacion_id);
+			if(isset($data['publicaciones']['ficha']->row()->imagen_publicacion_id)){
+				$data['imagenFicha']= $this->imagen_model->existe($data['publicaciones']['ficha']->row()->imagen_publicacion_id);
+			}
+			
+			if(isset($data['publicaciones']['beca']->row()->imagen_publicacion_id)){
+				$data['imagenBeca']= $this->imagen_model->existe($data['publicaciones']['beca']->row()->imagen_publicacion_id);
+			}
 
-
+			if(isset($data['publicaciones']['curso']->row()->imagen_publicacion_id)){
+				$data['imagenCurso']= $this->imagen_model->existe($data['publicaciones']['curso']->row()->imagen_publicacion_id);
+			}
 			$this->load->view('templates/header');
 			$this->load->view('templates/menu');	 
 	        $this->load->view('pages/'.$page, $data);

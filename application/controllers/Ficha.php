@@ -25,7 +25,7 @@
 			$this->form_validation->set_rules("ubicacion","Ubicacion del Cargo","required|max_length[40]|min_length[6]");
 			$this->form_validation->set_rules("cantidad","Cantidad de Puestos","required|max_length[20]|min_length[1]");
 			$this->form_validation->set_rules("jefe","Jefe inmediato","required|max_length[30]|min_length[6]");
-			$this->form_validation->set_rules("a_cargo","Personal a Cargo","required|min_length[4]");
+			$this->form_validation->set_rules("a_cargo","Personal a Cargo","min_length[4]");
 			$this->form_validation->set_rules("finalidad","Finalidad del Puesto","min_length[10]");
 			$this->form_validation->set_rules("funciones","Funciones y Responsabilidades","required|min_length[10]");
 			$this->form_validation->set_rules("requisitos","Requisitos del Puesto","min_length[10]");

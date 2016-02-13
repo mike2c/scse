@@ -49,8 +49,11 @@ class Correo extends CI_Controller{
 		$data["cantidad_inbox"] = $this->mensaje->contar_inbox(getUsuarioId());
 		$data["cantidad_sent"] = $this->mensaje->contar_sent(getUsuarioId());
 		$data["cantidad_drafts"] = $this->mensaje->contar_drafts(getUsuarioId());
+
 		$id = $this->curriculum_model->getEgresadoID(getUsuarioId());
-		$data['tiene_curriculum'] = $this->curriculum_model->existe($id->egresado_id);
+		if($id !== null){
+			$data['tiene_curriculum'] = $this->curriculum_model->existe($id->egresado_id);
+		}
 		
 		$data["mensajes"] = $result;
 		$this->load->view("templates/header");
@@ -78,8 +81,9 @@ class Correo extends CI_Controller{
 		$data["cantidad_sent"] = $this->mensaje->contar_sent(getUsuarioId());
 		$data["cantidad_drafts"] = $this->mensaje->contar_drafts(getUsuarioId());
 		$id = $this->curriculum_model->getEgresadoID(getUsuarioId());
-		$data['tiene_curriculum'] = $this->curriculum_model->existe($id->egresado_id);
-
+		if($id !== null){
+			$data['tiene_curriculum'] = $this->curriculum_model->existe($id->egresado_id);
+		}
 		$this->load->view("templates/header");
 		$this->load->view("templates/menu");
 		$this->load->view("correo/sent",$data);
@@ -102,8 +106,10 @@ class Correo extends CI_Controller{
 		$data["cantidad_sent"] = $this->mensaje->contar_sent(getUsuarioId());
 		$data["cantidad_drafts"] = $this->mensaje->contar_drafts(getUsuarioId());
 		$id = $this->curriculum_model->getEgresadoID(getUsuarioId());
-		$data['tiene_curriculum'] = $this->curriculum_model->existe($id->egresado_id);
-
+		if($id !== null){
+			$data['tiene_curriculum'] = $this->curriculum_model->existe($id->egresado_id);
+		}
+		
 		$data["mensajes"] = $result;
 		$this->load->view("templates/header");
 		$this->load->view("templates/menu");

@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="box box-primary">
-					<form class="hidden-content" action="<?=base_url('perfil/cambiar_imagen_perfil')?>" id="form_cambiar_imagen" method="post">
+					<form class="hidden-content" action="<?=base_url('perfil/cambiar_imagen_perfil')?>" id="form_cambiar_imagen" method="post"  enctype="multipart/form-data">
 						<input type="file" name="imagen" id="imagen">
 					</form>
 					<div class="box-body box-profile">

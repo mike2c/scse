@@ -227,7 +227,7 @@
 				$data_persona["nombre"] = $this->input->post("nombre");
 				$data_persona["apellido"] = $this->input->post("apellido");
 				$data_persona["sexo"] = $this->input->post("genero");
-	
+	 
 				$data_persona["fecha_nacimiento"] = format_date($this->input->post("fecha_nacimiento"));
 	
 				$data_contacto["contacto_id"]= $this->input->post("contacto_id");

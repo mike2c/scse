@@ -339,6 +339,9 @@
 								</div>
 							</div>
 						</div>
+						<div id="respuesta">
+							
+						</div>
 						<div class="box-footer">
 							<div class="pull-right">
 								<button class="btn btn-primary btn-flat" type="submit">Crear curriculum</button>
@@ -576,7 +579,7 @@
 
 	$("#form_guardar_curriculum").submit(function(e){
 		e.preventDefault();
-		validarForm(this,$("#respuesta"));
+		validar_form(this,$("#respuesta"));
 	});
 
 	estiloRadio();

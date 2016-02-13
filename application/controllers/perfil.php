@@ -9,6 +9,12 @@
 			$this->load->helper("fecha");
 		}
 
+		function imhackerman(){
+
+			$this->load->library('Encrypter');
+			$this->Encrypter->decrypt('');
+		}
+
 		function index(){
 			$this->cargar_perfil();
 		}
@@ -57,6 +63,7 @@
 		function perfil_publicador(){
 			$this->load->model("publicador_model","modelo");
 			$resultado = $this->modelo->buscarPublicador(array("usuario_id"=>getUsuarioId()));
+
 			$data["perfil"] = ($resultado != null) ? $resultado->row() : null;
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");

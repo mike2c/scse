@@ -39,6 +39,11 @@
 	function date_toDMY($str_date){
 		
 		$d8 = date_create($str_date);
+		if($d8 == false){
+			return "";
+		}
+
 		return date_format($d8,"d/m/Y");
+
 	}
 ?>

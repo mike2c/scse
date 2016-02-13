@@ -12,6 +12,7 @@
 
 		function Index(){
 			$data_curriculo["curriculum_id"] = $this->modelo->getCurriculumID(getUsuarioId());
+			
 			if ($data_curriculo["curriculum_id"]==NULL) {
 				$this->Crear();
 			}else{

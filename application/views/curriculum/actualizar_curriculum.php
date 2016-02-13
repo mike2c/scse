@@ -850,7 +850,7 @@
 
 	$("#form_guardar_curriculum").submit(function(e){
 		e.preventDefault();
-		validarForm(this,$("#respuesta"));
+		validar_form(this,$("#respuesta"));
 	});
 
 	estiloRadio();
