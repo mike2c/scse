@@ -80,6 +80,29 @@
 			<?
 		}
 
+		function desactivar_cuenta(){
+
+			if(!isset($_POST["clave"]) || $_POST["clave"] == ""){
+				echo "Digite la contraseña para continuar";
+			}
+
+			$_clave = $_POST["clave"];
+
+			$this->load->library("Encrypter");
+			$this->load->model("usuario_model","usuario_mdl");
+
+			$datos_usuario = $this->usuario_mdl->consultar_usuario(getUsuarioId());
+			
+			if($datos_usuario != null && isset($datos_usuario->clave)){
+				if(Encrypter::compareValues($datos_usuario->clave,$_clave)){
+					$this->usuario_mdl->desactivarCuenta(getUsuarioId());//actualiza la tabla usuario
+					$this->cerrar_sesion();//cierra la sesion
+				}else{
+					echo "Las claves no coinciden";
+				}
+			}
+		}
+
 		private function validar_entrada(){
 
 			$this->load->library("form_validation");

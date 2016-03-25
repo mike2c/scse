@@ -19,6 +19,7 @@
 				for(var i = 0; i < data.length; i++){
 					jsonData.push({name:data[i].name,y: parseFloat(data[i].y)});
 				}
+				
 				$('#container').highcharts({
 			            chart: {
 			                plotBackgroundColor: null,

@@ -32,6 +32,28 @@
 				</div>
 			</div>
 			<div class="col-md-9">
+				<!--Alerta para encuestas-->
+				<?php
+					if(isset($encuesta)){
+						?>
+							<div class="box box-primary">
+								<div class="box-header with-border">
+									<h4 class="text-primary">La universidad con el fin de mejorar sus planes organizacionales y académicos necesita de tu participación en la siguiente encuesta:</h4>
+								</div>
+								<div class="box-body">
+									
+									<p><?=$encuesta->descripcion?></p>
+									<p class=""><span style="font-weight:bold;">Objetivo: </span> <?=$encuesta->objetivo?></p>
+								</div>
+								<div class="box-footer">
+									<a href="<?=base_url('responder_encuesta/encuesta/'. $encuesta->encuesta_id)?>" class="btn btn-primary pull-right">Participar en encuesta</a>
+								</div>
+							</div>
+						<?
+					}
+				?>
+
+				<!--alerta de entradas invalidas-->
 				<div id="alert" class="alert alert-danger alert-dismissable hidden-content">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
 					<h4>ERROR:</h4>
@@ -107,7 +129,7 @@
 								<div class="form-group">
 									<label class="control-label col-sm-2">F. de egresado</label>
 									<div class="col-sm-6">
-										<input placeholder="Fecha de egresado: Año" id="fecha_egresado" autocomplete="off" placeholder="año" type="text" class="form-control input-sm">
+										<input placeholder="Fecha de egresado: Año" name="fecha_egresado" id="fecha_egresado" autocomplete="off" placeholder="año" type="text" class="form-control input-sm" value="<?=$perfil->fecha_egresado?>">
 									</div>
 								</div>
 								<div class="form-group">
@@ -233,6 +255,33 @@
 									</div>
 								</div>
 							</form>
+
+							<!--Desactivar cuenta-->
+							<form class="form-horizontal" method="post" id="form_desactivar_cuenta" action="<?=base_url('sesion/desactivar_cuenta')?>">
+								<p class="help-block">Desactivar cuenta</p>
+								<p class="help-block">Puedes desactivar temporalmente tu cuenta, esta volvera a estar activa la proxima vez que inicies sesión. Cuando tu cuenta se encuentre inactiva los demás usuarios no podran enviarte mensajes.</p>
+								<div class="form-group">
+									<div class="col-md-offset-2 col-md-6">
+										<div id="alert3" class="hidden-content alert alert-warning alert-dismissable">
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+											<h4>ERROR:</h4>
+											<p></p>
+										</div>
+									</div>
+								
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-2">Contraseña actual</label>
+									<div class="col-md-6">
+										<input class="form-control input-sm" name='clave' type="password" class="form-control input-sm">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-6 col-md-offset-2">
+										<input type="submit" class="btn btn-sm btn-danger" value="Desactivar cuenta">
+									</div>
+								</div>
+							</form>
 						</div>
 
 						<!--Panel de privacidad-->
@@ -328,6 +377,10 @@
 	$("#form_cambiar_clave").submit(function(e){
 		e.preventDefault();
 		validar_form(this,$("#alert2"));
+	});
+	$("#form_desactivar_cuenta").submit(function(e){
+		e.preventDefault();
+		validar_form(this,$("#alert3"));
 	});
 </script>
 <style>

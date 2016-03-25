@@ -145,7 +145,7 @@
 			$highestColumn = $objWorkSheet->getHighestColumn();
 
 			$records = array();
-			if($highestRow > 1){// Preguntamos si el archivo contiene mas de una fila
+			if($highestRow > 0){// Preguntamos si el archivo contiene mas de una fila
 
 				for($row = 2; $row < $highestRow; $row++){
 

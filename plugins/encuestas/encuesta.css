@@ -1,0 +1,128 @@
+.input-group{
+	margin-bottom: 10px;
+}
+.answer-options{
+	border-top: 1px dotted lightgray;
+	padding-top: 15px;
+}
+
+.multiple-selection, .single-selection{
+	margin-top: 10px;
+	font-size: 16px;
+	list-style: none;
+	padding-left: 10px;
+}
+
+.multiple-selection li{
+	overflow: auto;
+	
+	line-height: 17px;
+	padding-left: 20px;
+	background-image: url('checked-checkbox-512.png');
+	background-repeat: no-repeat;
+	background-size: 16px 16px;
+
+}
+.single-selection li{
+	overflow: auto;
+
+	line-height: 17px;
+	padding-left: 20px;
+	background-image: url('1182156.gif');
+	background-repeat: no-repeat;
+	background-size: 16px 16px;
+}
+
+.input-add-options{
+	border: none;
+	border-bottom: 1px solid lightgray;
+}
+
+.close-question{
+	margin-top: 10px;
+	font-size: 16px;
+	list-style: none;
+	padding-left: 10px;
+}
+
+.close-question li{
+	
+	margin-bottom: 8px;
+	overflow: auto;
+	line-height: 17px;
+	padding-left: 20px;
+	background-image: url('1182156.gif');
+	background-repeat: no-repeat;
+	background-size: 16px 16px;
+}
+/*body{
+	padding: 0px 4% ;
+	background-color: #eaeaea;
+}
+
+.encuesta{
+	padding: 5px 10px;
+}
+
+.encuesta input[type="text"],textarea{
+	width: 50%;
+	margin-bottom: 10px;
+}
+.pregunta,.info-encuesta{
+	padding: 10px 10px;
+	background-color: white;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	width: 80%;
+}
+
+.pregunta ul{
+	display: block;
+	width: 50%;
+	padding-left: 20px;
+}
+
+.pregunta ul li{
+	font-size: 18px;
+}
+.pregunta ul a{
+	float: right;
+	display: block;
+	height: inherit;
+}
+
+.opciones{
+	width: 50%;
+
+}
+.opciones li{
+	width: 100%;
+	display: block;
+}
+
+.textbox-agregar-opcion{
+	outline: none;
+	
+	border: none;
+	border-bottom: 1px solid #eaeaea;
+}
+
+.textbox-agregar-opcion:focus{
+	border-bottom: 1px solid blue;
+}
+
+.seleccion-multiple, .seleccion-unica{
+	display: block;
+	width: 100%;
+}
+.seleccion-multiple li, .seleccion-unica li{
+	width: 100%;
+	display: block;
+}
+.seleccion-multiple li button{
+	float: right;
+}
+
+.seleccion-unica li button{
+	float: right;
+}*/

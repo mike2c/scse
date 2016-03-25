@@ -78,7 +78,7 @@
 				
 				$this->ficha_model->registrar_aplicacion(getUsuarioId(),$this->input->post("ficha_id"));
 
-				redirect("Publicaciones/BolsaDeTrabajo");
+				redirect("Publicaciones/bolsa_de_trabajo");
 			}
 		}
 

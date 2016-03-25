@@ -27,6 +27,7 @@
 							<li class="list-group-item"><a href="javascript:listar_cursos();">Cursos publicados</a></b></li>
 							<li class="list-group-item"><a href="javascript:listar_fichas();">Fichas publicados</a></b></li>
 							<li class="list-group-item"><a href="javascript:listar_becas();">Becas publicados</a></b></li>
+							<li class="list-group-item"><a href="<?=base_url('encuesta/listar_encuestas')?>">Encuestas</a></b></li>
 						</ul>
 						
 						<a class="btn btn-primary btn-block" href="<?=base_url('sesion/cerrar_sesion')?>">cerrar sesión</a>

@@ -111,6 +111,43 @@
 			return  FALSE;
 		}
 
+		function consultar_carrera($egresado_id){
+
+			$result = $this->db->query("SELECT carrera.carrera_id, carrera.nombre_carrera 
+				FROM carrera, egresado
+				WHERE egresado.carrera_id = carrera.carrera_id
+				AND egresado.egresado_id = $egresado_id");
+
+			if(!is_null($result) && $result->num_rows() == 1){// si no es null y la consulta arrojo 1 fila
+				return $result->row();// retornamos la primera fila que contiene el id y el nombre de la carrera
+			}
+
+			return null;
+		}
+
+		function consultar_egresado($id_egresado){
+
+			if(!is_numeric($id_egresado)){
+				throw new Exception("El parametro de entrada debe de ser un valor numerico entero", 1);				
+			}
+			
+			$this->db->where("egresado_id", $id_egresado);
+			return $this->db->get("listar_egresados");
+		}
+
+		function consultar_egresado_id($id_usuario){
+
+			if(!is_numeric($id_usuario)){
+				throw new Exception("el parametro debe de ser un numero", 1);
+			}
+
+			$result = $this->db->query("select egresado.egresado_id from egresado where egresado.usuario_id = ". $id_usuario);
+			if($result != null && $result->num_rows() == 1)			{
+				return $result->row("egresado_id");
+			}
+
+			return null;
+		}
 	}
 
 ?>

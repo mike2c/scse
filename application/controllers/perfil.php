@@ -35,12 +35,29 @@
 		#Cargar perfil de la empresa
 		function perfil_egresado(){
 
+			/*Cargar las encuestas*/
+			$this->load->model("encuesta/encuesta_model");
 			$this->load->model("egresado_model","modelo");
 			$this->load->model("privacidad_model");
+			
 			$resultado = $this->modelo->buscarEgresado(array("usuario_id"=>getUsuarioId()));
+			
 			$data["perfil"] = ($resultado != null) ? $resultado->row() : null;
 			$data["privacidad"] = $this->privacidad_model->consultar_privacidad(getUsuarioId());
- 
+ 		
+ 			/*Comprobar si hay encuestas nuevas*/
+ 			$id_egresado = $this->modelo->consultar_egresado_id(getUsuarioId());
+ 			$id_carrera = $this->modelo->consultar_carrera($id_egresado)->carrera_id;
+ 			$resultado = $this->encuesta_model->listar_encuestas(array($id_carrera));
+ 			
+ 			#echo $encuestas->num_rows();
+ 			foreach ($resultado->result() as $row) {
+				if(!$this->encuesta_model->encuesta_contestada($id_egresado, $row->encuesta_id)){
+					$data["encuesta"] = $row;
+					break;
+				}
+			}
+
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");
 			$this->load->view("perfil/perfil_egresado",$data);

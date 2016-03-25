@@ -12,6 +12,11 @@
 			
 		}
 
+		function decrypt(){
+			$this->load->library("Encrypter");
+			echo Encrypter::decrypt("boarMETrGU57Np1yLHFT6yocJIXSdRFxzO0LgWXWC+E=");
+		}
+
 		function autenticar(){
 			if (!$this->input->post('correo')=="") {
 			
@@ -211,6 +216,7 @@
 			$this->form_validation->set_rules("municipio","Municipio","trim|required|max_length[10]|min_length[1]");
 			$this->form_validation->set_rules("departamento","Departamento","trim|required|max_length[10]|min_length[1]");
 			$this->form_validation->set_rules('fecha_nacimiento','Fecha de nacimiento','callback_fechaNacimiento');
+			$this->form_validation->set_rules('fecha_egresado','Fecha de egresado',"trim|required|max_length[4]|min_length[4]");
 
 			if($this->form_validation->run()==false){
 				echo validation_errors();
