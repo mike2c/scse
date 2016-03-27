@@ -46,14 +46,15 @@
 			return $resultado;
 		}
 
-		function eliminar_resultado($id_resultado){
+		function eliminar_resultados($idEncuesta){
 
-			if(!is_numeric($id_resultado)){
+			if(!is_numeric($idEncuesta)){
 				throw new Exception("El parametro de entrada debe de ser numerico", 1);
 			}
 			
-			$this->db->where("resultado_id", $id_resultado);
+			$this->db->where("encuesta_id", $idEncuesta);
 			$this->db->delete("resultado");
 		}
+	
 	}
 ?>

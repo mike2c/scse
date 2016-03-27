@@ -119,7 +119,7 @@
 			}
 			
 		}	
-
+		
 		function eliminar_encuesta($id_encuesta){
 			
 			?><!--Preguntamos si quiere eliminar la cuenta en realidad-->
@@ -134,9 +134,26 @@
 			cargamos los modelos*/
 			$this->load->model("encuesta/encuesta_model");
 			$this->load->model("encuesta/pregunta_model");
-			$this->load->model("resultado/resultado_model");
-			$this->load->model("resultado/respuesta_model");
+			$this->load->model("respuesta/resultado_model");
+			$this->load->model("respuesta/respuesta_abierta_model");
+			$this->load->model("respuesta/respuesta_cerrada_model");
+			$this->load->model("respuesta/respuesta_seleccionada_model");
 
+			$this->respuesta_abierta_model->eliminar_respuestas($id_encuesta);
+			$this->respuesta_cerrada_model->eliminar_respuestas($id_encuesta);
+			$this->respuesta_seleccionada_model->eliminar_respuestas($id_encuesta);
+
+			$this->resultado_model->eliminar_resultados($id_encuesta);
+			$this->pregunta_model->eliminar_todas($id_encuesta);
+			$this->encuesta_model->eliminar_encuesta($id_encuesta);
+
+
+			?><!--Preguntamos si quiere eliminar la cuenta en realidad-->
+				<script type="text/javascript">
+					alert("Encuesta eliminada");
+					window.location = "<?=base_url('encuesta/listar_encuestas')?>";
+				</script>
+			<?
 		}
 
 		function encuestas_sin_aplicar($egresado_id){

@@ -28,7 +28,7 @@
 							<li class="list-group-item"><a href="javascript:listar_fichas()">Fichas ocupacionales publicadas</a></b></li>
 							<li class="list-group-item"><a href="javascript:listar_cursos()">Cursos publicados</a></b></li>
 							<li class="list-group-item"><a href="javascript:listar_becas()">Becas publicadas</a></b></li>
-							
+							<li class="list-group-item"><a href="<?=base_url('encuesta/listar_encuestas')?>">Encuestas</a></b></li>
 						</ul>
 						
 						<a class="btn btn-primary btn-block" href="<?=base_url('sesion/cerrar_sesion')?>">cerrar sesión</a>
@@ -46,7 +46,7 @@
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#miperfil" data-toggle="tab" aria-expanded="true">Mi perfil</a></li>
 						<li><a href="#seguridad" data-toggle="tab" aria-expanded="false">Seguridad</a></li>
-					
+						
 					</ul>
 					<div class="tab-content">
 						<!--Panel de mi perfil-->

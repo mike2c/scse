@@ -100,7 +100,7 @@
 			if(!isset($_SESSION["administrador"])){
 				#show_404();
 			}
-			$this->form_validation->set_rules("cedula","Cedula","trim|max_length[16]|min_length[16]");	
+			$this->form_validation->set_rules("cedula","Cedula","trim|max_length[16]|min_length[16]");  
 			$this->form_validation->set_rules("nombre","Nombre","trim|required|max_length[45]");
 			$this->form_validation->set_rules("apellido","Apellido","trim|required|max_length[45]");
 			$this->form_validation->set_rules("genero","Genero","trim|required|max_length[1]");
@@ -204,7 +204,7 @@
 
 			#print_r($_POST);
 			#exit();
-			$this->form_validation->set_rules("cedula","Cedula","trim|max_length[16]|min_length[16]");			
+			$this->form_validation->set_rules("cedula","Cedula","trim|max_length[16]|min_length[16]");          
 			$this->form_validation->set_rules("nombre","Nombre","trim|required|max_length[45]|min_length[5]");
 			$this->form_validation->set_rules("apellido","Apellido","trim|required|max_length[45]|min_length[5]");
 			$this->form_validation->set_rules("genero","Genero","trim|required");
@@ -301,12 +301,12 @@
 			 
 			$this->email->from("UniAdmin@gmail.com","UNIVERSIDAD NACIONAL DE INGENIERIA");
 			$this->email->reply_to("UniAdmin@gmail.com","UNIVERSIDAD NACIONAL DE INGENIERIA");
-			$this->email->to($data->correo);	
+			$this->email->to($data->correo);    
 			$this->email->subject("Autentificación de Egresados");
 			$this->email->message("Hola, tu cuenta ha sido autentificada, tu correo y contraseña para iniciar sesion son los siguientes:
 			Correo: $data->correo
 			Contraseña: $clave
-			Te recomendamos que no borres este mensaje, en caso de que olvides tu contraseña.");	
+			Te recomendamos que no borres este mensaje, en caso de que olvides tu contraseña.");    
 				
 			if (!$this->email->send()) {
 				echo "ERROR, no se pudo enviar el mensaje<br/>";
@@ -314,5 +314,5 @@
 			}
 		}
 
-	}	
+	}   
 ?>

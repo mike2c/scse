@@ -31,10 +31,12 @@
 
 		/**Elimina una registro de la tabla
 		 */
-		function eliminar($id_encuesta){
+		function eliminar_encuesta($id_encuesta){
 
 			$this->db->where('encuesta_id',$id_encuesta);
 			$this->db->delete('encuesta');
+
+			$this->db->query("delete from encuesta_carrera where encuesta_id = $id_encuesta");
 		}
 
 		/**Retorna todas las encuestas por publicador

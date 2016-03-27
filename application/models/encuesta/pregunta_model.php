@@ -33,12 +33,18 @@
 		  */
 		function eliminar_todas($id_encuesta){
 
-			if(!is_integer($id_encuesta)){
+			if(!is_numeric($id_encuesta)){
 				throw new Exception("El parametro proporcinado debe de ser de tipo entero", 1);
 			}
 
-			$this->db->where("encuesta_id",$id_encuesta);
-			$this->db->delete("pregunta");
+			$this->db->where("encuesta_id", $id_encuesta);
+			$preguntas = $this->db->get("pregunta");
+
+			foreach ($preguntas->result() as $row) {
+				$this->db->query("delete from respuesta_sugerida where pregunta_id = $row->pregunta_id");
+			}
+			
+			$this->db->query("DELETE FROM pregunta where encuesta_id = $id_encuesta");
 		}
 
 		/**Lista el numero de preguntas*/

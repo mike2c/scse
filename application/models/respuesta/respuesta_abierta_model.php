@@ -44,5 +44,25 @@
 
 			return $result->row("respuesta");
 		}
+
+		function eliminar_respuestas($idEncuesta){
+
+			$preguntas = $this->db->query("select * from pregunta where encuesta_id = $idEncuesta and categoria_id = '1'");
+
+			foreach ($preguntas->result() as $row) {
+				$respuestas = $this->db->query("select respuesta_id from respuesta 
+					where respuesta.pregunta_id = $row->pregunta_id");
+
+				foreach ($respuestas->result() as $r) {
+					$this->db->query("delete from respuesta_abierta where respuesta_id = $r->respuesta_id");
+				}
+
+				$this->db->query("delete from respuesta where pregunta_id = $row->pregunta_id");
+				unset($respuestas);
+			}
+
+			unset($preguntas);
+		
+		}
 	}
 ?>
