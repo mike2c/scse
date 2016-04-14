@@ -338,7 +338,6 @@ class Correo extends CI_Controller{
 		}else{
 			echo "<br><br><h3 class='text-center'>[No se han encontrado resultados]</h3>";
 		}
-		
 	}
 }
 ?>

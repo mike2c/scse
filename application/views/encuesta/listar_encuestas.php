@@ -30,7 +30,12 @@
 										<?=$row->titulo?> | 
 										<span class="">
 											<?php
-											echo ($egresados_encuestados[$row->encuesta_id] / $total_egresados[$row->encuesta_id]) * 100;
+											if($total_egresados[$row->encuesta_id] == 0){
+												echo "0";
+											}else{
+												echo ($egresados_encuestados[$row->encuesta_id] / $total_egresados[$row->encuesta_id]) * 100;
+											}
+											
 											?>% completada
 										</span>
 											
@@ -52,8 +57,10 @@
 																		
 									<div class="small-box-footer overflow-auto">
 										<div class="btn-group pull-left">
-                          					<a href="<?=base_url('encuesta/eliminar_encuesta/'. $row->encuesta_id)?>" title="Eliminar encuesta" class="btn btn-primary btn-md"><i class="fa fa-trash-o"></i></a href="<?=base_url('encuesta/respuestas/'. $row->encuesta_id)?>?>">
+                          					<button onclick="eliminar_encuesta(<?=$row->encuesta_id?>);" title="Eliminar encuesta" class="btn btn-primary btn-md"><i class="fa fa-trash-o"></i></button>
+				                        	
 				                        	<a href="<?=base_url('encuesta/respuestas/'. $row->encuesta_id)?>" title="Leer respuestas" class="btn btn-primary btn-md"><i class="fa fa-file-text-o"></i></a>
+				                        	
 				                        	<a href="<?=base_url('encuesta/resultado/'. $row->encuesta_id)?>" title="Ver resultados" class="btn btn-primary btn-md"><i class="fa fa-mail-forward"></i></a>
 				                        </div>
 									</div>
@@ -108,24 +115,11 @@
 		background-color: #3f9ace;
 	}
 </style>
-<?
-	/*<div class="box">
-									<div class="box-header with-border">
-										<h4 class="box-title text-primary"><?=$row->titulo?></h4>
-									</div>
-									<div class="box-body">
-										<p class=""><i class="fa fa-circle"></i> <b> <?=$row->objetivo?></b></p>
-										<!--<label>Numero de preguntas: <span class="text-primary"><?=$no_preguntas[$row->encuesta_id]?></span></label>-->
-										<p class="">
-											<?=$row->descripcion?>
-										</p>
-									</div>
-									<div class="box-footer">
-										<div class="btn-group pull-right">
-                          					<a href="<?=base_url('encuesta/eliminar/'. $row->encuesta_id)?>" title="Eliminar encuesta" class="btn btn-default"><i class="fa fa-trash-o"></i></a href="<?=base_url('encuesta/respuestas/'. $row->encuesta_id)?>?>">
-				                        	<a href="<?=base_url('encuesta/respuestas/'. $row->encuesta_id)?>" title="Leer respuestas" class="btn btn-default"><i class="fa fa-file-text-o"></i></a>
-				                        	<a href="<?=base_url('encuesta/resultado/'. $row->encuesta_id)?>" title="Ver resultados" class="btn btn-default"><i class="fa fa-mail-forward"></i></a>
-				                        </div>
-									</div>
-								</div>*/
-?>
+<script type="text/javascript">
+	function eliminar_encuesta(idEncuesta){
+
+		if(confirm("¿Esta seguro que desea eliminar esta encuesta? \n Toda la información relacionada con esta encuesta se perdera asi como las respuestas y resultados de los egresados.")){
+			window.location = baseURL('encuesta/eliminar_encuesta/'+idEncuesta);
+		}
+	}
+</script>

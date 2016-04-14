@@ -31,7 +31,7 @@
 			where respuesta_seleccionada.respuesta_sugerida_id = $id_respuesta_sugerida;");
 			
 			$cont = $result->row("resultado");
-			unset($result)	;
+			unset($result);
 			
 			return $cont;
 		}

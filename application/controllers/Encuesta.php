@@ -46,7 +46,8 @@
 				$this->load->model("encuesta/encuesta_model");
 				$this->load->model("encuesta/pregunta_model");
 				$this->load->model("encuesta/respuesta_sugerida_model");
-			
+				$this->load->model("egresado_model");
+
 				/*Capturamos los datos para la tabla encuesta*/
 
 				$encuesta["objetivo"] = $this->input->post("objetivo");
@@ -109,6 +110,10 @@
 					$this->encuesta_model->agregar_carrera($carrera_encuesta);
 				}
 
+				$array_egresados = $this->egresado_model->listar_por_carreras($carreras, "nombre,correo");
+
+				$this->enviar_notificacion($array_egresados);
+
 				#Redireccionar al usuario
 				?>	
 					<script type="text/javascript">
@@ -122,16 +127,9 @@
 		
 		function eliminar_encuesta($id_encuesta){
 			
-			?><!--Preguntamos si quiere eliminar la cuenta en realidad-->
-				<script type="text/javascript">
-					if(!confirm("¿Esta seguro que desea eliminar esta encuesta? \n Toda la información relacionada con esta encuesta se perdera asi como las respuestas y resultados de los egresados.")){
-						window.location = "<?=base_url('encuesta/listar_encuestas')?>";
-					}
-				</script>
-			<?
-
 			/*Continamos con el proceso para eliminar la encuesta,
 			cargamos los modelos*/
+			
 			$this->load->model("encuesta/encuesta_model");
 			$this->load->model("encuesta/pregunta_model");
 			$this->load->model("respuesta/resultado_model");
@@ -147,13 +145,13 @@
 			$this->pregunta_model->eliminar_todas($id_encuesta);
 			$this->encuesta_model->eliminar_encuesta($id_encuesta);
 
-
 			?><!--Preguntamos si quiere eliminar la cuenta en realidad-->
 				<script type="text/javascript">
 					alert("Encuesta eliminada");
 					window.location = "<?=base_url('encuesta/listar_encuestas')?>";
 				</script>
 			<?
+		
 		}
 
 		function encuestas_sin_aplicar($egresado_id){
@@ -405,7 +403,9 @@
 
 				$valores = array();
 				$cont = 0;
+				
 				foreach ($opciones->result() as $row) {
+					
 					$valores[$cont]["name"] = $row->opcion;
 					$valores[$cont]["y"] = $this->respuesta_seleccionada_model->numero_respuestas($row->respuesta_sugerida_id);
 					$cont++;
@@ -417,5 +417,36 @@
 			}
 
 		}
+
+		private function enviar_notificacion($egresado){
+
+			$this->load->library("email");
+			$this->email->set_newline("\r\n");
+
+			$config = array(
+                'protocol'  =>  'smtp',
+                'smtp_host' =>  'ssl://smtp.googlemail.com',
+                'smtp_user' =>  'scseuninorte@gmail.com',
+                'smtp_pass' =>  'UniNortescse',
+                'smtp_port' =>  '465'
+                );
+
+			$this->email->initialize($config);
+			
+			foreach ($egresado->result() as $row) {
+				$this->email->from('scseuninorte@gmail.com', 'Universidad Nacional de Ingeniería');
+				$this->email->reply_to('scseuninorte@gmail.com', "Universidad Nacional de Ingeniería"); 
+				$this->email->subject("Universidad Nacional de Ingeniería - nueva encuesta");				
+				$this->email->message("Hola $row->nombre, hemos publicado una encuesta y nos gustaria que participaras en ella. \n ". base_url('perfil'). "\n Las respuestas recibidas nos ayudan a mejorar y planificar nuestras actividades academicas, agradecemos tu participación.");
+				
+				$this->email->to($row->correo);
+				
+				if(!$this->email->send()){
+					echo $this->email->print_debugger();
+				}
+				
+			}
+		}
+
 	}
 ?>

@@ -148,6 +148,17 @@
 
 			return null;
 		}
+
+		function listar_por_carreras($carreras, $fields = null){
+
+			if($fields != null && is_string($fields)){
+				$this->db->select($fields);
+			}
+
+			$this->db->where_in("carrera_id", $carreras);
+
+			return $this->db->get("listar_egresados");
+		}
 	}
 
 ?>
