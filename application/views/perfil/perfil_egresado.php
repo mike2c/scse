@@ -11,7 +11,7 @@
 					</form>
 					<div class="box-body box-profile">
 						<?php
-							if(!file_exists('uploads/'. getImagenPerfil())){
+							if(!file_exists('uploads/'. getImagenPerfil()) || getImagenPerfil() == ""){
 								?><img src="<?=base_url('dist/img/no_image.gif')?>" alt="" class="profile-user-img img-responsive img-circle"><?
 							}else{
 								?><img src="<?=base_url('uploads/'. getImagenPerfil())?>" alt="" class="profile-user-img img-responsive img-circle"><?

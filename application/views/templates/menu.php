@@ -62,7 +62,7 @@
 							<ul class="dropdown-menu">
 								<li class="menu-header">
 									<?php
-										if(!file_exists('uploads/'. getImagenPerfil())){
+										if(!file_exists('uploads/'. getImagenPerfil()) || getImagenPerfil() == ""){
 											?><img src="<?=base_url('dist/img/no_image.gif')?>" alt="" class="img-circle"><?
 										}else{
 											?><img src="<?=base_url('uploads/'. getImagenPerfil())?>" alt="" class="img-circle"><?
