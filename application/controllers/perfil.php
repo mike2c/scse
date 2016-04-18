@@ -61,6 +61,7 @@
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");
 			$this->load->view("perfil/perfil_egresado",$data);
+			$this->load->view("perfil/cambiar_clave");
 			$this->load->view("templates/footer");
 
 		}
@@ -73,6 +74,7 @@
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");
 			$this->load->view("perfil/perfil_empresa",$data);
+			$this->load->view("perfil/cambiar_clave");
 			$this->load->view("templates/footer");
 
 		}
@@ -99,6 +101,7 @@
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");
 			$this->load->view("perfil/perfil_admin",$data);
+			$this->load->view("perfil/cambiar_clave");
 			$this->load->view("templates/footer");
 		}
 
@@ -160,9 +163,9 @@
             
             return $this->upload->data();
        	}
-
+      
 		function cambiar_clave(){
-
+			
 			$this->load->model("perfil_model");
 			$this->load->library("Encrypter");
 			$this->load->library("form_validation");

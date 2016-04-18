@@ -219,43 +219,16 @@
 									</div>
 								</div>
 							</div>
-							
-							<form class="form-horizontal" id="form_cambiar_clave" action="<?=base_url('perfil/cambiar_clave');?>">
-								<p class="help-block">Cambiar contraseña</p>
-								<div class="form-group">
-									<label class="control-label col-md-2">Contraseña actual</label>
-									<div class="col-md-6">
-										<input name='clave_actual' type="password" class="form-control input-sm">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="control-label col-md-2">Nueva contraseña</label>
-									<div class="col-md-6">
-										<input name='clave_nueva' type="password" class="form-control input-sm">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="control-label col-md-2">Confirmar contraseña</label>
-									<div class="col-md-6">
-										<input name='clave_repetida' type="password" class="form-control input-sm">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-offset-2 col-sm-10">
-										<div id="alert2" class="hidden-content alert alert-warning alert-dismissable">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-											<h4>ERROR:</h4>
-											<p></p>
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-offset-2 col-sm-5">
-										<button class="btn btn-primary btn-sm" type="submit">cambiar clave</button>
-									</div>
-								</div>
-							</form>
 
+							<p class="help-block">Cambiar contraseña</p>
+							<div class="form-horizontal">
+								<div class="form-group">
+									<div class="col-md-8 col-md-offset-2">
+										<button class="btn btn-danger btn-sm" onclick='$("#modalCambiarClave").modal("show")'>Cambiar clave</button>			
+									</div>
+								</div>
+							</div>
+							
 							<!--Desactivar cuenta-->
 							<form class="form-horizontal" method="post" id="form_desactivar_cuenta" action="<?=base_url('sesion/desactivar_cuenta')?>">
 								<p class="help-block">Desactivar cuenta</p>
@@ -374,10 +347,7 @@
 		e.preventDefault();
 		validar_form(this,$("#alert"));
 	});
-	$("#form_cambiar_clave").submit(function(e){
-		e.preventDefault();
-		validar_form(this,$("#alert2"));
-	});
+	
 	$("#form_desactivar_cuenta").submit(function(e){
 		e.preventDefault();
 		validar_form(this,$("#alert3"));

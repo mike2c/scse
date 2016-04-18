@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 	
-	class Perfil_model  extends CI_Model{
+	class Perfil_model extends CI_Model{
 
 		function __construct(){
 			parent::__construct();
@@ -47,5 +47,6 @@
 			$query = $this->db->query("select imagen from usuario where usuario_id=".$usuario_id)->row();
 			return $query->imagen;
 		}
+
 	}
 ?>
