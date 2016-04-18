@@ -87,6 +87,7 @@
 			$this->load->view("templates/header");
 			$this->load->view("templates/menu");
 			$this->load->view("perfil/perfil_publicador",$data);
+			$this->load->view("perfil/cambiar_clave");
 			$this->load->view("templates/footer");
 
 		}

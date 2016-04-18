@@ -118,7 +118,7 @@
 																		echo "<td class='no-padding'><img title='ampliar' class='thumbnail zoom' src='" . base_url("dist/img/no_image.gif") . "' alt=''></td>";
 																	}
 																	/*DATOS PERSONALES */
-																	echo "<td class='$tdclass'><label>$row->nombre $row->apellido</label
+																	echo "<td class='$tdclass'><label>$row->nombre $row->apellido</label>
 																	<p class='help-block'>$row->carrera</p>";
 																	if ($row->sexo=="F") {
 																		echo "<p class='help-block'>Mujer</p></td>";

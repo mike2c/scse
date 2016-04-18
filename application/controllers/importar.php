@@ -296,10 +296,14 @@
 				throw new Exception("El arreglo no puede ser vacio", 1);
 			}
 
-			if(empty($arr['carnet'])){
+			if(!$this->genero_valido($arr["sexo"])){
+				return "El valor introducido en el campo genero no es correcto";
+			}elseif(!$this->fecha_valida($arr["fecha_nacimiento"])){
+				return "Formato de fecha invalido";
+			}elseif(empty($arr['carnet'])){
 				return "El numero de carnet no puede ser vacio";
 			}elseif(empty($arr['correo'])){
-				return "El numero de carnet no puede ser vacio";
+				return "El correo electronico no puede quedar vacio";
 			}elseif(empty($arr['nombre']) || empty($arr['apellido'])){
 				return "El nombre no puede ser vacio";
 			}elseif(empty($arr['sexo'])){
@@ -310,6 +314,30 @@
 				return "La cedula que se esta intentando registrar ya pertenece a otra persona.";
 			}elseif($this->egresado_model->existe_carnet($arr['carnet'])){
 				return "El numero de carnet que estas intentando ingresar ya pertenece a otro egresado.";
+			}
+
+			return false;
+		}
+
+		private function fecha_valida($fecha){
+
+			$arr_date = explode("-", $fecha);
+			
+			if(!is_array($arr_date)){
+				return false;
+			}elseif(count($arr_date) > 3 || count($arr_date) < 3){
+				return false;
+			}elseif(!checkdate($arr_date[1], $arr_date[0], $arr_date[2])){
+				return false;
+			}
+
+			return true;
+		}
+
+		private function genero_valido($genero){
+
+			if((strlen($genero) == 1) && (($genero == "M") || ($genero == "F"))){
+				return true;
 			}
 
 			return false;

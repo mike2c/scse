@@ -40,12 +40,12 @@
        <div class="form-group">
         <label for="">Personal a cargo</label>
         <textarea name="a_cargo" id="a_cargo" rows="5" class="form-control"></textarea>
-        <p class="help-block hidden-content"><i class="fa fa-info-circle"></i> Los cargos que estaran bajo tu responsabilidad. Ejemplo: Produccion, Bodega, Informatica, etc.</p>
+        <p class="help-block hidden-content"><i class="fa fa-info-circle"></i> Personal o areas que estaran bajo tu responsabilidad. Ejemplo: Produccion, Bodega, Informatica, etc.</p>
       </div>
       <div class="form-group">
         <label for="">Finalidad del cargo</label>
           <textarea name="finalidad" id="finalidad" rows="5" class="form-control"></textarea>
-          <p class="help-block hidden-content"><i class="fa fa-info-circle"></i> Los cargos que estaran bajo tu responsabilidad. Ejemplo: Produccion, Bodega, Informatica, etc.</p>
+          <p class="help-block hidden-content"><i class="fa fa-info-circle"></i> Breve descripcion de las actividades a realizar en el cargo. Ejemplo: Responsable de preveer, organizar, dirigir, planear, etc.</p>
       </div>
       <div class="form-group">
         <label for="">Requisitos del cargo</label>
@@ -60,7 +60,7 @@
       <div class="form-group">
         <label for="">Funciones y responsabilidades</label>
           <textarea name="funciones" id="funciones" rows="5" class="form-control"></textarea>
-          <p class="help-block hidden-content"><i class="fa fa-info-circle"></i> Describe las funciones y responsabilidades que debera de ejecutar el aspirante al puesto.</p>
+          <p class="help-block hidden-content"><i class="fa fa-info-circle"></i> Especifiar las funciones y responsabilidades que debera de ejecutar la persona en el cargo.</p>
       </div>
       <div class="form-group">
         <label>Fecha de culminación:</label>

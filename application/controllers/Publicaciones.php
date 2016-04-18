@@ -57,28 +57,53 @@
 			if(isset($_POST["ficha_id"])){
 
 				$this->load->model("mensaje_model");
+				$this->load->model("curriculum_model");
 				$this->load->model("ficha_model");
 				$this->load->library("Correo");
 
-				$destinatario = $this->ficha_model->consultar_creador($this->input->post("ficha_id"))->row();
+				$id_user = getUsuarioId();
+				$id_egresado = $this->curriculum_model->getEgresadoID($id_user)->egresado_id;
 				
-				$data_correo["destinatario"] = $destinatario->correo;
-				$data_correo["asunto"] = "Alguien ha aplicado al puesto Ofertado";
-				$data_correo["mensaje"] = getNombreCompleto()." ha aplicado a tu Ficha Ocupacional, puedes ver su curriculo en el siguiente enlace: <a href='". base_url('curriculum/ver/'.getUsuarioId().'')."'>Curriculo</a>" ;
-				$this->correo->correoPublicaciones($data_correo);
-				
-				$data_mensaje["asunto"] = $data_correo["asunto"];
-				$data_mensaje["mensaje"] = $data_correo["mensaje"];
-				$data_mensaje["fecha_envio"] = date("Y-m-d");
-				$data_mensaje["usuario_id"] = getUsuarioId();
+				if($this->curriculum_model->existe($id_egresado)){
 
-				$destinoInfo["mensaje_id"]= $this->mensaje_model->insertarMensaje($data_mensaje);
-				$this->mensaje_model->insertarDestinoMensaje(array("mensaje_id"=>$destinoInfo["mensaje_id"],"usuario_id"=>$destinatario->usuario_id));
-				$this->mensaje_model->registrarEnTablaEliminados($destinatario->usuario_id,$destinoInfo["mensaje_id"]);
+					$destinatario = $this->ficha_model->consultar_creador($this->input->post("ficha_id"))->row();
 				
-				$this->ficha_model->registrar_aplicacion(getUsuarioId(),$this->input->post("ficha_id"));
+					$data_correo["destinatario"] = $destinatario->correo;
+					$data_correo["asunto"] = "Alguien ha aplicado al puesto Ofertado";
+					$data_correo["mensaje"] = getNombreCompleto()." ha aplicado a tu Ficha Ocupacional, puedes ver su curriculo en el siguiente enlace: <a href='". base_url('curriculum/ver/'.getUsuarioId().'')."'>Curriculo</a>" ;
+					$this->correo->correoPublicaciones($data_correo);
+					
+					$data_mensaje["asunto"] = $data_correo["asunto"];
+					$data_mensaje["mensaje"] = $data_correo["mensaje"];
+					$data_mensaje["fecha_envio"] = date("Y-m-d");
+					$data_mensaje["usuario_id"] = getUsuarioId();
 
-				redirect("Publicaciones/bolsa_de_trabajo");
+					$destinoInfo["mensaje_id"]= $this->mensaje_model->insertarMensaje($data_mensaje);
+					$this->mensaje_model->insertarDestinoMensaje(array("mensaje_id"=>$destinoInfo["mensaje_id"],"usuario_id"=>$destinatario->usuario_id));
+					$this->mensaje_model->registrarEnTablaEliminados($destinatario->usuario_id,$destinoInfo["mensaje_id"]);
+					
+					$this->ficha_model->registrar_aplicacion(getUsuarioId(),$this->input->post("ficha_id"));
+
+					?>
+						<script type="text/javascript">
+							alert("Has aplicado con exito para este cargo. Tu curriculum ha sido enviado la creador de esta publicación porfavor mantente en contacto con tu correo o nuestro sistema para cualquier respuesta.");
+							window.location = "<?=base_url('Publicaciones/bolsa_de_trabajo')?>";
+						</script>
+					<?
+					redirect("Publicaciones/bolsa_de_trabajo");
+				}else{
+					?>
+						<script type="text/javascript">
+							alert("Necesitas crear un curriculum antes de hacer uso de esta funcion");
+							if(confirm("¿Deseas crear tu curriculum ahora?")){
+								window.location = "<?=base_url('curriculum')?>";
+							}else{
+								window.location = "<?=base_url('Publicaciones/bolsa_de_trabajo')?>";
+							}
+							//window.location = "<?=base_url('Publicaciones/bolsa_de_trabajo')?>";
+						</script>
+					<?
+				}				
 			}
 		}
 

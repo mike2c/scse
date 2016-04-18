@@ -100,7 +100,7 @@
                 </div>
               </li>
             <?php
-            }if($publicaciones['ficha']->num_rows() > 0){
+            }if($publicaciones['ficha']->num_rows() > 0 && esEgresado()){
             ?>
               <li class="item">
                 <div class="product-img">

@@ -146,6 +146,7 @@
 			$radio = $this->input->post("radio");
 			$categoria = $this->input->post("tipo_pregunta");
 			$preguntas = $this->input->post("preguntas");
+			$respuestas = $this->input->post("respuesta");
 
 			foreach ($categoria as $key => $value) {
 				
@@ -160,8 +161,14 @@
 						echo "Debes seleccionar al menos una opción en la pregunta: ". $preguntas[$key];
 						return false;
 					}
+				}elseif($value == '1'){
+					if($respuestas[$key] == "" || empty($respuestas[$key])){
+						echo "Porfavor escribe una respuesta para la pregunta: ". $preguntas[$key];
+						return false;
+					}
 				}
 			}
+
 			return true;
 		}
 	}
