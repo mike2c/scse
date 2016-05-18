@@ -2,7 +2,7 @@
 	define('IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
 	if(!isset($_SESSION["administrador"])){
 		#DESCOMENTAR ESTA LINEA CUANDO EL SISTEMA ESTE TERMINADO.
-		//exit ("Error 404. pagina no encontrada");
+		exit ("Error 404. pagina no encontrada");
 	}
 
 	class Admin extends CI_Controller{

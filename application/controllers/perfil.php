@@ -1,7 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 	
 	class Perfil extends CI_Controller{
-
+		if(!sesionIniciada()){
+			show_404();
+		}
 		private $upload_errors = "";//Tienen que ser arreglos
 	
 		function __construct(){
@@ -11,8 +13,8 @@
 
 		function imhackerman(){
 
-			$this->load->library('Encrypter');
-			$this->Encrypter->decrypt('');
+			#$this->load->library('Encrypter');
+			#echo Encrypter::decrypt('QXJkuRPSBACf+txAHcpbKLDhYA+nYYg8s6Wj22U6DpE=');
 		}
 
 		function index(){
