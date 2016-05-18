@@ -1,14 +1,15 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 	
 	class Perfil extends CI_Controller{
-		if(!sesionIniciada()){
-			show_404();
-		}
+		
 		private $upload_errors = "";//Tienen que ser arreglos
 	
 		function __construct(){
 			parent::__construct();
 			$this->load->helper("fecha");
+			if(!sesionIniciada()){
+				show_404();
+			}
 		}
 
 		function imhackerman(){
