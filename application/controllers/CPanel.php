@@ -9,7 +9,7 @@
 			
 			$this->load->helper("sesion");
 			if(!esAdministrador()){
-				#show_404();
+				show_404();
 			}
 		}
 
